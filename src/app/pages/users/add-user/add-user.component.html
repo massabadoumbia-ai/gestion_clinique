@@ -1,1 +1,135 @@
-<p>add-user works!</p>
+<div class="container">
+  <div class="w-100" nz-flex nzJustify="flex-start">
+    <h2>Ajouter un utilisateur</h2>
+  </div>
+
+
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm" nz-form nzLayout="vertical">
+
+    <nz-form-item>
+      <nz-form-label>Nom</nz-form-label>
+      <nz-form-control [nzValidateStatus]="nom.invalid && (nom.dirty || nom.touched) ? 'error' : ''" nzHasFeedback>
+        <input nz-input name="nom" [(ngModel)]="user.lastname" #nom="ngModel" required placeholder="Entrez le nom" />
+        <div class="ant-form-explain" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
+          Le nom est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Prénom</nz-form-label>
+      <nz-form-control [nzValidateStatus]="prenom.invalid && (prenom.dirty || prenom.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input name="prenom" [(ngModel)]="user.firstname" #prenom="ngModel" required
+          placeholder="Entrez le prénom" />
+        <div class="ant-form-explain" *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)">
+          Le prénom est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Nom d'utilisateur</nz-form-label>
+      <nz-form-control [nzValidateStatus]="username.invalid && (username.dirty || username.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input name="nom d'utilisateur" [(ngModel)]="user.username" #username="ngModel" required
+          placeholder="Entrez le nom d'utilisateur" />
+        <div class="ant-form-explain" *ngIf="username.invalid && (username.dirty || username.touched)">
+          Le nom d'utilisateur est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Date de naissance</nz-form-label>
+      <nz-form-control
+        [nzValidateStatus]="dateNaissance.invalid && (dateNaissance.dirty || dateNaissance.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input type="datetime-local" name="dateNaissance" [(ngModel)]="user.dateNaissance"
+          #dateNaissance="ngModel" required min="0" placeholder="Entrez la date de naissance" />
+        <div class="ant-form-explain" *ngIf="dateNaissance.invalid && (dateNaissance.dirty || dateNaissance.touched)">
+          L'âge est obligatoire et doit être positif.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Adresse</nz-form-label>
+      <nz-form-control [nzValidateStatus]="adresse.invalid && (adresse.dirty || adresse.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input name="adresse" [(ngModel)]="user.adresse" #adresse="ngModel" required
+          placeholder="Entrez l'adresse" />
+        <div class="ant-form-explain" *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)">
+          L'adresse est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Email</nz-form-label>
+      <nz-form-control [nzValidateStatus]="email.invalid && (email.dirty || email.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input name="email" [(ngModel)]="user.email" #email="ngModel" required placeholder="Entrez l'email" />
+        <div class="ant-form-explain" *ngIf="email.invalid && (email.dirty || email.touched)">
+          L'email est obligatoire et doit être valide.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Téléphone</nz-form-label>
+      <nz-form-control [nzValidateStatus]="telephone.invalid && (telephone.dirty || telephone.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input name="tel" [(ngModel)]="user.telephone" #telephone="ngModel" required
+          placeholder="8 chiffres" />
+        <div class="ant-form-explain" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)">
+          Le téléphone est obligatoire et doit contenir 8 chiffres.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Mot de passe</nz-form-label>
+      <nz-form-control [nzValidateStatus]="password.invalid && (password.dirty || password.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" required
+          placeholder="Mot de passe" />
+        <div class="ant-form-explain" *ngIf="password.invalid && (password.dirty || password.touched)">
+          Le mot de passe est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Confirmer le mot de passe</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword  " #confirm="ngModel"
+          required placeholder="Répétez le mot de passe" />
+        <!-- <div *ngIf="user.confirmPassword && user.password !== user.confirmPassword" class="text-danger">
+           Les mots de passe ne correspondent pas.
+        </div> -->
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Rôle</nz-form-label>
+      <nz-form-control>
+        <nz-select nz-input name="role" [(ngModel)]="user.roleName" #role="ngModel" required
+          placeholder="Selectionner le role" nzSize="large">
+          @for (role of roleList; track $index) {
+            <nz-option [nzValue]="role.name" [nzLabel]="role.description!"></nz-option>
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <div class="form-actions">
+      <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>
+      <button nz-button nzType="primary" type="submit">Enregistrer</button>
+
+    </div>
+  </form>
+
+
+</div>

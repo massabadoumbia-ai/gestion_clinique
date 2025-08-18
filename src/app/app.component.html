@@ -11,51 +11,24 @@
         <h1>Structure sanitaire</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Bienvenue</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Accueil</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Renseignement</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Administration</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+
 
 
      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-        <li nz-submenu nzOpen nzTitle="Utilisateurs" nzIcon="dashboard">
+        <li nz-submenu nzOpen nzTitle="Configurations" nzIcon="dashboard">
           <ul>
             <li nz-menu-item nzMatchRouter>
-              <a routerLink="/users-list">Liste des utilisateurs</a>
+              <a routerLink="/users-list">Utilisateurs</a>
             </li>
             <li nz-menu-item nzMatchRouter>
-              <a>Accueil</a>
+              <a routerLink="/roles-list">Rôles</a>
             </li>
             <li nz-menu-item nzMatchRouter>
-              <a>Renseignement</a>
+              <a routerLink="/permissions-list">Permissions</a>
             </li>
           </ul>
         </li>
-        <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-          <ul>
-            <li nz-menu-item nzMatchRouter>
-              <a>Administration</a>
-            </li>
-          </ul>
-        </li>
+      
       </ul>
 
   </nz-sider>

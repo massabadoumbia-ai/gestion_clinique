@@ -1,1 +1,73 @@
-<p>edit-user works!</p>
+
+<div class="container">
+  <div class="w-100" nz-flex nzJustify="flex-start">
+    <h2>Modifier un utilisateur</h2>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm" nz-form nzLayout="vertical">
+    <nz-form-item >
+      <nz-form-label>Nom</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="lastname" [(ngModel)]="user.lastname" required placeholder="Entrez le nom"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Prénom</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="firstname" [(ngModel)]="user.firstname" required placeholder="Entrez le prénom"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Nom d'utilisateur</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="username" [(ngModel)]="user.username" required placeholder="Entrez le nom d'utilisateur"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Date de naissance</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="da" name="age" [(ngModel)]="user.dateNaissance" required min="0" placeholder="Entrez la date de naissance"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Adresse</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="adresse" [(ngModel)]="user.adresse" required placeholder="Entrez l'adresse"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Email</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="email" [(ngModel)]="user.email" required placeholder="Entrez l'email"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Téléphone</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="telephone" [(ngModel)]="user.telephone" required placeholder="8 chiffres"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Rôle</nz-form-label>
+      <nz-form-control>
+        <nz-select name="role" [(ngModel)]="user.roleName" required placeholder="Sélectionner le rôle" [nzSize]="size">
+          @for (role of roleList; track $index) {
+            <nz-option [nzValue]="role.name" [nzLabel]="role.description!"></nz-option>
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="form-actions">
+      <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>
+      <button nz-button nzType="primary" type="submit" [disabled]="!userForm.form.valid">Enregistrer</button>
+    </div>
+  </form>
+</div>

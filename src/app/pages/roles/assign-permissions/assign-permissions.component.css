@@ -1,0 +1,22 @@
+.role-permissions-container {
+  padding: 20px;
+}
+
+.actions {
+  margin-top: 15px;
+}
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+.btn-retour {
+  background-color: #28a745 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-retour:hover {
+  background-color: #218838 !important;
+}

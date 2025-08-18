@@ -32,10 +32,13 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/theme.less",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -96,7 +99,8 @@
               }
             ],
             "styles": [
-              "src/styles.css", "node_module/bootstrap/dist/css/bootstrap.min.css", "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+              "src/styles.css",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
             ],
             "scripts": []
           }
@@ -105,3 +109,4 @@
     }
   }
 }
+

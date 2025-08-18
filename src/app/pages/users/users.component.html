@@ -1,42 +1,59 @@
-<div class="container">
-  <div class="w-100"  nz-flex nzJustify="flex-end">
-    <button nz-button nzType="primary" routerLink="/add-user" (click)="onCreateUser()">
-        
+
+  <div nz-row nzJustify="end" class="btn-create">
+    <button class="btn btn-primary" (click)="onCreateUser()">
       <span nz-icon nzType="plus"></span> Créer un utilisateur
     </button>
-    <a routerLink="/add-user"></a>
   </div>
-    
-  <nz-table [nzData]="listOfData" [nzBordered]="true" [nzSize]="'middle'" class="mt-6">
-    <thead class="table-head">
+
+  <table  class="table table-bordered table-hover table-sm text-center" aria-describedby="page-heading">
+    <thead class="table-primary">
       <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Âge</th>
-        <th>Adresse</th>
-        <th>Téléphone</th>
-        <th>Actions</th>
+        <th class="text-center">Nom</th>
+        <th class="text-center" >Prénom</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">Téléphone</th>
+        <th class="text-center">Rôle</th>
+        <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
-      @for (user of listOfData; track user.key) {
+      @for (user of userList; track user.id) {
         <tr>
-           <td  style="text-align: center;">{{ user.nom }}</td>
-           <td  style="text-align: center;">{{ user.prenom }}</td>
-           <td  style="text-align: center;">{{ user.age }}</td>
-           <td  style="text-align: center;">{{ user.adresse }}</td>
-           <td  style="text-align: center;">{{ user.tel }}</td>
-         
-            <td style="text-align: center;">
-             <button nz-button [nzSize]="size" nzType="primary">Details</button>
-                    
-            <button nz-button nzType="primary" [nzSize]="size" class="btn-success">Modifier</button>
-             <button nz-button [nzSize]="size" nzType="primary" nzDanger>Supprimer</button>
+          <td class="text-center">{{ user.lastname }}</td>
+          <td class="text-center">{{ user.firstname }}</td>
+          <td class="text-center">{{ user.email }}</td>
+           <td class="text-center">{{ user.telephone }}</td>
+          <td class="text-center">{{ user.roleName }}</td>
+          <td class="text-center">
+            <div class="btn-group">
+               <button class="btn btn-outline-info" (click)="onDetail(user)">
+                <i class="bi bi-pencil"></i> Détails
+              </button>
+              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(user)">
+                <i class="bi bi-pencil"></i> Modifier
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="onDelete(user)">
+                <i class="bi bi-trash"></i> Supprimer
+              </button>
+            </div>
             
 
           </td>
         </tr>
       }
     </tbody>
-  </nz-table>
-</div>
+  </table>
+
+  <nz-pagination
+    [nzSimple]="false"
+    [nzHideOnSinglePage]="true"
+    [nzPageIndex]="pageNumber"
+    [nzTotal]="totalElements"
+    [nzPageSize]="sizeNumber"
+    (nzPageIndexChange)="navigateToPage($event)"
+    id="demo">
+  </nz-pagination>
+
+
+  
+

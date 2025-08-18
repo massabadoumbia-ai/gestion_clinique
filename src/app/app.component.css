@@ -71,15 +71,12 @@ nz-header {
 
 nz-content {
   margin: 24px;
+  overflow: auto;        
 }
 
-.inner-content {
-  padding: 24px;
-  background: white;
-  height: 100%;
-}
 
-     .app-layout {
+
+.app-layout {
   height: 100vh;
 }
 
@@ -104,7 +101,15 @@ nz-content {
 }
 
 .inner-content {
-  padding: 24px;
+  padding-left: 20%;
+  padding-right: 20%;
+  
 }
 
 
+nz-sider {
+        overflow: auto;
+        height: 100%;
+        position: fixed;
+        left: 0;
+      }

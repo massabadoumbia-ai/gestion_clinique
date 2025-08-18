@@ -1,0 +1,21 @@
+<div class="role-permissions-container">
+  <h2>Assigner des permissions au rôle  {{ roleName }}</h2>
+
+  <nz-transfer
+    [nzDataSource]="permissionsList"
+    [nzListStyle]="{ 'width.px': 300, 'height.px': 400 }"
+    [nzTitles]="['Permissions disponibles', 'Permissions assignées']"
+    [nzOperations]="['Ajouter →', '← Retirer']"
+    (nzChange)="onChange($event)"
+  >
+  </nz-transfer>
+
+  <div class="actions">
+    <button nz-button (click)="back()">
+      Retour
+    </button>
+    <button nz-button nzType="primary" (click)="assignPermissions()">
+      Assigner les permissions
+    </button>
+  </div>
+</div>

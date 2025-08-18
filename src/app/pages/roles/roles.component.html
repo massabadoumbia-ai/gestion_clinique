@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h1 class="mb-3">Gestion des rôles</h1>
+  <div nz-row nzJustify="end" class="btn-create">
+    <button class="btn btn-primary" (click)="onCreateRole()">
+      <span nz-icon nzType="plus"></span> Créer un rôle
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover table-sm text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Permissions assignées</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+       @for (role of roleList; track role.name) {
+          <tr>
+            <td>{{ role.name }}</td>
+            <td>{{ role.description }}</td>
+            <td>{{ role.permissions.length}} </td>
+            <td>
+
+              <button type="button" class="btn btn-info" (click)="onAssignPermissions(role)">
+                <i class="bi bi-pencil"></i> Assigner
+              </button>
+              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(role)">
+                <i class="bi bi-pencil"></i> Modifier
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="onDelete(role)">
+                <i class="bi bi-trash"></i> Supprimer
+              </button>
+            </td>
+          </tr>
+        }
+    </tbody>
+  </table>
+</div>
+<nz-pagination
+    [nzSimple]="false"
+    [nzHideOnSinglePage]="true"
+    [nzPageIndex]="pageNumber"
+    [nzTotal]="totalElements"
+    [nzPageSize]="sizeNumber"
+    (nzPageIndexChange)="navigateToPage($event)"
+    id="demo">
+  </nz-pagination>
