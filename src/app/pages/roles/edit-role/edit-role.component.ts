@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleDto } from '../../dto/role.models.dto';
+import { RoleDto, RoleResponseDto } from '../../dto/role.models.dto';
 import { RoleService } from '../../../services/role/role.service';
 import { Router } from '@angular/router';
 import { NzFormItemComponent, NzFormModule } from "ng-zorro-antd/form";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzColDirective } from 'ng-zorro-antd/grid';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-role',
@@ -16,29 +17,36 @@ import { NzColDirective } from 'ng-zorro-antd/grid';
 })
 export class EditRoleComponent implements OnInit {
 
-role: RoleDto={
-    name:'',
-    description:''
-  };
+  role!: RoleResponseDto;
 roleList: RoleDto[] = [];
-  constructor(private roleService: RoleService, private router: Router) {}
+  constructor(private roleService: RoleService, private router: Router, private route: ActivatedRoute) {}
   
     ngOnInit(): void {
-
+  const roleId = Number(this.route.snapshot.paramMap.get('id'));
+  this.roleService.getRoleById(roleId).subscribe({
+    next: (data) => {
+      this.role = data;
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement du rôle :', err);
     }
+  });
+}
+
   
-    onSubmit() {
-    this.roleService.createRole(this.role).subscribe({
-      next: () => {
-        alert('Role ajouté avec succès');
-        this.router.navigate(['/role-list']);
-      },
-      error: err => {
-        console.error('Erreur lors de l\'ajout :', err);
-        //alert("Erreur lors de l'ajout de l'utilisateur");
-      }
-    });
-  }
+    onSubmit(): void  {
+      if(this.role.id)
+  this.roleService.updateRole(this.role.id, this.role).subscribe({
+    next: () => {
+      alert('Rôle modifié avec succès');
+      this.router.navigate(['/role-list']);
+    },
+    error: err => {
+      console.error('Erreur lors de la modification :', err);
+    }
+  });
+}
+
 
   
   onCancel() {

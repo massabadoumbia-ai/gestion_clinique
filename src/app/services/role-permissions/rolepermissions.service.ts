@@ -14,7 +14,7 @@ export class RolePermissionsService {
   constructor(private http: HttpClient) {}
 
   getPermissions(roleName: string): Observable<RolePermissionsResponseDto> {
-    return this.http.get<RolePermissionsResponseDto>(`${this.apiUrl}/permissions/${roleName}`);
+    return this.http.get<RolePermissionsResponseDto>(`${this.apiUrl}/role-permissions/${roleName}`);
   }
 
   getPermissionsNotInRole(roleName: string): Observable<string[]> {

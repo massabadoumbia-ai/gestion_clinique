@@ -20,7 +20,7 @@
           <tr>
             <td>{{ role.name }}</td>
             <td>{{ role.description }}</td>
-            <td>{{ role.permissions.length}} </td>
+            <td>{{ role.permissions?.length}} </td>
             <td>
 
               <button type="button" class="btn btn-info" (click)="onAssignPermissions(role)">
