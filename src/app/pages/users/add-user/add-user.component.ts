@@ -63,7 +63,7 @@ export class AddUserComponent implements OnInit {
     this.userService.createUser(this.user).subscribe({
       next: () => {
         alert('Utilisateur ajouté avec succès');
-        this.router.navigate(['/users-list']);
+        this.router.navigate(['/admin/dashboard/users-list']);
       },
       error: err => {
         console.error('Erreur lors de l\'ajout :', err);

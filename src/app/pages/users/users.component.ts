@@ -8,11 +8,12 @@ import { UserDto } from '../dto/user.modols.dto';
 import { UserService } from '../../services/user/user.service';
 import { response } from 'express';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { HasPermissionDirective } from '../../services/directives/has-permissions';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-   imports: [ NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule ],
+   imports: [ NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule, HasPermissionDirective],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
   encapsulation: ViewEncapsulation.None
@@ -47,18 +48,18 @@ export class UsersComponent implements OnInit {
   }
 
   onCreateUser() {
-    this.router.navigate(['/add-user'])
+    this.router.navigate(['/admin/dashboard/add-user'])
     console.log('Créer un nouvel utilisateur');
   }
 
   onDetail(user: any) {
-    this.router.navigate(['/detail-user', user.id])
+    this.router.navigate(['/admin/dashboard/detail-user', user.id])
     console.log('Afficher les détails de :', user);
     
   }
 
   onEdit(user: UserDto) {
-    this.router.navigate(['/edit-user/', user.id])
+    this.router.navigate(['/admin/dashboard/edit-user/', user.id])
     console.log('Modifier :', user);
     
   }

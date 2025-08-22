@@ -104,7 +104,7 @@ export class AssignPermissionsComponent implements OnInit {
 
     if (event.from === 'left' && event.to === 'right') {
       console.log("DIRECTION DE GAUCHE VERS LA DROITE")
-      
+
       const dto: RolePermissionsDto = {
         roleName: this.roleName,
         permissions: this.selectedPermissions
@@ -120,10 +120,25 @@ export class AssignPermissionsComponent implements OnInit {
         error: (err) => console.error('Erreur assignation permissions :', err)
       });
     }
-    else {
-      console.log("DIRECTION DE DROITE VERS LA GAUCHE")
-    }
+     else if (event.from === 'right' && event.to === 'left') {
+    console.log("DIRECTION DE DROITE VERS LA GAUCHE");
+
+    const dto: RolePermissionsDto = {
+      roleName: this.roleName,
+      permissions: event.list.map(item => item.title) 
+    };
+
+    this.rolePermissionsService.removePermissions(dto).subscribe({
+      next: (res: RolePermissionsResponseDto) => {
+        this.assignedPermissions = res.permissions;
+        this.loadPermissions(this.roleName);
+
+        alert('Permissions retirées avec succès !');
+      },
+      error: (err) => console.error('Erreur suppression permissions :', err)
+    });
   }
+}
 
 
 

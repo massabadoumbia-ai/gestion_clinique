@@ -25,7 +25,8 @@ export class RolePermissionsService {
     return this.http.post<RolePermissionsResponseDto>(`${this.apiUrl}/assign`, dto);
   }
 
-  removePermission(roleName: string, permissionName: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete?roleName=${roleName}&permissionName=${permissionName}`);
-  }
+  removePermissions(dto: RolePermissionsDto): Observable<RolePermissionsResponseDto> {
+  return this.http.post<RolePermissionsResponseDto>(`${this.apiUrl}/remove-permissions`, dto);
+}
+
 }

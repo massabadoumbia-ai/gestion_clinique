@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h1 class="mb-3">Gestion des rôles</h1>
   <div nz-row nzJustify="end" class="btn-create">
-    <button class="btn btn-primary" (click)="onCreateRole()">
+    <button class="btn btn-primary" (click)="onCreateRole()" *hasPermission="'CREATE_ROLE'">
       <span nz-icon nzType="plus"></span> Créer un rôle
     </button>
   </div>
@@ -23,13 +23,13 @@
             <td>{{ role.permissions?.length}} </td>
             <td>
 
-              <button type="button" class="btn btn-info" (click)="onAssignPermissions(role)">
+              <button type="button" class="btn btn-info" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
                 <i class="bi bi-pencil"></i> Assigner
               </button>
-              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(role)">
+              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(role)" *hasPermission="'EDIT_ROLE'">
                 <i class="bi bi-pencil"></i> Modifier
               </button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(role)">
+              <button class="btn btn-danger btn-sm" (click)="onDelete(role)" *hasPermission="'DELETE_ROLE'">
                 <i class="bi bi-trash"></i> Supprimer
               </button>
             </td>

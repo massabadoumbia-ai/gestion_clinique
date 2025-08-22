@@ -1,6 +1,6 @@
 
   <div nz-row nzJustify="end" class="btn-create">
-    <button class="btn btn-primary" (click)="onCreateUser()">
+    <button class="btn btn-primary" (click)="onCreateUser()" *hasPermission="'CREATE_USER'">
       <span nz-icon nzType="plus"></span> Créer un utilisateur
     </button>
   </div>
@@ -26,13 +26,13 @@
           <td class="text-center">{{ user.roleName }}</td>
           <td class="text-center">
             <div class="btn-group">
-               <button class="btn btn-outline-info" (click)="onDetail(user)">
+               <button class="btn btn-outline-info" (click)="onDetail(user)" *hasPermission="'DETAIL_USER'">
                 <i class="bi bi-pencil"></i> Détails
               </button>
-              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(user)">
+              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(user)" *hasPermission="'EDIT_USER'">
                 <i class="bi bi-pencil"></i> Modifier
               </button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(user)">
+              <button class="btn btn-danger btn-sm" (click)="onDelete(user)" *hasPermission="'DELETE_USER'">
                 <i class="bi bi-trash"></i> Supprimer
               </button>
             </div>

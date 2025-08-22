@@ -1,0 +1,21 @@
+.login-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #0d6efd;
+  font-weight: bold;
+}
+
+.btn-custom {
+  width: 100%;
+  border-radius: 10px;
+  font-weight: bold;
+}

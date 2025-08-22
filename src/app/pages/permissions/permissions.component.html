@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h1 class="mb-3">Gestion des permissions</h1>
   <div nz-row nzJustify="end" class="btn-create">
-    <button class="btn btn-primary" (click)="onCreatePermission()">
+    <button class="btn btn-primary" (click)="onCreatePermission()" *hasPermission="'CREATE_PERMISSION'">
       <span nz-icon nzType="plus"></span> Créer une permission
     </button>
   </div>
@@ -20,10 +20,10 @@
             <td>{{ permission.name }}</td>
             <td>{{ permission.description }}</td>
             <td>
-              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(permission)">
+              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(permission)"  *hasPermission="'EDIT_PERMISSION'">
                 <i class="bi bi-pencil"></i> Modifier
               </button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(permission)">
+              <button class="btn btn-danger btn-sm" (click)="onDelete(permission)" *hasPermission="'DELETE_PERMISSION'">
                 <i class="bi bi-trash"></i> Supprimer
               </button>
             </td>

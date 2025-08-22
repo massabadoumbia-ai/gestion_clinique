@@ -6,12 +6,13 @@ import { PermissionService } from '../../services/permission/permission.service'
 import { NzPaginationModule } from "ng-zorro-antd/pagination";
 import { RoleService } from '../../services/role/role.service';
 import { RoleDto, RoleResponseDto } from '../dto/role.models.dto';
+import { HasPermissionDirective } from '../../services/directives/has-permissions';
 
 
 @Component({
   selector: 'app-permissions',
   standalone: true,
-  imports: [NzPaginationModule],
+  imports: [NzPaginationModule, HasPermissionDirective],
   templateUrl: './roles.component.html',
   styleUrl: './roles.component.css'
 })
@@ -47,19 +48,19 @@ export class RolesComponent implements OnInit {
 
   
   onCreateRole() {
-    this.router.navigate(['/add-role']);
+    this.router.navigate(['/admin/dashboard/add-role']);
   }
 
  
   onDetail(role: RoleDto) {
-    this.router.navigate(['/detail-role', role.id]);
+    this.router.navigate(['/admin/dashboard/detail-role', role.id]);
   }
 
  onAssignPermissions(role: RoleResponseDto) {
-this.router.navigate(['/role-permissions', role.id]);
+this.router.navigate(['/admin/dashboard/role-permissions', role.id]);
 }
   onEdit(role: RoleResponseDto) {
-    this.router.navigate(['/edit-role', role.id]);
+    this.router.navigate(['/admin/dashboard/edit-role', role.id]);
   }
 
   

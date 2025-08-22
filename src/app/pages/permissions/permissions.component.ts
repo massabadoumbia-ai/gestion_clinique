@@ -4,12 +4,13 @@ import { PermissionDto } from '../dto/permission.models.dto';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 import { PermissionService } from '../../services/permission/permission.service';
 import { NzPaginationModule } from "ng-zorro-antd/pagination";
+import { HasPermissionDirective } from '../../services/directives/has-permissions';
 
 
 @Component({
   selector: 'app-permissions',
   standalone: true,
-  imports: [NzPaginationModule],
+  imports: [NzPaginationModule, HasPermissionDirective, HasPermissionDirective ],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.css'
 })
@@ -44,17 +45,17 @@ export class PermissionsComponent implements OnInit {
 
   
   onCreatePermission() {
-    this.router.navigate(['/add-permission']);
+    this.router.navigate(['/admin/dashboard/add-permission']);
   }
 
  
   onDetail(permission: PermissionDto) {
-    this.router.navigate(['/detail-permission', permission.id]);
+    this.router.navigate(['/admin/dashboard/detail-permission', permission.id]);
   }
 
  
   onEdit(permission: PermissionDto) {
-    this.router.navigate(['/edit-permission', permission.id]);
+    this.router.navigate(['/admin/dashboard/edit-permission', permission.id]);
   }
 
   

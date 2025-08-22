@@ -34,7 +34,7 @@ export class AddPermissionComponent implements OnInit {
     this.permissionService.createPermission(this.permission).subscribe({
       next: () => {
         alert('Permission ajouté avec succès');
-        this.router.navigate(['/permission-list']);
+        this.router.navigate(['/admin/dashboard/permission-list']);
       },
       error: err => {
         console.error('Erreur lors de l\'ajout :', err);

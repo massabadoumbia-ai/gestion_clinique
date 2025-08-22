@@ -1,1 +1,39 @@
 <p>edit-permission works!</p>
+<div class="container">
+  <div class="w-100" nz-flex nzJustify="flex-start">
+    <h2>Ajouter un rôle</h2>
+  </div>
+
+
+  <form (ngSubmit)="onSubmit()" #roleForm="ngForm" nz-form nzLayout="vertical">
+
+    <nz-form-item>
+      <nz-form-label>Nom</nz-form-label>
+      <nz-form-control [nzValidateStatus]="nom.invalid && (nom.dirty || nom.touched) ? 'error' : ''" nzHasFeedback>
+        <input nz-input name="nom" [(ngModel)]="permission.name" #nom="ngModel" required placeholder="Entrez le nom" />
+        <div class="ant-form-explain" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
+          Le nom est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Description</nz-form-label>
+      <nz-form-control [nzValidateStatus]="descraiption.invalid && (descraiption.dirty || descraiption.touched) ? 'error' : ''"
+        nzHasFeedback>
+        <input nz-input name="prenom" [(ngModel)]="permission.description" #descraiption="ngModel" required
+          placeholder="Entrez le prénom" />
+        <div class="ant-form-explain" *ngIf="descraiption.invalid && (descraiption.dirty || descraiption.touched)">
+          La description est obligatoire.
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+     <div class="form-actions">
+      <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>
+      <button nz-button nzType="primary" type="submit">Enregistrer</button>
+
+    </div>
+  </form>
+
+
+</div>

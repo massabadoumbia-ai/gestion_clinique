@@ -32,7 +32,7 @@ export class AddRoleComponent implements OnInit{
     this.roleService.createRole(this.role).subscribe({
       next: () => {
         alert('Role ajouté avec succès');
-        this.router.navigate(['/role-list']);
+        this.router.navigate(['/admin/dashboard/role-list']);
       },
       error: err => {
         console.error('Erreur lors de l\'ajout :', err);
