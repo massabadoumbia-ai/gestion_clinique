@@ -24,6 +24,7 @@ export class AddPermissionComponent implements OnInit {
 
   
   permissionList: PermissionDto[] = [];
+  errorMessages: string[] = [];
 
   constructor(private permissionService: PermissionService, private router: Router) {}
   ngOnInit(): void {
@@ -31,6 +32,22 @@ export class AddPermissionComponent implements OnInit {
   }
 
   onSubmit() {
+
+    this.errorMessages = [];
+
+    
+    if (!this.permission.name || this.permission.name.trim() === '') {
+      this.errorMessages.push("Le nom du rôle ne doit pas être vide.");
+    }
+    if (!this.permission.description || this.permission.description.trim() === '') {
+      this.errorMessages.push("La description du rôle ne doit pas être vide.");
+    }
+
+   
+    if (this.errorMessages.length > 0) {
+      return;
+    }
+
     this.permissionService.createPermission(this.permission).subscribe({
       next: () => {
         alert('Permission ajouté avec succès');

@@ -23,7 +23,7 @@
             <td>{{ role.permissions?.length}} </td>
             <td>
 
-              <button type="button" class="btn btn-info" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
+              <button class="btn btn-outline-info" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
                 <i class="bi bi-pencil"></i> Assigner
               </button>
               <button class="btn btn-warning btn-sm me-2" (click)="onEdit(role)" *hasPermission="'EDIT_ROLE'">

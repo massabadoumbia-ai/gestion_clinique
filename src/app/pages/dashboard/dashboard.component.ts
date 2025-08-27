@@ -16,7 +16,17 @@ import { HasPermissionDirective } from '../../services/directives/has-permission
 })
 export class DashboardComponent {
   isCollapsed = false;
-constructor(private router: Router, private authService: AuthService ) {}
+  username = '';
+  firstname ='';
+  lastname = '';
+constructor(private router: Router, private authService: AuthService ) {
+  authService.loadUserInformations();
+  this.username= authService.username;
+  this.firstname= authService.firstname;
+  this.lastname=authService.lastname;
+}
+
+
 
    deconnecter() {
     // supprimer le token du localestorage

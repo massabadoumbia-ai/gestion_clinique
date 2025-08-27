@@ -15,6 +15,9 @@ export interface UserLoginDto {
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/auth';
    private helper = new JwtHelperService();
+   username = '';
+   firstname = '';
+   lastname = '';
   
 
   constructor(private http: HttpClient) {}
@@ -40,15 +43,27 @@ export class AuthService {
   }
 
  getUserPermissions(): string[] {
-  const token = this.getToken(); 
-  if (!token) return [];
+    const token = this.getToken(); 
+    if (!token) return [];
 
-  const decoded = this.helper.decodeToken(token);
-  if (decoded && decoded.permissions) {
-    return decoded.permissions; 
-  }
-  return [];
-  }
+    const decoded = this.helper.decodeToken(token);
+    if (decoded && decoded.permissions) {
+      return decoded.permissions; 
+    }
+    return [];
+ }
+
+  loadUserInformations() {
+    const token = this.getToken(); 
+    if (!token) {};
+
+    const decoded = this.helper.decodeToken(token!);
+    if (decoded) {
+      this.firstname=decoded.firstname
+      this.lastname=decoded.lastname
+      this.username=decoded.sub
+    }
+ }
 
  hasPermission(permission: string): boolean {
     const permissions = this.getUserPermissions();

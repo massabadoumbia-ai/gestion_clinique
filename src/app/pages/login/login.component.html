@@ -8,13 +8,16 @@
         <input [(ngModel)]="username" name="username" type="text" class="form-control" id="username" placeholder="Entrez votre nom d'utilisateur">
       </div>
 
-      
       <div class="mb-3">
         <label for="password" class="form-label">Mot de passe</label>
         <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe">
       </div>
 
       
+      <p class="text-end">
+  <a [routerLink]="['/forgot-password']">Mot de passe oublié ?</a>
+</p>
+
       <button type="submit" class="btn btn-primary btn-custom">Envoyer</button>
     </form>
   </div>

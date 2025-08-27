@@ -22,6 +22,7 @@ export class AddRoleComponent implements OnInit{
 
 
   roleList: RoleDto[] = [];
+   errorMessages: string[] = [];
   constructor(private roleService: RoleService, private router: Router) {}
   
     ngOnInit(): void {
@@ -29,6 +30,24 @@ export class AddRoleComponent implements OnInit{
     }
   
     onSubmit() {
+       this.errorMessages = [];
+
+    
+    if (!this.role.name || this.role.name.trim() === '') {
+      this.errorMessages.push("Le nom du rôle ne doit pas être vide.");
+    }
+    if (!this.role.description || this.role.description.trim() === '') {
+      this.errorMessages.push("La description du rôle ne doit pas être vide.");
+    }
+
+   
+    if (this.errorMessages.length > 0) {
+      return;
+    }
+
+
+
+
     this.roleService.createRole(this.role).subscribe({
       next: () => {
         alert('Role ajouté avec succès');
@@ -40,8 +59,7 @@ export class AddRoleComponent implements OnInit{
       }
     });
   }
-
-  
+ 
   onCancel() {
     window.history.back();
   }
