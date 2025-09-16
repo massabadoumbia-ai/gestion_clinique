@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>Modifier un fournisseur</h2>
+
+  <form (ngSubmit)="onSubmit()" #fournisseurForm="ngForm" nz-form nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label>Nom</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="nom" [(ngModel)]="fournisseur.nom" required placeholder="Nom du fournisseur">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Contact</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="contact" [(ngModel)]="fournisseur.contact" placeholder="Contact du fournisseur">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>NIF</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="nif" [(ngModel)]="fournisseur.nif" placeholder="Numéro NIF">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Adresse</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="adresse" [(ngModel)]="fournisseur.adresse" placeholder="Adresse du fournisseur">
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="fournisseurForm.invalid || loading">
+        @if (!loading) {
+        Envoyer
+      }
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm"></span>
+        Envoi en cours...
+      }
+        </button>
+    </div>
+  </form>
+</div>

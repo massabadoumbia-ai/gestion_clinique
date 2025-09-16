@@ -10,6 +10,12 @@ import { UserService } from '../../../services/user/user.service';
 import { RoleService } from '../../../services/role/role.service';
 import { RoleResponseDto } from '../../dto/role.models.dto';
 import { UserDto } from '../../dto/user.modols.dto';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { map } from 'rxjs/internal/operators/map';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { of } from 'rxjs/internal/observable/of';
 
 
 @Component({
@@ -34,37 +40,52 @@ export class AddUserComponent implements OnInit {
     confirmPassword: '',
     
   };
+size: NzSelectSizeType = 'default';
+  roleOptionList: RoleResponseDto[] = [];
+  loadingRoles = false;
+  loading = false;
+  errorMessages: string[] = [];
+  showPassword = false;
+  showConfirmPassword = false;
 
-  size: NzSelectSizeType = "default"
-
-    roleList: RoleResponseDto[]= [];
-    errorMessages: string[] = [];
-   showPassword: boolean = false;
-   showConfirmPassword: boolean = false;
-
+  private roleSearch$ = new BehaviorSubject<string>('');
 
   constructor(private userService: UserService, private router: Router, private roleService: RoleService) {}
-  
+
   ngOnInit(): void {
-     this.getAllRoles();
+    this.roleSearch$
+      .pipe(
+        debounceTime(300),
+        switchMap(term => this.searchRoles(term))
+      )
+      .subscribe(data => {
+        this.roleOptionList = data;
+        this.loadingRoles = false;
+      });
+
+    this.onSearchRole('');
   }
 
-
-  getAllRoles(){
-         this.roleService.getAll().subscribe({
-          next: (response) =>{
-            this.roleList=response
-
-          } 
-         })
+  onSearchRole(value: string) {
+    this.loadingRoles = true;
+    this.roleSearch$.next(value);
   }
 
-
+  private searchRoles(term: string) {
+    if (!term) term = '';
+    return this.roleService.getAllRoles().pipe(
+      map((list: RoleResponseDto[]) =>
+      list.filter(r => r.name.toLowerCase().includes(term.toLowerCase()))
+    ),
+    catchError(() => of([]))
+  );
+}
 
   
   
   onSubmit() {
      this.errorMessages = [];
+     this.loading=true;
 
   
   if (!this.user.lastname) this.errorMessages.push("Le nom ne doit pas être vide.");
@@ -86,10 +107,12 @@ export class AddUserComponent implements OnInit {
  
   this.userService.createUser(this.user).subscribe({
     next: () => {
+      this.loading= false;
       alert('Utilisateur ajouté avec succès');
       this.router.navigate(['/admin/dashboard/users-list']);
     },
     error: err => {
+      this.loading= false;
       console.error('Erreur lors de l\'ajout :', err);
       this.errorMessages.push("Erreur : " + err.error.message);
     }

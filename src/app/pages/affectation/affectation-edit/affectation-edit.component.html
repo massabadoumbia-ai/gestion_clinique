@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <h2>Modifier une affectation</h2>
+
+  <form (ngSubmit)="onSubmit()" #affectationForm="ngForm">
+
+    <div class="mb-3">
+      <label for="dateDebut" class="form-label">Date début</label>
+      <input type="date" id="dateDebut" class="form-control" name="dateDebut"
+             [(ngModel)]="affectation.dateDebut" #dateDebut="ngModel" required />
+      <div class="text-danger" *ngIf="dateDebut.invalid && (dateDebut.dirty || dateDebut.touched)">
+        La date de début est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="dateFin" class="form-label">Date fin</label>
+      <input type="date" id="dateFin" class="form-control" name="dateFin"
+             [(ngModel)]="affectation.dateFin" #dateFin="ngModel" required />
+      <div class="text-danger" *ngIf="dateFin.invalid && (dateFin.dirty || dateFin.touched)">
+        La date de fin est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="nbrArticle" class="form-label">Nombre d'articles</label>
+      <input type="number" id="nbrArticle" class="form-control" name="nbrArticle"
+             [(ngModel)]="affectation.nbrArticle" #nbrArticle="ngModel" required min="1" />
+      <div class="text-danger" *ngIf="nbrArticle.invalid && (nbrArticle.dirty || nbrArticle.touched)">
+        Le nombre d'articles est obligatoire et doit être ≥ 1.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="article" class="form-label">Article</label>
+      <select id="article" class="form-select" name="articleId"
+              [(ngModel)]="affectation.articlesId" #articleId="ngModel" required>
+        <option value="">Sélectionner un article</option>
+        <option *ngFor="let article of articleList" [value]="article.id">{{ article.libArt }}</option>
+      </select>
+      <div class="text-danger" *ngIf="articleId.invalid && (articleId.dirty || articleId.touched)">
+        L'article est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="employe" class="form-label">Employé</label>
+      <select id="employe" class="form-select" name="employeId"
+              [(ngModel)]="affectation.employeId" #employeId="ngModel" required>
+        <option value="">Sélectionner un employé</option>
+        <option *ngFor="let employe of employeList" [value]="employe.id">{{ employe.nom }}</option>
+      </select>
+      <div class="text-danger" *ngIf="employeId.invalid && (employeId.dirty || employeId.touched)">
+        L'employé est obligatoire.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="affectationForm.invalid || loading">
+        @if (!loading) {
+          Mettre à jour
+        }
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm"></span>
+          Mise à jour en cours...
+        }
+      </button>
+    </div>
+
+  </form>
+</div>

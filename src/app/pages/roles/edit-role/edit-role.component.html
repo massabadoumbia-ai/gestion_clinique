@@ -29,7 +29,15 @@
     </nz-form-item>
      <div class="form-actions">
       <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>
-      <button nz-button nzType="primary" type="submit">Enregistrer</button>
+      <button nz-button nzType="primary" type="submit" [disabled]="roleForm.invalid || loading">
+        @if (!loading) {
+        Envoyer
+      }
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm"></span>
+        Envoi en cours...
+      }
+    </button>
 
     </div>
   </form>

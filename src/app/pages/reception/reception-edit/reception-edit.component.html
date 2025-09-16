@@ -1,0 +1,89 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Modifier une réception</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #receptionForm="ngForm">
+    
+    <div class="mb-3">
+      <label for="numReception" class="form-label">Numéro de réception</label>
+      <input type="text" id="numReception" class="form-control" name="numReception"
+             [(ngModel)]="reception.numReception" #numReception="ngModel" required />
+      <div class="text-danger" *ngIf="numReception.invalid && (numReception.dirty || numReception.touched)">
+        Le numéro de réception est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="dateContrat" class="form-label">Date du contrat</label>
+      <input type="date" id="dateContrat" class="form-control" name="dateContrat"
+             [(ngModel)]="reception.dateContrat" #dateContrat="ngModel" required />
+      <div class="text-danger" *ngIf="dateContrat.invalid && (dateContrat.dirty || dateContrat.touched)">
+        La date du contrat est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="datereception" class="form-label">Date de réception</label>
+      <input type="date" id="datereception" class="form-control" name="datereception"
+             [(ngModel)]="reception.dateReception" #datereception="ngModel" required />
+      <div class="text-danger" *ngIf="datereception.invalid && (datereception.dirty || datereception.touched)">
+        La date de réception est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="nbrArticle" class="form-label">Nombre d'articles</label>
+      <input type="number" id="nbrArticle" class="form-control" name="nbrArticle"
+             [(ngModel)]="reception.nbrArticle" #nbrArticle="ngModel" required min="1" />
+      <div class="text-danger" *ngIf="nbrArticle.invalid && (nbrArticle.dirty || nbrArticle.touched)">
+        Le nombre d'articles doit être supérieur à 0.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="employe" class="form-label">Employé</label>
+      <select id="employe" class="form-select" name="employe"
+              [(ngModel)]="reception.employeNom" #employe="ngModel" required>
+        <option value="">Sélectionner un employé</option>
+        <option *ngFor="let emp of employeList" [value]="emp.id">
+          {{ emp.nom }} {{ emp.prenom }}
+        </option>
+      </select>
+      <div class="text-danger" *ngIf="employe.invalid && (employe.dirty || employe.touched)">
+        L'employé est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="fournisseur" class="form-label">Fournisseur</label>
+      <select id="fournisseur" class="form-select" name="fournisseur"
+              [(ngModel)]="reception.fournisseurNom" #fournisseur="ngModel" required>
+        <option value="">Sélectionner un fournisseur</option>
+        <option *ngFor="let fr of fournisseurList" [value]="fr.id">
+          {{ fr.nom }}
+        </option>
+      </select>
+      <div class="text-danger" *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">
+        Le fournisseur est obligatoire.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="receptionForm.invalid || loading">
+        @if (!loading) {
+         Envoyer
+        }
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm"></span>
+          Envoie en cours...
+        }
+      </button>
+    </div>
+  </form>
+</div>

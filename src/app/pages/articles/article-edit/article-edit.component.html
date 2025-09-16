@@ -1,0 +1,79 @@
+<div class="container">
+  <h2>Modifier un article</h2>
+
+  <form (ngSubmit)="onSubmit()" #articleForm="ngForm" nz-form nzLayout="vertical">
+
+    <nz-form-item>
+      <nz-form-label>Libellé</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="libArt" [(ngModel)]="article.libArt" required placeholder="Entrez le libellé"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Stock</nz-form-label>
+      <nz-form-control>
+        <input nz-input type="number" name="stock" [(ngModel)]="article.stock" required placeholder="Entrez le stock"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Type</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="type" [(ngModel)]="article.type" required placeholder="Entrez le type"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>État</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="etat" [(ngModel)]="article.etat" required placeholder="Entrez l'état"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Commentaire</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="commentaire" [(ngModel)]="article.commentaire" placeholder="Commentaire"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="mb-3">
+      <label for="marque" class="form-label">Marque</label>
+      <select id="marque" class="form-select" name="marqueId"
+              [(ngModel)]="article.marqueId" #marqueId="ngModel" required>
+        <option value="">Sélectionner la marque</option>
+        <option *ngFor="let mar of marqueList" [value]="mar.id">{{ mar.nom }}</option>
+      </select>
+      <div class="text-danger" *ngIf="marqueId.invalid && (marqueId.dirty || marqueId.touched)">
+        La marque est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="categorie" class="form-label">Catégorie</label>
+      <select id="categorie" class="form-select" name="categorieId"
+              [(ngModel)]="article.categorieId" #categorieId="ngModel" required>
+        <option value="">Sélectionner la catégorie</option>
+        <option *ngFor="let cat of categorieList" [value]="cat.id">{{ cat.nom }}</option>
+      </select>
+      <div class="text-danger" *ngIf="categorieId.invalid && (categorieId.dirty || categorieId.touched)">
+        La catégorie est obligatoire.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button nz-button type="button" (click)="onCancel()">Retour</button>
+      <button nz-button nzType="primary" type="submit" [disabled]="!articleForm.form.valid">
+        @if (!loading) {
+        Envoyer
+      }
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm"></span>
+        Envoi en cours...
+      }
+        </button>
+    </div>
+
+  </form>
+</div>

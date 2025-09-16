@@ -13,6 +13,18 @@ export class UserService {
  
 
   constructor(private http: HttpClient) {}
+   forgotPassword(email: string): Observable<any> {
+  
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+   resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, {
+      token,
+      newPassword,
+      confirmPassword
+    });
+  }
 
   createUser(user: UserDto): Observable<UserDto> {
     console.log("user ",user)

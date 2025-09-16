@@ -1,0 +1,141 @@
+<div class="container mt-4">
+  <h2>Ajouter un article</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #articleForm="ngForm">
+
+  
+    <div class="mb-3">
+      <label for="libArt" class="form-label">Libellé de l'article</label>
+      <input type="text" id="libArt" class="form-control" name="libArt"
+             [(ngModel)]="article.libArt" #libArt="ngModel" required
+             placeholder="Entrez le libellé" />
+      <div class="text-danger" *ngIf="libArt.invalid && (libArt.dirty || libArt.touched)">
+        Le libellé est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="stock" class="form-label">Stock</label>
+      <input type="number" id="stock" class="form-control" name="stock"
+             [(ngModel)]="article.stock" #stock="ngModel" required min="0"
+             placeholder="Entrez le stock" />
+      <div class="text-danger" *ngIf="stock.invalid && (stock.dirty || stock.touched)">
+        Le stock est obligatoire et doit être ≥ 0.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="niveauAlert" class="form-label">Niveau d'alerte</label>
+      <input type="number" id="niveauAlert" class="form-control" name="niveauAlert"
+             [(ngModel)]="article.niveauAlert" #niveauAlert="ngModel" required min="0"
+             placeholder="Entrez le niveau d'alerte" />
+      <div class="text-danger" *ngIf="niveauAlert.invalid && (niveauAlert.dirty || niveauAlert.touched)">
+        Le niveau d'alerte est obligatoire et doit être ≥ 0.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <input type="text" id="type" class="form-control" name="type"
+             [(ngModel)]="article.type" #type="ngModel" required
+             placeholder="Entrez le type" />
+      <div class="text-danger" *ngIf="type.invalid && (type.dirty || type.touched)">
+        Le type est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="etat" class="form-label">État</label>
+      <input type="text" id="etat" class="form-control" name="etat"
+             [(ngModel)]="article.etat" #etat="ngModel" required
+             placeholder="Entrez l'état" />
+      <div class="text-danger" *ngIf="etat.invalid && (etat.dirty || etat.touched)">
+        L'état est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="caracteristique" class="form-label">Caractéristique</label>
+      <textarea id="caracteristique" class="form-control" name="caracteristique"
+                [(ngModel)]="article.caracteristique" #caracteristique="ngModel"
+                placeholder="Entrez les caractéristiques"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="commentaire" class="form-label">Commentaire</label>
+      <textarea id="commentaire" class="form-control" name="commentaire"
+                [(ngModel)]="article.commentaire" #commentaire="ngModel"
+                placeholder="Entrez un commentaire"></textarea>
+    </div>
+<div class="mb-3">
+  <label class="form-label">Marque</label>
+  <nz-select
+    [(ngModel)]="article.marqueId"
+    name="marqueId"
+    #marqueId="ngModel"
+    nzShowSearch
+    nzPlaceHolder="Sélectionner une marque"
+    [nzServerSearch]="true"
+    (nzOnSearch)="onSearchMarque($event)"
+    [nzLoading]="loadingMarque"
+    [nzAllowClear]="true"
+    required
+  >
+    <nz-option
+      *ngFor="let marque of marqueOptionList"
+      [nzValue]="marque.id"
+      [nzLabel]="marque.nom"
+    ></nz-option>
+  </nz-select>
+  <div class="text-danger" *ngIf="marqueId.invalid && (marqueId.dirty || marqueId.touched)">
+    La marque est obligatoire.
+  </div>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Catégorie</label>
+  <nz-select
+    [(ngModel)]="article.categorieId"
+    name="categorieId"
+    #categorieId="ngModel"
+    nzShowSearch
+    nzPlaceHolder="Sélectionner une catégorie"
+    [nzServerSearch]="true"
+    (nzOnSearch)="onSearchCategorie($event)"
+    [nzLoading]="loadingCategorie"
+    [nzAllowClear]="true"
+    required
+  >
+    <nz-option
+      *ngFor="let cat of categorieOptionList"
+      [nzValue]="cat.id"
+      [nzLabel]="cat.nom"
+    ></nz-option>
+  </nz-select>
+  <div class="text-danger" *ngIf="categorieId.invalid && (categorieId.dirty || categorieId.touched)">
+    La catégorie est obligatoire.
+  </div>
+</div>
+
+    
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="articleForm.invalid || loading">
+        @if (!loading) {
+        Envoyer
+      }
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm"></span>
+        Envoi en cours...
+      }
+        </button>
+    </div>
+
+  </form>
+</div>

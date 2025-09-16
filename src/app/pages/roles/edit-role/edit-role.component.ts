@@ -19,6 +19,7 @@ export class EditRoleComponent implements OnInit {
 
   role!: RoleResponseDto;
 roleList: RoleDto[] = [];
+loading = false;
   constructor(private roleService: RoleService, private router: Router, private route: ActivatedRoute) {}
   
     ngOnInit(): void {
@@ -35,13 +36,16 @@ roleList: RoleDto[] = [];
 
   
     onSubmit(): void  {
+      this.loading=true;
       if(this.role.id)
   this.roleService.updateRole(this.role.id, this.role).subscribe({
     next: () => {
+      this.loading=false;
       alert('Rôle modifié avec succès');
       this.router.navigate(['/role-list']);
     },
     error: err => {
+      this.loading=false;
       console.error('Erreur lors de la modification :', err);
     }
   });

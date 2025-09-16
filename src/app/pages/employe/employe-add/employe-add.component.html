@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Ajouter un employé</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #employeForm="ngForm">
+
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" id="nom" class="form-control" name="nom"
+             [(ngModel)]="employe.nom" #nom="ngModel" required
+             placeholder="Entrez le nom" />
+      <div class="text-danger" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
+        Le nom est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="prenom" class="form-label">Prénom</label>
+      <input type="text" id="prenom" class="form-control" name="prenom"
+             [(ngModel)]="employe.prenom" #prenom="ngModel" required
+             placeholder="Entrez le prénom" />
+      <div class="text-danger" *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)">
+        Le prénom est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="poste" class="form-label">Poste</label>
+      <input type="text" id="poste" class="form-control" name="poste"
+             [(ngModel)]="employe.poste" #poste="ngModel" required
+             placeholder="Entrez le poste" />
+      <div class="text-danger" *ngIf="poste.invalid && (poste.dirty || poste.touched)">
+        Le poste est obligatoire.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="employeForm.invalid || loading">
+        <ng-container *ngIf="!loading">Envoyer</ng-container>
+        <ng-container *ngIf="loading">
+          <span class="spinner-border spinner-border-sm"></span> Envoi en cours...
+        </ng-container>
+      </button>
+    </div>
+
+  </form>
+</div>

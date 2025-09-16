@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/user/user.service';
+import { Console } from 'console';
+
 
 @Component({
   selector: 'app-reset-password',
-   standalone: true,
-    imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
@@ -17,21 +19,35 @@ export class ResetPasswordComponent implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
   showPassword: boolean = false;
-   showConfirmPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+  loading = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {}
 
   ngOnInit() {
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
   }
 
   onSubmit() {
-    this.http.post(`http://localhost:8080/api/users/reset-password?token=${this.token}`, {
-      newPassword: this.newPassword,
-      confirmPassword: this.confirmPassword
-    }).subscribe({
-      next: () => alert("Mot de passe réinitialisé avec succès !"),
-      error: err => alert(err.error.message || "Erreur lors de la réinitialisation")
-    });
+    this.loading= true;
+    if (this.newPassword !== this.confirmPassword) {
+      alert("Les mots de passe ne correspondent pas !");
+      return;
+    }
+
+    this.userService.resetPassword(this.token, this.newPassword, this.confirmPassword)
+      .subscribe({
+        next: (resp) => {
+          this.loading= false;
+          alert("Mot de passe réinitialisé avec succès !");
+          this.router.navigate(['/login']);
+        },
+        error: err =>{ 
+          this.loading= false;
+          console.error('erreur lors de la reinitialisation:', err)
+          alert(err.error.messages)
+        }
+        
+      });
   }
 }

@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Modifier une categorie</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #marqueForm="ngForm">
+
+    <div class="mb-3">
+      <label for="nom" class="form-label fw-bold">Nom de la categorie</label>
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        class="form-control"
+        [(ngModel)]="categorie.nom"
+        #nom="ngModel"
+        required
+        placeholder="Entrez le nom de la categorie"
+      />
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="marqueForm.invalid || loading">
+       @if (!loading) {
+          Envoyer
+        }
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm"></span>
+          Envoi en cours...
+        }
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <h2>Ajouter une affectation</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #affectationForm="ngForm">
+
+    <div class="mb-3">
+      <label for="dateDebut" class="form-label">Date début</label>
+      <input type="date" id="dateDebut" class="form-control" name="dateDebut"
+             [(ngModel)]="affectation.dateDebut" #dateDebut="ngModel" required />
+      <div class="text-danger" *ngIf="dateDebut.invalid && (dateDebut.dirty || dateDebut.touched)">
+        La date de début est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="dateFin" class="form-label">Date fin</label>
+      <input type="date" id="dateFin" class="form-control" name="dateFin"
+             [(ngModel)]="affectation.dateFin" #dateFin="ngModel" required />
+      <div class="text-danger" *ngIf="dateFin.invalid && (dateFin.dirty || dateFin.touched)">
+        La date de fin est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="nbrArticle" class="form-label">Nombre d'articles</label>
+      <input type="number" id="nbrArticle" class="form-control" name="nbrArticle"
+             [(ngModel)]="affectation.nbrArticle" #nbrArticle="ngModel" required min="1"
+             placeholder="Entrez le nombre d'articles" />
+      <div class="text-danger" *ngIf="nbrArticle.invalid && (nbrArticle.dirty || nbrArticle.touched)">
+        Le nombre d'articles est obligatoire et doit être ≥ 1.
+      </div>
+    </div>
+
+       <div class="mb-3">
+      <label class="form-label">Article</label>
+      <nz-select
+        nzShowSearch
+        nzPlaceHolder="Sélectionner un article"
+        [(ngModel)]="affectation.articlesId"
+        name="articlesId"
+        #articlesId="ngModel"
+        [nzServerSearch]="true"
+        (nzOnSearch)="onSearchArticle($event)"
+        [nzLoading]="loadingArticles"
+        [nzAllowClear]="true"
+        required>
+        <nz-option *ngFor="let article of articleOptionList" [nzValue]="article.id" [nzLabel]="article.libArt">
+        </nz-option>
+      </nz-select>
+      <div class="text-danger" *ngIf="articlesId.invalid && (articlesId.dirty || articlesId.touched)">
+        L'article est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Employé</label>
+      <nz-select
+        nzShowSearch
+        nzPlaceHolder="Sélectionner un employé"
+        [(ngModel)]="affectation.employeId"
+        name="employeId"
+        #employeId="ngModel"
+        [nzServerSearch]="true"
+        (nzOnSearch)="onSearchEmploye($event)"
+        [nzLoading]="loadingEmploye"
+        [nzAllowClear]="true"
+        required>
+        <nz-option *ngFor="let emp of employeOptionList" [nzValue]="emp.id" [nzLabel]="emp.nom">
+        </nz-option>
+      </nz-select>
+      <div class="text-danger" *ngIf="employeId.invalid && (employeId.dirty || employeId.touched)">
+        L'employé est obligatoire.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="affectationForm.invalid || loading">
+        @if (!loading) {
+          Envoyer
+        }
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm"></span>
+          Envoi en cours...
+        }
+      </button>
+    </div>
+
+  </form>
+</div>
+

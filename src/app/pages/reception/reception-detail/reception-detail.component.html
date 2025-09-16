@@ -1,0 +1,16 @@
+<div class="card" style="width: 24rem; margin: auto; margin-top: 30px;">
+  <div class="card-body">
+    <h4 class="card-title">Détails de la réception</h4>
+    <hr>
+
+    <p><strong>Numéro de réception :</strong> {{ reception.numReception }}</p>
+    <p><strong>Date du contrat :</strong> {{ reception.dateContrat }}</p>
+    <p><strong>Date de réception :</strong> {{ reception.dateReception }}</p>
+    <p><strong>Nombre d'articles :</strong> {{ reception.nbrArticle }}</p>
+    <p><strong>Employé :</strong> {{ reception.employeNom }}</p>
+    <p><strong>Fournisseur :</strong> {{ reception.fournisseurNom }}</p>
+
+    <hr>
+    <button class="btn btn-primary" (click)="onCancel()">Retour</button>
+  </div>
+</div>

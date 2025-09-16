@@ -1,0 +1,55 @@
+<div nz-row nzJustify="end" class="btn-create">
+  <button class="btn btn-primary" (click)="onCreateReception()" >
+    <span nz-icon nzType="plus"></span> Créer une réception
+  </button>
+</div>
+
+<table class="table table-bordered table-hover table-sm text-center" aria-describedby="page-heading">
+  <thead class="table-primary">
+    <tr>
+      <th class="text-center">N° Réception</th>
+      <th class="text-center">Date Contrat</th>
+      <th class="text-center">Date Réception</th>
+      <th class="text-center">Nombre d’articles</th>
+      <th class="text-center">Employé</th>
+      <th class="text-center">Fournisseur</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (reception of receptionList; track reception.id) {
+      <tr>
+        <td class="text-center">{{ reception.numReception }}</td>
+        <td class="text-center">{{ reception.dateContrat }}</td>
+        <td class="text-center">{{ reception.dateReception }}</td>
+        <td class="text-center">{{ reception.nbrArticle }}</td>
+        <td class="text-center">{{ reception.employeNom }}</td>
+        <td class="text-center">{{ reception.fournisseurNom }}</td>
+        <td class="text-center">
+          <div class="btn-group">
+            <button class="btn btn-outline-info" (click)="onDetail(reception)" >
+              <i class="bi bi-eye"></i> Détails
+            </button>
+            <button class="btn btn-warning btn-sm me-2" (click)="onEdit(reception)" >
+              <i class="bi bi-pencil"></i> Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="onDelete(reception)" >
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<nz-pagination
+  [nzSimple]="false"
+  [nzHideOnSinglePage]="true"
+  [nzPageIndex]="pageNumber"
+  [nzTotal]="totalElements"
+  [nzPageSize]="sizeNumber"
+  (nzPageIndexChange)="navigateToPage($event)"
+  id="pagination-receptions">
+</nz-pagination>
+

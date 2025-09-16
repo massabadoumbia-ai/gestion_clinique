@@ -1,0 +1,60 @@
+<div nz-row nzJustify="end" class="btn-create">
+  <button class="btn btn-primary" (click)="onCreateArticle()">
+    <span nz-icon nzType="plus"></span> Créer un article
+  </button>
+</div>
+
+<table class="table table-bordered table-hover table-sm text-center mt-3" aria-describedby="page-heading">
+  <thead class="table-primary">
+    <tr>
+      <th class="text-center">Libellé</th>
+      <th class="text-center">Stock</th>
+      <th class="text-center">Niveau Alerte</th>
+      <th class="text-center">Type</th>
+      <th class="text-center">État</th>
+      <th class="text-center">Marque</th>
+      <th class="text-center">Catégorie</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (article of articleList; track article.id) {
+      <tr>
+        <td class="text-center">{{ article.libArt }}</td>
+        <td class="text-center">{{ article.stock }}</td>
+        <td class="text-center">{{ article.niveauAlert }}</td>
+        <td class="text-center">{{ article.type }}</td>
+        <td class="text-center">{{ article.etat }}</td>
+        <td class="text-center">{{ article.marqueId}}</td>
+        <td class="text-center">{{ article.categorieId}}</td>
+        <td class="text-center">
+          <div class="btn-group">
+            <button class="btn btn-outline-info btn-sm me-2"
+                    (click)="onDetail(article)">
+              <i class="bi bi-eye"></i> Détails
+            </button>
+            <button class="btn btn-warning btn-sm me-2"
+                    (click)="onEdit(article)">
+              <i class="bi bi-pencil"></i> Modifier
+            </button>
+            <button class="btn btn-danger btn-sm"
+                    (click)="onDelete(article)">
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+
+<nz-pagination
+  [nzSimple]="false"
+  [nzHideOnSinglePage]="true"
+  [nzPageIndex]="pageNumber"
+  [nzTotal]="totalElements"
+  [nzPageSize]="sizeNumber"
+  (nzPageIndexChange)="navigateToPage($event)">
+</nz-pagination>
+

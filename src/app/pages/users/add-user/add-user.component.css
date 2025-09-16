@@ -67,3 +67,11 @@ button[nzType="primary"]:hover {
   background-color: #218838 !important;
 }
 
+ nz-select {
+        width: 100%;
+      }
+
+      .loading-icon {
+        margin-right: 8px;
+      }
+    

@@ -25,6 +25,7 @@ export class AddPermissionComponent implements OnInit {
   
   permissionList: PermissionDto[] = [];
   errorMessages: string[] = [];
+   loading = false;
 
   constructor(private permissionService: PermissionService, private router: Router) {}
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class AddPermissionComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading=true;
 
     this.errorMessages = [];
 
@@ -50,10 +52,12 @@ export class AddPermissionComponent implements OnInit {
 
     this.permissionService.createPermission(this.permission).subscribe({
       next: () => {
+        this.loading=false;
         alert('Permission ajouté avec succès');
         this.router.navigate(['/admin/dashboard/permission-list']);
       },
       error: err => {
+        this.loading=false;
         console.error('Erreur lors de l\'ajout :', err);
         //alert("Erreur lors de l'ajout de l'utilisateur");
       }

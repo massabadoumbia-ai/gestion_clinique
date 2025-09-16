@@ -1,0 +1,44 @@
+<div class="container mt-4">
+  <h1 class="mb-3">Gestion des marques</h1>
+  <div class="d-flex justify-content-end mb-2">
+    <button class="btn btn-primary" (click)="onCreateMarque()">
+      <span class="bi bi-plus"></span> Créer une marque
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover table-sm text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>Nom</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (marque of marqueList; track marque.id) {
+        <tr>
+        <td>{{ marque.nom }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="onEdit(marque)">
+            <i class="bi bi-pencil"></i> Modifier
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="onDelete(marque)">
+            <i class="bi bi-trash"></i> Supprimer
+          </button>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+</div>
+
+<nz-pagination
+    [nzSimple]="false"
+    [nzHideOnSinglePage]="true"
+    [nzPageIndex]="pageNumber"
+    [nzTotal]="totalElements"
+    [nzPageSize]="sizeNumber"
+    (nzPageIndexChange)="navigateToPage($event)"
+    id="demo">
+  </nz-pagination>
+
+

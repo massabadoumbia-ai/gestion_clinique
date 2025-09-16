@@ -14,12 +14,17 @@ import { PermissionsComponent } from './pages/permissions/permissions.component'
 import { AssignPermissionsComponent } from './pages/roles/assign-permissions/assign-permissions.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/auth/auth-guard';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.routes').then(m => m.WELCOME_ROUTES) },
   { path: 'admin', loadChildren: () => import('./pages/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES) },
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
+
    /* { path: 'users-list', component: UsersComponent, canActivate:[AuthGuard] },
    { path: 'add-user', component: AddUserComponent, canActivate:[AuthGuard] },
    { path: 'edit-user/:id', component: EditUserComponent, canActivate:[AuthGuard] },

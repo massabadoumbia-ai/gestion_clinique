@@ -1,0 +1,14 @@
+<div class="card" style="width: 24rem; margin: auto; margin-top: 30px;">
+  <div class="card-body">
+    <h4 class="card-title">Détails du fournisseur</h4>
+    <hr>
+
+    <p><strong>Nom :</strong> {{ fournisseur.nom }}</p>
+    <p><strong>Contact :</strong> {{ fournisseur.contact }}</p>
+    <p><strong>NIF :</strong> {{ fournisseur.nif }}</p>
+    <p><strong>Adresse :</strong> {{ fournisseur.adresse }}</p>
+
+    <hr>
+    <button class="btn btn-primary" (click)="onCancel()">Retour</button>
+  </div>
+</div>

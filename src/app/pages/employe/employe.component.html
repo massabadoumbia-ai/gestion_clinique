@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h1 class="mb-3">Gestion des employés</h1>
+
+  <div nz-row nzJustify="end" class="btn-create mb-3">
+    <button class="btn btn-primary" (click)="onCreateEmploye()">
+      <span nz-icon nzType="plus"></span> Créer un employé
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover table-sm text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Poste</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+       @for (employe of employeList; track employe.id) {
+      <tr>
+        <td>{{ employe.nom }}</td>
+        <td>{{ employe.prenom }}</td>
+        <td>{{ employe.poste }}</td>
+        <td>
+          <button class="btn btn-info btn-sm me-2" (click)="onDetail(employe)">
+            <i class="bi bi-eye"></i> Détails
+          </button>
+          <button class="btn btn-warning btn-sm me-2" (click)="onEdit(employe)">
+            <i class="bi bi-pencil"></i> Modifier
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="onDelete(employe)">
+            <i class="bi bi-trash"></i> Supprimer
+          </button>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+
+  <nz-pagination
+    [nzPageIndex]="pageNumber"
+    [nzPageSize]="sizeNumber"
+    [nzTotal]="totalElements"
+    [nzHideOnSinglePage]="true"
+    (nzPageIndexChange)="navigateToPage($event)">
+  </nz-pagination>
+</div>

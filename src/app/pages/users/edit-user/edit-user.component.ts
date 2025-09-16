@@ -36,6 +36,7 @@ export class EditUserComponent implements OnInit {
 
   roleList: RoleDto[] = [];
   size: NzSelectSizeType = 'large';
+  loading = false;
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -58,13 +59,18 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading=true;
     if (this.user.id) {
       this.userService.updateUser(this.user.id, this.user).subscribe({
         next: () => {
+          this.loading= false;
           alert('Utilisateur mis à jour avec succès');
           this.router.navigate(['/users']);
         },
-        error: () => alert("Erreur lors de la mise à jour de l'utilisateur")
+        error: () =>{
+          this.loading= false;
+           alert("Erreur lors de la mise à jour de l'utilisateur")
+           }
       });
     }
   }

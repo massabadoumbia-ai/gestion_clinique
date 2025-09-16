@@ -1,0 +1,53 @@
+<div nz-row nzJustify="end" class="btn-create">
+  <button class="btn btn-primary" (click)="onCreateAffectation()">
+    <span nz-icon nzType="plus"></span> Créer une affectation
+  </button>
+</div>
+
+<table class="table table-bordered table-hover table-sm text-center" aria-describedby="page-heading">
+  <thead class="table-primary">
+    <tr>
+      <th class="text-center">Date début</th>
+      <th class="text-center">Date fin</th>
+      <th class="text-center">Nombre d'articles</th>
+      <th class="text-center">Article</th>
+      <th class="text-center">Employé</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (affectation of affectationList; track affectation.id) {
+      <tr>
+        <td class="text-center">{{ affectation.dateDebut}}</td>
+        <td class="text-center">{{ affectation.dateFin}}</td>
+        <td class="text-center">{{ affectation.nbrArticle }}</td>
+        <td class="text-center">{{ affectation.articlesId }}</td>
+        <td class="text-center">{{ affectation.employeId }}</td>
+        <td class="text-center">
+          <div class="btn-group">
+            <button class="btn btn-outline-info" (click)="onDetail(affectation)" >
+              <i class="bi bi-pencil"></i> Détails
+            </button>
+            <button class="btn btn-warning btn-sm me-2" (click)="onEdit(affectation)" >
+              <i class="bi bi-pencil"></i> Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="onDelete(affectation)" >
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<nz-pagination
+  [nzSimple]="false"
+  [nzHideOnSinglePage]="true"
+  [nzPageIndex]="pageNumber"
+  [nzTotal]="totalElements"
+  [nzPageSize]="sizeNumber"
+  (nzPageIndexChange)="navigateToPage($event)"
+  id="demo">
+</nz-pagination>
+

@@ -48,7 +48,14 @@
     
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
-     <button type="submit" class="btn btn-primary">Enregistrer</button>
+     <button type="submit" class="btn btn-primary"  [disabled]="roleForm.invalid || loading">
+      @if (!loading) {
+        Envoyer
+      }
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm"></span>
+        Envoi en cours...
+      }</button>
     </div>
 
   </form>

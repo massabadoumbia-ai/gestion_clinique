@@ -1,0 +1,49 @@
+<div nz-row nzJustify="end" class="btn-create">
+  <button class="btn btn-primary" (click)="onCreateFournisseur()">
+    <span nz-icon nzType="plus"></span> Créer un fournisseur
+  </button>
+</div>
+
+<table class="table table-bordered table-hover table-sm text-center">
+  <thead class="table-primary">
+    <tr>
+      <th class="text-center">Nom</th>
+      <th class="text-center">Contact</th>
+      <th class="text-center">NIF</th>
+      <th class="text-center">Adresse</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (fournisseur of FournisseurList; track fournisseur.id) {
+      <tr>
+        <td class="text-center">{{ fournisseur.nom }}</td>
+        <td class="text-center">{{ fournisseur.contact }}</td>
+        <td class="text-center">{{ fournisseur.nif }}</td>
+        <td class="text-center">{{ fournisseur.adresse }}</td>
+        <td class="text-center">
+          <div class="btn-group">
+            <button class="btn btn-outline-info" (click)="onDetail(fournisseur)">
+              <i class="bi bi-pencil"></i> Détails
+            </button>
+            <button class="btn btn-warning btn-sm me-2" (click)="onEdit(fournisseur)">
+              <i class="bi bi-pencil"></i> Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="onDelete(fournisseur)">
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<nz-pagination
+  [nzSimple]="false"
+  [nzHideOnSinglePage]="true"
+  [nzPageIndex]="pageNumber"
+  [nzTotal]="totalElements"
+  [nzPageSize]="sizeNumber"
+  (nzPageIndexChange)="navigateToPage($event)">
+</nz-pagination>

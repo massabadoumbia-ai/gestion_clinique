@@ -23,6 +23,7 @@ export class AddRoleComponent implements OnInit{
 
   roleList: RoleDto[] = [];
    errorMessages: string[] = [];
+   loading = false;
   constructor(private roleService: RoleService, private router: Router) {}
   
     ngOnInit(): void {
@@ -30,6 +31,7 @@ export class AddRoleComponent implements OnInit{
     }
   
     onSubmit() {
+      this.loading=true;
        this.errorMessages = [];
 
     
@@ -50,10 +52,12 @@ export class AddRoleComponent implements OnInit{
 
     this.roleService.createRole(this.role).subscribe({
       next: () => {
+        this.loading=false;
         alert('Role ajouté avec succès');
         this.router.navigate(['/admin/dashboard/role-list']);
       },
       error: err => {
+        this.loading=false;
         console.error('Erreur lors de l\'ajout :', err);
         //alert("Erreur lors de l'ajout de l'utilisateur");
       }
