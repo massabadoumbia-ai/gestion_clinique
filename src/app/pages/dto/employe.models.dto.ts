@@ -3,6 +3,7 @@ export interface EmployeDto {
     nom : string;
      prenom : string;
      poste: string;
+      email: string;
      receptionid? : number;
      
 }
@@ -12,6 +13,8 @@ export interface EmployeDto {
      nom : string;
      prenom : string;
      poste: string;
+     email: string;
+      division: string;
       receptionid? : number;
 
      

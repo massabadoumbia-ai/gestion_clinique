@@ -18,12 +18,12 @@
         <tr>
         <td>{{ categorie.nom }}</td>
         <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="onEdit(categorie)">
-            <i class="bi bi-pencil"></i> Modifier
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="onDelete(categorie)">
-            <i class="bi bi-trash"></i> Supprimer
-          </button>
+          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(categorie)">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" (click)="onDelete(categorie)">
+            <i class="bi bi-trash"></i>
+          </a>
         </td>
       </tr>
     }

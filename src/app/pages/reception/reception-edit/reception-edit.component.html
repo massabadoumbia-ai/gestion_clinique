@@ -48,7 +48,7 @@
     <div class="mb-3">
       <label for="employe" class="form-label">Employé</label>
       <select id="employe" class="form-select" name="employe"
-              [(ngModel)]="reception.employeNom" #employe="ngModel" required>
+              [(ngModel)]="reception.employeId" #employe="ngModel" required>
         <option value="">Sélectionner un employé</option>
         <option *ngFor="let emp of employeList" [value]="emp.id">
           {{ emp.nom }} {{ emp.prenom }}
@@ -62,7 +62,7 @@
     <div class="mb-3">
       <label for="fournisseur" class="form-label">Fournisseur</label>
       <select id="fournisseur" class="form-select" name="fournisseur"
-              [(ngModel)]="reception.fournisseurNom" #fournisseur="ngModel" required>
+              [(ngModel)]="reception.fournisseurId" #fournisseur="ngModel" required>
         <option value="">Sélectionner un fournisseur</option>
         <option *ngFor="let fr of fournisseurList" [value]="fr.id">
           {{ fr.nom }}
@@ -71,6 +71,11 @@
       <div class="text-danger" *ngIf="fournisseur.invalid && (fournisseur.dirty || fournisseur.touched)">
         Le fournisseur est obligatoire.
       </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="pv" class="form-label">Procès-Verbal</label>
+      <input type="file" id="pv" class="form-control" (change)="onPvSelected($event)" />
     </div>
 
     <div class="d-flex justify-content-between">

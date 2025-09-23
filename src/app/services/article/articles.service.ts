@@ -13,9 +13,10 @@ export class ArticlesService {
 
   constructor(private http: HttpClient) {}
 
-  createArticle(article: ArticlesDto): Observable<ArticlesResponseDto> {
-    return this.http.post<ArticlesResponseDto>(`${this.apiUrl}/create`, article);
+  createArticle(formData: FormData): Observable<ArticlesResponseDto> {
+    return this.http.post<ArticlesResponseDto>(`${this.apiUrl}/create`, formData);
   }
+
 
   getAllArticles(): Observable<ArticlesResponseDto[]> {
     return this.http.get<ArticlesResponseDto[]>(`${this.apiUrl}/list`);
@@ -29,11 +30,12 @@ export class ArticlesService {
 
 
   getArticlesById(id: number): Observable<ArticlesResponseDto> {
-    return this.http.get<ArticlesResponseDto>(`${this.apiUrl}/by-id/${id}`);
-  }
+    return this.http.get<ArticlesResponseDto>(`${this.apiUrl}/${id}`);
+}
 
-  updateArticles(id: number, article: ArticlesDto): Observable<ArticlesResponseDto> {
-    return this.http.put<ArticlesResponseDto>(`${this.apiUrl}/update/${id}`, article);
+
+  updateArticles(id: number, formData: FormData): Observable<ArticlesResponseDto> {
+    return this.http.put<ArticlesResponseDto>(`${this.apiUrl}/${id}/update`, formData);
   }
 
   getMarques(): Observable<any[]> {

@@ -1,7 +1,13 @@
 <div class="container mt-4">
-  <h2>Modifier une affectation</h2>
+  <h2>Réaffecter une affectation</h2>
 
-  <form (ngSubmit)="onSubmit()" #affectationForm="ngForm">
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #reaffectForm="ngForm">
 
     <div class="mb-3">
       <label for="dateDebut" class="form-label">Date début</label>
@@ -31,41 +37,71 @@
     </div>
 
     <div class="mb-3">
-      <label for="article" class="form-label">Article</label>
-      <select id="article" class="form-select" name="articleId"
-              [(ngModel)]="affectation.articleId" #articleId="ngModel" required>
-        <option value="">Sélectionner un article</option>
-        <option *ngFor="let article of articleList" [value]="article.id">{{ article.libArt }}</option>
-      </select>
+      <label class="form-label">Article</label>
+      <nz-select
+        nzShowSearch
+        nzPlaceHolder="Sélectionner un article"
+        [(ngModel)]="affectation.articleId"
+        name="articleId"
+        #articleId="ngModel"
+        [nzServerSearch]="true"
+        (nzOnSearch)="onSearchArticle($event)"
+        [nzLoading]="loadingArticles"
+        [nzAllowClear]="true"
+        required>
+        <nz-option
+          *ngFor="let article of articleOptionList"
+          [nzValue]="article.id"
+          [nzLabel]="article.libArt + ' (Stock: ' + article.stock + ')'"
+          [nzDisabled]="article.stock === 0">
+        </nz-option>
+      </nz-select>
       <div class="text-danger" *ngIf="articleId.invalid && (articleId.dirty || articleId.touched)">
         L'article est obligatoire.
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="employe" class="form-label">Employé</label>
-      <select id="employe" class="form-select" name="employeId"
-              [(ngModel)]="affectation.employeNom" #employeId="ngModel" required>
-        <option value="">Sélectionner un employé</option>
-        <option *ngFor="let employe of employeList" [value]="employe.id">{{ employe.nom }}</option>
-      </select>
+      <label class="form-label">Employé</label>
+      <nz-select
+        nzShowSearch
+        nzPlaceHolder="Sélectionner un employé"
+        [(ngModel)]="affectation.employeId"
+        name="employeId"
+        #employeId="ngModel"
+        [nzServerSearch]="true"
+        (nzOnSearch)="onSearchEmploye($event)"
+        [nzLoading]="loadingEmploye"
+        [nzAllowClear]="true"
+        required>
+        <nz-option *ngFor="let emp of employeOptionList" [nzValue]="emp.id" [nzLabel]="emp.nom" >
+        </nz-option>
+      </nz-select>
       <div class="text-danger" *ngIf="employeId.invalid && (employeId.dirty || employeId.touched)">
         L'employé est obligatoire.
       </div>
     </div>
 
+    <div class="mb-3">
+      <label for="etat" class="form-label">État</label>
+      <input type="text" id="etat" class="form-control" name="Etat"
+             [(ngModel)]="affectation.etat" #etat="ngModel" required />
+      <div class="text-danger" *ngIf="etat.invalid && (etat.dirty || etat.touched)">
+        L'état est obligatoire.
+      </div>
+    </div>
+
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
-      <button type="submit" class="btn btn-primary" [disabled]="affectationForm.invalid || loading">
+      <button type="submit" class="btn btn-primary" [disabled]="reaffectForm.invalid || loading">
         @if (!loading) {
-          Mettre à jour
+          Réaffecter
         }
         @if (loading) {
           <span class="spinner-border spinner-border-sm"></span>
-          Mise à jour en cours...
+          Réaffectation en cours...
         }
       </button>
     </div>
-
   </form>
 </div>

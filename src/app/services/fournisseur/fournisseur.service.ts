@@ -13,15 +13,15 @@ export class FournisseurService {
   constructor(private http: HttpClient) { }
 
   createFournisseur(fournisseur: FournisseurResponseDto): Observable<FournisseurResponseDto> {
-    return this.http.post<FournisseurResponseDto>(`${this.apiUrl}`, fournisseur);
+    return this.http.post<FournisseurResponseDto>(`${this.apiUrl}/create`, fournisseur);
   }
 
   updateFournisseur(id: number, fournisseur:FournisseurResponseDto): Observable<FournisseurResponseDto> {
-    return this.http.put<FournisseurResponseDto>(`${this.apiUrl}/${id}`, fournisseur);
+    return this.http.put<FournisseurResponseDto>(`${this.apiUrl}/${id}/update`, fournisseur);
   }
 
   deleteFournisseur(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}/delete`);
   }
 
   getFournisseurById(id: number): Observable<FournisseurResponseDto> {
@@ -29,7 +29,7 @@ export class FournisseurService {
   }
 
   getAllFournisseur(): Observable<FournisseurResponseDto[]> {
-    return this.http.get<FournisseurResponseDto[]>(`${this.apiUrl}`);
+    return this.http.get<FournisseurResponseDto[]>(`${this.apiUrl}/list`);
   }
 
   getAllFournisseurByPage(page: number, size: number): Observable<any> {

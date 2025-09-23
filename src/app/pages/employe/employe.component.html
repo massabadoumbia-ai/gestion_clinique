@@ -13,6 +13,8 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>Poste</th>
+         <th>Email</th>
+          <th>Division</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -22,16 +24,18 @@
         <td>{{ employe.nom }}</td>
         <td>{{ employe.prenom }}</td>
         <td>{{ employe.poste }}</td>
+        <td>{{ employe.email}}</td>
+        <td>{{ employe.division}}</td>
         <td>
-          <button class="btn btn-info btn-sm me-2" (click)="onDetail(employe)">
-            <i class="bi bi-eye"></i> Détails
-          </button>
-          <button class="btn btn-warning btn-sm me-2" (click)="onEdit(employe)">
-            <i class="bi bi-pencil"></i> Modifier
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="onDelete(employe)">
-            <i class="bi bi-trash"></i> Supprimer
-          </button>
+          <a class="btn btn-info btn-sm me-2" (click)="onDetail(employe)">
+            <i class="bi bi-eye"></i> 
+          </a>
+          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(employe)">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" (click)="onDelete(employe)">
+            <i class="bi bi-trash"></i>
+          </a>
         </td>
       </tr>
     }

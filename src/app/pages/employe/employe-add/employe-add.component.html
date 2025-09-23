@@ -39,6 +39,26 @@
       </div>
     </div>
 
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" class="form-control" name="email"
+             [(ngModel)]="employe.email" #email="ngModel" required
+             placeholder="Entrez l'email" />
+      <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+        L'email' est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="Division" class="form-label">Division</label>
+      <input type="division" id="division" class="form-control" name="division"
+             [(ngModel)]="employe.division" #division="ngModel" required
+             placeholder="Entrez la division" />
+      <div class="text-danger" *ngIf="division.invalid && (division.dirty || division.touched)">
+        La Division est obligatoire.
+      </div>
+    </div>
+
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
       <button type="submit" class="btn btn-primary" [disabled]="employeForm.invalid || loading">

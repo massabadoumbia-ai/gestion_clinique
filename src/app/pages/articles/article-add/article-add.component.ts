@@ -35,7 +35,8 @@ export class ArticleAddComponent implements OnInit {
     etat: '',
     commentaire: '',
     marqueId: 0,
-    categorieId: 0
+    categorieId: 0,
+    image: ''
   };
 
   size: NzSelectSizeType = 'large';
@@ -50,6 +51,9 @@ export class ArticleAddComponent implements OnInit {
   private marqueSearch$ = new BehaviorSubject<string>('');
   private categorieSearch$ = new BehaviorSubject<string>('');
 
+  selectedImageFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(
     private articlesService: ArticlesService,
     private marqueService: MarqueService,
@@ -58,39 +62,22 @@ export class ArticleAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.marqueSearch$
-      .pipe(
-        debounceTime(300),
-        switchMap(term => this.searchMarques(term))
-      )
-      .subscribe(list => {
-        this.marqueOptionList = list;
-        this.loadingMarque = false;
-      });
+    this.marqueSearch$.pipe(
+      debounceTime(300),
+      switchMap(term => this.searchMarques(term))
+    ).subscribe(list => { this.marqueOptionList = list; this.loadingMarque = false; });
 
-    this.categorieSearch$
-      .pipe(
-        debounceTime(300),
-        switchMap(term => this.searchCategories(term))
-      )
-      .subscribe(list => {
-        this.categorieOptionList = list;
-        this.loadingCategorie = false;
-      });
+    this.categorieSearch$.pipe(
+      debounceTime(300),
+      switchMap(term => this.searchCategories(term))
+    ).subscribe(list => { this.categorieOptionList = list; this.loadingCategorie = false; });
 
     this.onSearchMarque('');
     this.onSearchCategorie('');
   }
 
-  onSearchMarque(term: string) {
-    this.loadingMarque = true;
-    this.marqueSearch$.next(term);
-  }
-
-  onSearchCategorie(term: string) {
-    this.loadingCategorie = true;
-    this.categorieSearch$.next(term);
-  }
+  onSearchMarque(term: string) { this.loadingMarque = true; this.marqueSearch$.next(term); }
+  onSearchCategorie(term: string) { this.loadingCategorie = true; this.categorieSearch$.next(term); }
 
   private searchMarques(term: string) {
     return this.marqueService.getAllMarques().pipe(
@@ -106,23 +93,37 @@ export class ArticleAddComponent implements OnInit {
     );
   }
 
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImageFile = file;
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
+
   onSubmit() {
     this.errorMessages = [];
     this.loading = true;
 
     if (!this.article.libArt) this.errorMessages.push('Le libellé est obligatoire.');
-    if (this.article.stock < 0) this.errorMessages.push('Le stock doit être supérieur ou égal à 0.');
+    if (this.article.stock < 0) this.errorMessages.push('Le stock doit être ≥ 0.');
     if (!this.article.type) this.errorMessages.push('Le type est obligatoire.');
     if (!this.article.etat) this.errorMessages.push("L'état est obligatoire.");
     if (!this.article.marqueId) this.errorMessages.push('La marque est obligatoire.');
     if (!this.article.categorieId) this.errorMessages.push('La catégorie est obligatoire.');
 
-    if (this.errorMessages.length > 0) {
-      this.loading = false;
-      return;
+    if (this.errorMessages.length > 0) { this.loading = false; return; }
+
+     const formData = new FormData();
+    formData.append("article", new Blob([JSON.stringify(this.article)], { type: "application/json" }));
+    if (this.selectedImageFile) {
+      formData.append("image", this.selectedImageFile);
     }
 
-    this.articlesService.createArticle(this.article).subscribe({
+
+    this.articlesService.createArticle(formData).subscribe({
       next: () => {
         this.loading = false;
         alert('Article ajouté avec succès');
@@ -136,7 +137,5 @@ export class ArticleAddComponent implements OnInit {
     });
   }
 
-  onCancel() {
-    window.history.back();
-  }
+  onCancel() { window.history.back(); }
 }

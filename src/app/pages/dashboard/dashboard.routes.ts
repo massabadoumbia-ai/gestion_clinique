@@ -2,12 +2,12 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from '../../services/auth/auth-guard';
 import { DashboardComponent } from './dashboard.component';
 import { AddPermissionComponent } from '../permissions/add-permission/add-permission.component';
-import { DetailPermissionComponent } from '../permissions/detail-permission/detail-permission.component';
+
 import { EditPermissionComponent } from '../permissions/edit-permission/edit-permission.component';
 import { PermissionsComponent } from '../permissions/permissions.component';
 import { AddRoleComponent } from '../roles/add-role/add-role.component';
 import { AssignPermissionsComponent } from '../roles/assign-permissions/assign-permissions.component';
-import { DetailRoleComponent } from '../roles/detail-role/detail-role.component';
+
 import { EditRoleComponent } from '../roles/edit-role/edit-role.component';
 import { RolesComponent } from '../roles/roles.component';
 import { AddUserComponent } from '../users/add-user/add-user.component';
@@ -39,6 +39,8 @@ import { ReceptionComponent } from '../reception/reception.component';
 import { AffectationComponent } from '../affectation/affectation.component';
 import { AffectationAddComponent } from '../affectation/affectation-add/affectation-add.component';
 import { AffectationEditComponent } from '../affectation/affectation-edit/affectation-edit.component';
+import { AffectationDetailComponent } from '../affectation/affectation-detail/affectation-detail.component';
+import { AffectationReaffecterComponent } from '../affectation/affectation-reaffecter/affectation-reaffecter.component';
 
 export const DASHBOARD_ROUTES: Routes = [
   { path: 'dashboard', component: DashboardComponent,
@@ -51,13 +53,13 @@ export const DASHBOARD_ROUTES: Routes = [
    { path: 'roles-list', component: RolesComponent, canActivate:[AuthGuard] },
    { path: 'add-role', component: AddRoleComponent, canActivate:[AuthGuard] },
    { path: 'edit-role/:id', component: EditRoleComponent, canActivate:[AuthGuard] },
-   { path: 'detail-role', component: DetailRoleComponent, canActivate:[AuthGuard] },
+   
 
    { path: 'role-permissions/:id', component: AssignPermissionsComponent, canActivate:[AuthGuard]},
    { path: 'permissions-list', component: PermissionsComponent, canActivate:[AuthGuard] },
    { path: 'edit-permission/:id', component: EditPermissionComponent, canActivate:[AuthGuard] },
    { path: 'add-permission', component: AddPermissionComponent, canActivate:[AuthGuard]},
-   { path: 'detail-permission', component: DetailPermissionComponent, canActivate:[AuthGuard]},
+  
 
     { path: 'articles-list', component: ArticlesComponent, canActivate:[AuthGuard]},
    { path: 'article-add', component: ArticleAddComponent, canActivate:[AuthGuard]},
@@ -67,6 +69,8 @@ export const DASHBOARD_ROUTES: Routes = [
     { path: 'affectation-list', component: AffectationComponent , canActivate:[AuthGuard]},
    { path: 'affectation-add', component: AffectationAddComponent, canActivate:[AuthGuard]},
    { path: 'affectation-edit/:id', component: AffectationEditComponent , canActivate:[AuthGuard]},
+   { path: 'affectation-detail/:id', component: AffectationDetailComponent , canActivate:[AuthGuard]},
+   { path: 'affectation-reaffecter/:id', component: AffectationReaffecterComponent , canActivate:[AuthGuard]},
 
     { path: 'categorie-list', component: CategorieComponent, canActivate:[AuthGuard]},
    { path: 'categorie-add', component: CategorieAddComponent, canActivate:[AuthGuard]},

@@ -10,132 +10,66 @@
 
   <form (ngSubmit)="onSubmit()" #userForm="ngForm">
    
-    <div class="mb-3">
-      <label for="nom" class="form-label">Nom</label>
-      <input type="text" id="nom" class="form-control" name="nom"
-             [(ngModel)]="user.lastname" #nom="ngModel" required
-             placeholder="Entrez le nom" />
-      <div class="text-danger" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
-        Le nom est obligatoire.
+    <div class="row">
+      
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom</label>
+          <input type="text" class="form-control" id="nom" placeholder="Entrez le nom">
+        </div>
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Nom d'utilisateur</label>
+          <input type="text" class="form-control" id="username" placeholder="Entrez le nom d'utilisateur">
+        </div>
+
+        <div class="mb-3">
+          <label for="adresse" class="form-label">Adresse</label>
+          <input type="text" class="form-control" id="adresse" placeholder="Entrez l'adresse">
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" class="form-control" id="password" placeholder="Mot de passe">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="prenom" class="form-label">Prénom</label>
+          <input type="text" class="form-control" id="prenom" placeholder="Entrez le prénom">
+        </div>
+
+        <div class="mb-3">
+          <label for="dateNaissance" class="form-label">Date de naissance</label>
+          <input type="date" class="form-control" id="dateNaissance">
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Entrez l'email">
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmer le mot de passe">
+        </div>
       </div>
     </div>
 
-    
-    <div class="mb-3">
-      <label for="prenom" class="form-label">Prénom</label>
-      <input type="text" id="prenom" class="form-control" name="prenom"
-             [(ngModel)]="user.firstname" #prenom="ngModel" required
-             placeholder="Entrez le prénom" />
-      <div class="text-danger" *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)">
-        Le prénom est obligatoire.
-      </div>
-    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="mb-3">
+          <label for="telephone" class="form-label">Téléphone</label>
+          <input type="text" class="form-control" id="telephone" placeholder="8 chiffres">
+        </div>
 
-    <div class="mb-3">
-      <label for="username" class="form-label">Nom d'utilisateur</label>
-      <input type="text" id="username" class="form-control" name="username"
-             [(ngModel)]="user.username" #username="ngModel" required
-             placeholder="Entrez le nom d'utilisateur" />
-      <div class="text-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
-        Le nom d'utilisateur est obligatoire.
-      </div>
-    </div>
-
-   
-    <div class="mb-3">
-      <label for="dateNaissance" class="form-label">Date de naissance</label>
-      <input type="date" id="dateNaissance" class="form-control" name="dateNaissance"
-             [(ngModel)]="user.dateNaissance" #dateNaissance="ngModel" required />
-      <div class="text-danger" *ngIf="dateNaissance.invalid && (dateNaissance.dirty || dateNaissance.touched)">
-        La date de naissance est obligatoire.
-      </div>
-    </div>
-
-  
-    <div class="mb-3">
-      <label for="adresse" class="form-label">Adresse</label>
-      <input type="text" id="adresse" class="form-control" name="adresse"
-             [(ngModel)]="user.adresse" #adresse="ngModel" required
-             placeholder="Entrez l'adresse" />
-      <div class="text-danger" *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)">
-        L'adresse est obligatoire.
-      </div>
-    </div>
-
-  
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" id="email" class="form-control" name="email"
-             [(ngModel)]="user.email" #email="ngModel" required
-             placeholder="Entrez l'email" />
-      <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-        L'email est obligatoire et doit être valide.
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label for="telephone" class="form-label">Téléphone</label>
-      <input type="tel" id="telephone" class="form-control" name="telephone"
-             [(ngModel)]="user.telephone" #telephone="ngModel" required pattern="[0-9]{8}"
-             placeholder="8 chiffres" />
-      <div class="text-danger" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)">
-        Le téléphone est obligatoire et doit contenir 8 chiffres.
-      </div>
-    </div>
-
-    
-<div class="mb-3 position-relative">
-  <label for="password" class="form-label">Mot de passe</label>
-  <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control" name="password"
-         [(ngModel)]="user.password" #password="ngModel" required
-         placeholder="Mot de passe" />
-  
-  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'" 
-     (click)="showPassword = !showPassword"
-     style="position: absolute; top: 70%; right: 15px; cursor: pointer; transform: translateY(-50%);">
-  </i>
-  <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-    Le mot de passe est obligatoire.
-  </div>
-</div>
-
-
-<div class="mb-3 position-relative">
-  <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-  <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" class="form-control" name="confirmPassword"
-         [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required
-         placeholder="Confirmer le mot de passe" />
-  
-  <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'" 
-     (click)="showConfirmPassword = !showConfirmPassword"
-     style="position: absolute; top: 70%; right: 15px; cursor: pointer; transform: translateY(-50%);">
-  </i>
-  <div class="text-danger" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
-    La confirmation est obligatoire.
-  </div>
-</div>
-
-
-    
-   <div class="mb-3">
-      <label class="form-label">Rôle</label>
-      <nz-select
-        [(ngModel)]="user.roleName"
-        name="roleName"
-        #roleName="ngModel"
-        nzShowSearch
-        nzPlaceHolder="Sélectionner un rôle"
-        (nzOnSearch)="onSearchRole($event)"
-        [nzLoading]="loadingRoles"
-        [nzAllowClear]="true"
-        required
-      >
-        <nz-option *ngFor="let r of roleOptionList" [nzValue]="r.name">
-          {{ r.description }}
-        </nz-option>
-      </nz-select>
-      <div class="text-danger" *ngIf="roleName.invalid && (roleName.dirty || roleName.touched)">
-        Le rôle est obligatoire.
+        <div class="mb-3">
+          <label for="role" class="form-label">Rôle</label>
+          <select class="form-control" id="role">
+            <option value="">Sélectionner un rôle</option>
+          </select>
+        </div>
       </div>
     </div>
 

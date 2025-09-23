@@ -21,19 +21,23 @@
         <td class="text-center">{{ affectation.dateDebut}}</td>
         <td class="text-center">{{ affectation.dateFin}}</td>
         <td class="text-center">{{ affectation.nbrArticle }}</td>
-        <td class="text-center">{{ affectation.articlesId }}</td>
-        <td class="text-center">{{ affectation.employeId }}</td>
+        <td class="text-center">{{ affectation.libArt}}</td>
+        <td class="text-center">{{ affectation.employeNom }} {{ affectation.employePrenom }}</td>
         <td class="text-center">
           <div class="btn-group">
-            <button class="btn btn-outline-info" (click)="onDetail(affectation)" >
-              <i class="bi bi-pencil"></i> Détails
-            </button>
-            <button class="btn btn-warning btn-sm me-2" (click)="onEdit(affectation)" >
-              <i class="bi bi-pencil"></i> Modifier
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="onDelete(affectation)" >
-              <i class="bi bi-trash"></i> Supprimer
-            </button>
+            <a class="btn btn-info btn-sm me-2" (click)="onDetail(affectation)">
+            <i class="bi bi-eye"></i> 
+          </a>
+          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(affectation)">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" (click)="onDelete(affectation)">
+            <i class="bi bi-trash"></i>
+          </a>:
+          <a class="btn btn-primary btn-sm me-2" (click)="onReaffect(affectation)">
+            <i class="bi bi-arrow-repeat"></i>
+          </a>
+
           </div>
         </td>
       </tr>

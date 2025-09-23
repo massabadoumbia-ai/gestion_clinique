@@ -8,6 +8,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { AffectationArticlesResponseDto } from '../dto/affectation.models.dto';
 import { Router } from '@angular/router';
 import { AffectationService } from '../../services/affectation/affectation.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-affectation',
@@ -25,12 +26,12 @@ export class AffectationComponent implements OnInit {
    pageNumber: number = 0;
    sizeNumber: number = 10;
 
-  constructor( private AffectationService: AffectationService){}
+  constructor( private AffectationService: AffectationService, private fb: FormBuilder){}
    router = inject(Router)
 
     ngOnInit(): void {
      this.getAllAffectationByPage(this.pageNumber, this.sizeNumber); 
-     
+      
     }
 
   getAllAffectationByPage(page: number, size: number){
@@ -50,7 +51,7 @@ export class AffectationComponent implements OnInit {
     console.log('Créer une nouvelle affectation');
   }
 
-  onDetail(affectation: any) {
+  onDetail(affectation:AffectationArticlesResponseDto) {
     this.router.navigate(['/admin/dashboard/affectation-detail', affectation.id])
     console.log('Afficher les détails de :', affectation);
     
@@ -61,6 +62,11 @@ export class AffectationComponent implements OnInit {
     console.log('Modifier :', affectation);
     
   }
+
+  onReaffect(affectation: AffectationArticlesResponseDto) {
+  this.router.navigate(['/admin/dashboard/affectation-reaffecter', affectation.id]);
+   console.log('Reaffecter :', affectation);
+}
 
   onDelete(affectation: AffectationArticlesResponseDto) {
       if (confirm(`Voulez-vous vraiment supprimer l'afffectation avec l'ID ${affectation.id} ?`)) {
@@ -77,6 +83,8 @@ export class AffectationComponent implements OnInit {
     console.log('Suppression annulée');
   }
 }
+
+ 
 
   navigateToPage(event: number) {
 

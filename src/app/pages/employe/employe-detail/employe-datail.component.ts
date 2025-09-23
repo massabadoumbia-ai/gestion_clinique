@@ -16,7 +16,9 @@ export class EmployeDatailComponent implements OnInit {
     id: 0,
     nom: '',
     prenom: '',
-    poste: ''
+    poste: '',
+    email:'',
+    division:'',
   };
 
   private route = inject(ActivatedRoute);
@@ -46,6 +48,6 @@ export class EmployeDatailComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/admin/dashboard/employes-list']);
+    this.router.navigate(['/admin/dashboard/employe-list']);
   }
 }

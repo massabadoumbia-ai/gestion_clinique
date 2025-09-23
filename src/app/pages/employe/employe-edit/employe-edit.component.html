@@ -26,6 +26,20 @@
       </nz-form-control>
     </nz-form-item>
 
+     <nz-form-item>
+      <nz-form-label>Email</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="email" [(ngModel)]="employe.email" required placeholder="Entrez l'email"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Division</nz-form-label>
+      <nz-form-control>
+        <input nz-input name="division" [(ngModel)]="employe.division" required placeholder="Entrez la division"/>
+      </nz-form-control>
+    </nz-form-item>
+
     <div class="form-actions mt-3 d-flex justify-content-between">
       <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>
       <button nz-button nzType="primary" type="submit" [disabled]="!employeForm.form.valid || loading">

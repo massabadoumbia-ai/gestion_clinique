@@ -1,44 +1,48 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule, NzSelectSizeType } from 'ng-zorro-antd/select';
-import { Router } from '@angular/router';
-import { BehaviorSubject, of } from 'rxjs';
-import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
-
-import { AffectationService } from '../../../services/affectation/affectation.service';
-import { ArticlesService } from '../../../services/article/articles.service';
-import { EmployeService } from '../../../services/employe/employe.service';
 import { AffectationArticlesResponseDto } from '../../dto/affectation.models.dto';
 import { ArticlesResponseDto } from '../../dto/articles.models.dto';
 import { EmployeResponseDto } from '../../dto/employe.models.dto';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { AffectationService } from '../../../services/affectation/affectation.service';
+import { ArticlesService } from '../../../services/article/articles.service';
+import { EmployeService } from '../../../services/employe/employe.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { map } from 'rxjs/internal/operators/map';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
+import  dayjs from 'dayjs';
 
 @Component({
-  selector: 'app-affectation-add',
+  selector: 'app-affectation-reaffecter',
   standalone: true,
   imports: [CommonModule, FormsModule, NzFormModule, NzInputModule, NzButtonModule, NzSelectModule],
-  templateUrl: './affectation-add.component.html',
-  styleUrl: './affectation-add.component.css'
+  templateUrl: './affectation-reaffecter.component.html',
+  styleUrl: './affectation-reaffecter.component.css'
 })
-export class AffectationAddComponent implements OnInit {
+export class AffectationReaffecterComponent implements OnInit {
 
   affectation: AffectationArticlesResponseDto = {
+    id: 0,
+    articleId: 0,
+    employeId: 0,
+    libArt: '',
+    employeNom: '',
+    employePrenom: '',
+    employeEmail: '',
+    employePoste: '',
+    employeDivision: '',
+    etat: '',
     dateDebut: '',
     dateFin: '',
-    nbrArticle: 0,
-   libArt: '',
-    employeNom:'' , 
-    employePrenom: '', 
-    articleId:0,
-    employeId: 0,
-    employeEmail: '',   
-	 employePoste: '',      
-	 employeDivision: '',
-   etat:'',
-
+    nbrArticle: 0
   };
 
   size: NzSelectSizeType = 'large';
@@ -58,10 +62,26 @@ export class AffectationAddComponent implements OnInit {
     private affectationService: AffectationService,
     private articlesService: ArticlesService,
     private employeService: EmployeService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+    if (id) {
+      this.affectationService.getAffectationById(id).subscribe({
+        next: (data) => {
+          this.affectation = {
+          ...data,
+          dateDebut: data.dateDebut ? dayjs(data.dateDebut).format('YYYY-MM-DD') : '',
+          dateFin: data.dateFin ? dayjs(data.dateFin).format('YYYY-MM-DD') : ''
+    };
+          console.log('affectation ===>', this.affectation) 
+        },
+        error: (err) => console.error('Erreur récupération affectation :', err)
+      });
+    }
+
     this.articleSearch$
       .pipe(
         debounceTime(300),
@@ -115,28 +135,39 @@ export class AffectationAddComponent implements OnInit {
   onSubmit() {
     this.errorMessages = [];
     this.loading = true;
+    const debut = dayjs(this.affectation.dateDebut);
+  const fin = dayjs(this.affectation.dateFin);
 
-    if (!this.affectation.dateDebut) this.errorMessages.push('La date de début est obligatoire.');
-    if (!this.affectation.dateFin) this.errorMessages.push('La date de fin est obligatoire.');
+    if (!debut.isValid()) this.errorMessages.push('La date de début est invalide.');
+    if (!fin.isValid()) this.errorMessages.push('La date de fin est invalide.');
+    if (fin.isBefore(debut)) this.errorMessages.push('La date de fin doit être après la date de début.');
+
     if (this.affectation.nbrArticle <= 0) this.errorMessages.push('Le nombre d’articles doit être supérieur à 0.');
-    if (!this.affectation.libArt) this.errorMessages.push('Veuillez sélectionner un article.');
-    if (!this.affectation.employeNom) this.errorMessages.push('Veuillez sélectionner un employé.');
+    if (!this.affectation.articleId) this.errorMessages.push('Veuillez sélectionner un article.');
+    if (!this.affectation.employeId) this.errorMessages.push('Veuillez sélectionner un employé.');
+    if (!this.affectation.etat) this.errorMessages.push('Veuillez renseigner l’état.');
 
     if (this.errorMessages.length > 0) {
       this.loading = false;
       return;
     }
 
-    this.affectationService.createAffectation(this.affectation).subscribe({
+     const affectationPayload = {
+    ...this.affectation,
+    dateDebut: debut.toISOString(),
+    dateFin: fin.toISOString()
+  };
+
+    this.affectationService.reaffecter(this.affectation.id!, affectationPayload).subscribe({
       next: () => {
         this.loading = false;
-        alert('Affectation ajoutée avec succès');
+        alert('Affectation réaffectée avec succès');
         this.router.navigate(['/admin/dashboard/affectation-list']);
       },
       error: (err) => {
         this.loading = false;
-        console.error("Erreur lors de l'ajout :", err);
-        this.errorMessages.push("Erreur : " + (err.error?.message || "Impossible d'ajouter l'affectation."));
+        console.error("Erreur lors de la réaffectation :", err);
+        this.errorMessages.push("Erreur : " + (err.error?.message || "Impossible de réaffecter l'affectation."));
       }
     });
   }

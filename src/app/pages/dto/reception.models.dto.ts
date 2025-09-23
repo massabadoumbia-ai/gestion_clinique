@@ -2,6 +2,7 @@ export interface ReceptionRequestDto {
   dateReception: string;
   employeId?: number;
   fournisseurId?: number;
+   pv : string;
 }
 
 export interface ReceptionResponseDto {
@@ -11,7 +12,8 @@ export interface ReceptionResponseDto {
   fournisseurId: string;
   numReception: string;
   nbrArticle: number;
-  dateContrat: string
+  dateContrat: string;
+  pv : string;
 }
 export interface PageResponse<T> {
   content: T[];

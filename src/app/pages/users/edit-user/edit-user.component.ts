@@ -75,7 +75,7 @@ export class EditUserComponent implements OnInit {
     }
   }
 
-  onCancel(): void {
-    this.router.navigate(['/users']);
+  onCancel() {
+    window.history.back();
   }
 }

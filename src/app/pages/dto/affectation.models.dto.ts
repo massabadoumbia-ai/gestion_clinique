@@ -6,7 +6,7 @@ export interface AffectationArticlesDto{
   dateDebut: string;        
   dateFin: string;
   nbrArticle: number;
-  articlesId: ArticlesDto;   
+  articleId: ArticlesDto;   
   employeId: EmployeDto; 
 
 }
@@ -14,9 +14,16 @@ export interface AffectationArticlesResponseDto{
      id?: number;              
   dateDebut: string;        
   dateFin: string;
-  nbrArticle: number;
-  articlesId: number;   
-  employeId: number; 
+  nbrArticle: number;   
+  employeNom: String;
+   employePrenom: String; 
+   libArt: string;
+   employeId: number;
+   articleId: number;
+   employeEmail: string;      
+	 employePoste: string;      
+	 employeDivision: string;
+   etat: string;
 
 }
 export interface PageResponse<T> {

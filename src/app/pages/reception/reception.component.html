@@ -13,6 +13,7 @@
       <th class="text-center">Nombre d’articles</th>
       <th class="text-center">Employé</th>
       <th class="text-center">Fournisseur</th>
+      <th class="text-center">Procès-Verbal</th>
       <th class="text-center">Actions</th>
     </tr>
   </thead>
@@ -23,19 +24,20 @@
         <td class="text-center">{{ reception.dateContrat }}</td>
         <td class="text-center">{{ reception.dateReception }}</td>
         <td class="text-center">{{ reception.nbrArticle }}</td>
-        <td class="text-center">{{ reception.employeNom }}</td>
-        <td class="text-center">{{ reception.fournisseurNom }}</td>
+        <td class="text-center">{{ reception.employeId }}</td>
+        <td class="text-center">{{ reception.fournisseurId }}</td>
+        <td class="text-center">{{ reception.pv }}</td>
         <td class="text-center">
           <div class="btn-group">
-            <button class="btn btn-outline-info" (click)="onDetail(reception)" >
-              <i class="bi bi-eye"></i> Détails
-            </button>
-            <button class="btn btn-warning btn-sm me-2" (click)="onEdit(reception)" >
-              <i class="bi bi-pencil"></i> Modifier
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="onDelete(reception)" >
-              <i class="bi bi-trash"></i> Supprimer
-            </button>
+            <a class="btn btn-info btn-sm me-2" (click)="onDetail(reception)">
+            <i class="bi bi-eye"></i> 
+          </a>
+          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(reception)">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" (click)="onDelete(reception)">
+            <i class="bi bi-trash"></i>
+          </a>
           </div>
         </td>
       </tr>

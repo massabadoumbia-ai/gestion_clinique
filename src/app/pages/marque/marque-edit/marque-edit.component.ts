@@ -73,6 +73,6 @@ export class MarqueEditComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/admin/dashboard/marque']);
+    this.router.navigate(['/admin/dashboard/marque-list']);
   }
 }

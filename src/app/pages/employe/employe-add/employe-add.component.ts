@@ -21,7 +21,9 @@ export class EmployeAddComponent implements OnInit {
     id: 0,
     nom: '',
     prenom: '',
-    poste: ''
+    poste: '',
+    email: '',
+    division: '',
   };
 
   errorMessages: string[] = [];
@@ -44,6 +46,12 @@ export class EmployeAddComponent implements OnInit {
     if (!this.employe.poste || this.employe.poste.trim().length === 0) {
       this.errorMessages.push("Le poste est obligatoire.");
     }
+    if (!this.employe.email || this.employe.email.trim().length === 0) {
+      this.errorMessages.push("L'email est obligatoire.");
+    }
+    if (!this.employe.division || this.employe.division.trim().length === 0) {
+      this.errorMessages.push("La division est obligatoire.");
+    }
 
     if (this.errorMessages.length > 0) {
       this.loading = false;
@@ -54,7 +62,7 @@ export class EmployeAddComponent implements OnInit {
       next: () => {
         this.loading = false;
         alert('Employé ajouté avec succès');
-        this.router.navigate(['/admin/dashboard/employes-list']);
+        this.router.navigate(['/admin/dashboard/employe-list']);
       },
       error: err => {
         this.loading = false;

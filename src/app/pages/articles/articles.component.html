@@ -14,6 +14,7 @@
       <th class="text-center">État</th>
       <th class="text-center">Marque</th>
       <th class="text-center">Catégorie</th>
+      <th class="text-center">Image</th>
       <th class="text-center">Actions</th>
     </tr>
   </thead>
@@ -27,20 +28,18 @@
         <td class="text-center">{{ article.etat }}</td>
         <td class="text-center">{{ article.marqueId}}</td>
         <td class="text-center">{{ article.categorieId}}</td>
+        <td class="text-center">{{ article.image }}</td>
         <td class="text-center">
           <div class="btn-group">
-            <button class="btn btn-outline-info btn-sm me-2"
-                    (click)="onDetail(article)">
-              <i class="bi bi-eye"></i> Détails
-            </button>
-            <button class="btn btn-warning btn-sm me-2"
-                    (click)="onEdit(article)">
-              <i class="bi bi-pencil"></i> Modifier
-            </button>
-            <button class="btn btn-danger btn-sm"
-                    (click)="onDelete(article)">
-              <i class="bi bi-trash"></i> Supprimer
-            </button>
+            <a class="btn btn-info btn-sm me-2" (click)="onDetail(article)">
+            <i class="bi bi-eye"></i> 
+          </a>
+          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(article)">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" (click)="onDelete(article)">
+            <i class="bi bi-trash"></i>
+          </a>
           </div>
         </td>
       </tr>

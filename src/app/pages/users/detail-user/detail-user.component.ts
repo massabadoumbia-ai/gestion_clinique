@@ -52,8 +52,8 @@ export class DetailUserComponent implements OnInit {
     }
   }
 
-  onCancel(): void {
-    this.router.navigate(['/users-list']);
+  onCancel() {
+    window.history.back();
   }
 
   }

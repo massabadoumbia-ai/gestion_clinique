@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from '../../../services/article/articles.service';
-import { ArticlesDto, ArticlesResponseDto } from '../../dto/articles.models.dto';
+import { ArticlesResponseDto } from '../../dto/articles.models.dto';
 
 @Component({
   selector: 'app-article-detail',
@@ -22,8 +22,11 @@ export class ArticleDetailComponent implements OnInit {
     etat: '',
     commentaire: '',
     marqueId: 0,
-    categorieId: 0
+    categorieId: 0,
+    image: ''
   };
+
+  selectedImageFile?: File; 
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -33,15 +36,36 @@ export class ArticleDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.articlesService.getArticlesById(+id).subscribe({
-        next: (data: ArticlesDto) => this.article = data,
+        next: (data: ArticlesResponseDto) => this.article = data,
         error: () => alert('Erreur lors du chargement de l’article')
       });
     }
   }
 
+  onFileSelected(event: any): void {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedImageFile = event.target.files[0];
+    }
+  }
+
   onSubmit(): void {
     if (this.article.id) {
-      this.articlesService.updateArticles(this.article.id, this.article).subscribe({
+      const formData = new FormData();
+      formData.append('libArt', this.article.libArt);
+      formData.append('stock', this.article.stock.toString());
+      formData.append('niveauAlert', this.article.niveauAlert.toString());
+      formData.append('type', this.article.type);
+      formData.append('etat', this.article.etat);
+      formData.append('caracteristique', this.article.caracteristique || '');
+      formData.append('commentaire', this.article.commentaire || '');
+      formData.append('marqueId', this.article.marqueId.toString());
+      formData.append('categorieId', this.article.categorieId.toString());
+
+      if (this.selectedImageFile) {
+        formData.append('image', this.selectedImageFile);
+      }
+
+      this.articlesService.updateArticles(this.article.id, formData).subscribe({
         next: () => {
           alert('Article mis à jour avec succès');
           this.router.navigate(['/admin/dashboard/articles-list']);

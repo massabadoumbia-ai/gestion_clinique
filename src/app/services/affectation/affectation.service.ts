@@ -13,11 +13,11 @@ export class AffectationService {
   constructor(private http: HttpClient) {}
 
   createAffectation(dto: AffectationArticlesResponseDto): Observable<AffectationArticlesResponseDto> {
-    return this.http.post<AffectationArticlesResponseDto>(`${this.apiUrl}`, dto);
+    return this.http.post<AffectationArticlesResponseDto>(`${this.apiUrl}/create`, dto);
   }
 
   getAllAffectation(): Observable<AffectationArticlesResponseDto[]> {
-    return this.http.get<AffectationArticlesResponseDto[]>(`${this.apiUrl}`);
+    return this.http.get<AffectationArticlesResponseDto[]>(`${this.apiUrl}/list`);
   }
 
   getAffectationById(id: number): Observable<AffectationArticlesResponseDto> {
@@ -25,11 +25,11 @@ export class AffectationService {
   }
 
   updateAffectation(id: number, dto: AffectationArticlesResponseDto): Observable<AffectationArticlesResponseDto> {
-    return this.http.put<AffectationArticlesResponseDto>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<AffectationArticlesResponseDto>(`${this.apiUrl}/${id}/update`, dto);
   }
 
   deleteAffectation(id: number): Observable<AffectationArticlesResponseDto> {
-    return this.http.delete<AffectationArticlesResponseDto>(`${this.apiUrl}/${id}`);
+    return this.http.delete<AffectationArticlesResponseDto>(`${this.apiUrl}/${id}/delete`);
   }
 
   getAllAffectationByPage(page: number, size: number): Observable<{ content: AffectationArticlesResponseDto[], totalElements: number }> {
@@ -37,5 +37,12 @@ export class AffectationService {
     `${this.apiUrl}/page?page=${page}&size=${size}`
   );
 }
+
+reaffecter(id: number, dto: AffectationArticlesResponseDto): Observable<AffectationArticlesResponseDto> {
+  return this.http.put<AffectationArticlesResponseDto>(
+    `${this.apiUrl}/${id}/reaffecter`, dto
+  );
+}
+
 
 }

@@ -11,11 +11,11 @@ export class CategorieService {private apiUrl = 'http://localhost:8080/api/categ
   constructor(private http: HttpClient) {}
 
   createCategorie(dto: CategorieDto): Observable<CategorieResponseDto> {
-    return this.http.post<CategorieResponseDto>(this.apiUrl, dto);
+    return this.http.post<CategorieResponseDto>(`${this.apiUrl}/create`, dto);
   }
 
   getAllCategories(): Observable<CategorieResponseDto[]> {
-    return this.http.get<CategorieResponseDto[]>(this.apiUrl);
+    return this.http.get<CategorieResponseDto[]>(`${this.apiUrl}/list`);
   }
 
   getAllCategorieByPage(page: number, size: number): Observable<PageResponse<CategorieResponseDto>> {
@@ -26,10 +26,10 @@ export class CategorieService {private apiUrl = 'http://localhost:8080/api/categ
     return this.http.get<CategorieResponseDto>(`${this.apiUrl}/${id}`);
   }
   updateCategorie(id: number, dto: CategorieResponseDto): Observable<CategorieResponseDto> {
-    return this.http.put<CategorieResponseDto>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<CategorieResponseDto>(`${this.apiUrl}/${id}/update`, dto);
   }
 
   deleteCategorie(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}/delete`);
   }
 }

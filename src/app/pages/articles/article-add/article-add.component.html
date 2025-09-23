@@ -123,6 +123,14 @@
   </div>
 </div>
 
+ <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input type="file" id="image" class="form-control" (change)="onImageSelected($event)" accept="image/*" />
+      <div *ngIf="imagePreview" class="mt-2">
+        <img [src]="imagePreview" alt="Aperçu image" width="150" height="150"
+             style="object-fit: cover; border: 1px solid #ccc;" />
+      </div>
+    </div>
     
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>

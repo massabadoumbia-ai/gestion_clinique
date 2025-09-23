@@ -21,7 +21,9 @@ export class EmployeEditComponent implements OnInit {
     id: 0,
     nom: '',
     prenom: '',
-    poste: ''
+    poste: '',
+    email:'',
+    division: '',
   };
 
   loading = false;
@@ -40,7 +42,9 @@ export class EmployeEditComponent implements OnInit {
             id: data.id,
             nom: data.nom,
             prenom: data.prenom,
-            poste: data.poste
+            poste: data.poste,
+            email: data.email,
+            division: data.division
           };
         },
         error: () => alert('Erreur lors du chargement de l’employé')

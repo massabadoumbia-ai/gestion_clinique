@@ -19,8 +19,9 @@ export class ReceptionDetailComponent implements OnInit {
     dateContrat: '',
     dateReception: '',
     nbrArticle: 0,
-    employeNom: '',
-    fournisseurNom: '',
+    employeId: '',
+    fournisseurId: '',
+    pv:''
   };
 
   private route = inject(ActivatedRoute);

@@ -12,12 +12,12 @@ export class ReceptionService {
 
   constructor(private http: HttpClient) {}
 
-  createReception(dto: ReceptionResponseDto): Observable<ReceptionResponseDto> {
-    return this.http.post<ReceptionResponseDto>(`${this.apiUrl}`, dto);
-  }
+  createReception(formData: FormData): Observable<ReceptionResponseDto> {
+  return this.http.post<ReceptionResponseDto>('http://localhost:8080/api/receptions/create', formData);
+}
 
   getAllReception(): Observable<ReceptionResponseDto[]> {
-    return this.http.get<ReceptionResponseDto[]>(`${this.apiUrl}`);
+    return this.http.get<ReceptionResponseDto[]>(`${this.apiUrl}/list`);
   }
 
   getAllReceptionByPage(page: number, size: number): Observable<PageResponse<ReceptionResponseDto>> {
@@ -30,11 +30,17 @@ export class ReceptionService {
     return this.http.get<ReceptionResponseDto>(`${this.apiUrl}/${id}`);
   }
 
-  updateReception(id: number, dto: ReceptionResponseDto): Observable<ReceptionResponseDto> {
-    return this.http.put<ReceptionResponseDto>(`${this.apiUrl}/${id}`, dto);
-  }
+  updateReception(id: number, formData: FormData) {
+  return this.http.put<any>(`http://localhost:8080/api/receptions/${id}/update`, formData);
+}
+
 
   deleteReception(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}/delete`);
   }
+
+  Reception(formData: FormData): Observable<ReceptionResponseDto> {
+  return this.http.post<ReceptionResponseDto>('http://localhost:8080/api/receptions/create', formData);
+}
+
 }

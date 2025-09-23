@@ -27,9 +27,11 @@ export class ArticleEditComponent implements OnInit {
     etat: '',
     commentaire: '',
     marqueId: 0,
-    categorieId: 0
+    categorieId: 0,
+    image: ''
   };
 
+  selectedImageFile?: File; 
   loading = false;
   marqueList: any[] = [];
   categorieList: any[] = [];
@@ -44,7 +46,7 @@ export class ArticleEditComponent implements OnInit {
       this.articlesService.getArticlesById(+id).subscribe({
         next: (data: ArticlesDto) => this.article = data,
         error: () => alert('Erreur lors du chargement de l’article')
-       });
+      });
     }
 
     this.getMarques();
@@ -59,10 +61,32 @@ export class ArticleEditComponent implements OnInit {
     this.articlesService.getCategories().subscribe({ next: res => this.categorieList = res });
   }
 
+  onFileSelected(event: any): void {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedImageFile = event.target.files[0];
+    }
+  }
+
   onSubmit(): void {
     this.loading = true;
+
+    const formData = new FormData();
+    formData.append('libArt', this.article.libArt);
+    formData.append('stock', this.article.stock.toString());
+    formData.append('niveauAlert', this.article.niveauAlert.toString());
+    formData.append('type', this.article.type);
+    formData.append('etat', this.article.etat);
+    formData.append('caracteristique', this.article.caracteristique || '');
+    formData.append('commentaire', this.article.commentaire || '');
+    formData.append('marqueId', this.article.marqueId.toString());
+    formData.append('categorieId', this.article.categorieId.toString());
+
+    if (this.selectedImageFile) {
+      formData.append('image', this.selectedImageFile);
+    }
+
     if (this.article.id) {
-      this.articlesService.updateArticles(this.article.id, this.article).subscribe({
+      this.articlesService.updateArticles(this.article.id, formData).subscribe({
         next: () => {
           this.loading = false;
           alert('Article mis à jour avec succès');

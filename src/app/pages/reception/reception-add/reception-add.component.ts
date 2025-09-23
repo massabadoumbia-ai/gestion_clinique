@@ -32,12 +32,14 @@ export class ReceptionAddComponent implements OnInit {
     dateReception: '',
     nbrArticle: 0,
     employeId: '',
-    fournisseurId: ''
+    fournisseurId: '',
+    pv:''
   };
 
   size: NzSelectSizeType = 'large';
   errorMessages: string[] = [];
   loading = false;
+  selectedPvFile: File | null = null;
 
   employeOptionList: EmployeResponseDto[] = [];
   fournisseurOptionList: FournisseurResponseDto[] = [];
@@ -104,6 +106,13 @@ export class ReceptionAddComponent implements OnInit {
     );
   }
 
+onPvSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedPvFile = file;
+  }
+}
+
   onSubmit() {
     this.errorMessages = [];
     this.loading = true;
@@ -118,9 +127,15 @@ export class ReceptionAddComponent implements OnInit {
       this.loading = false;
       return;
     }
+ const formData = new FormData();
+  formData.append('reception', new Blob([JSON.stringify(this.reception)], { type: 'application/json' }));
 
-    this.receptionService.createReception(this.reception).subscribe({
-      next: () => {
+  if (this.selectedPvFile) {
+    formData.append('pv', this.selectedPvFile);
+  }
+
+  this.receptionService. createReception(formData).subscribe({
+    next: () => {
         this.loading = false;
         alert('Réception ajoutée avec succès');
         this.router.navigate(['/admin/dashboard/receptions-list']);

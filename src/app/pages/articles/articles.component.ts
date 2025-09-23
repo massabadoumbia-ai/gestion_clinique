@@ -33,7 +33,6 @@ export class ArticlesComponent implements OnInit {
   }
 
   getAllArticlesByPage(page: number, size: number) {
-    // Typage explicite pour la réponse paginée
     this.articlesService.getAllArticlesByPage(page, size).subscribe({
       next: (response: { content: ArticlesResponseDto[], totalElements: number }) => {
         console.log("PAGES ARTICLES :: ", response);

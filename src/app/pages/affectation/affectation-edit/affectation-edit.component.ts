@@ -23,11 +23,20 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 })
 export class AffectationEditComponent implements OnInit {
   affectation: AffectationArticlesResponseDto = {
+     id: 0,
+    articleId: 0,
+    employeId: 0,
+    libArt: '',
+    employeNom: '',
+    employePrenom: '',
+    employeEmail: '',
+    employePoste: '',
+    employeDivision: '',
+    etat: '',
     dateDebut: '',
     dateFin: '',
-    nbrArticle: 0,
-    articlesId: 0,
-    employeId: 0
+    nbrArticle: 0
+   
   };
 
   articleList: ArticlesResponseDto[] = [];
@@ -46,13 +55,22 @@ export class AffectationEditComponent implements OnInit {
     if (id) {
       this.affectationService.getAffectationById(+id).subscribe({
         next: (data: AffectationArticlesResponseDto) => {
-          this.affectation = {
-            dateDebut: data.dateDebut,
-            dateFin: data.dateFin,
-            nbrArticle: data.nbrArticle,
-            articlesId: data.articlesId,
-            employeId: data.employeId
-          };
+              this.affectation = {
+        id: data.id,
+        articleId: data.articleId,
+        libArt: data.libArt,
+        etat: data.etat,
+        employeId: data.employeId,
+        employeNom: data.employeNom,
+        employePrenom: data.employePrenom,
+        employeEmail: data.employeEmail,
+        employePoste: data.employePoste,
+        employeDivision: data.employeDivision,
+        dateDebut: data.dateDebut,
+        dateFin: data.dateFin,
+        nbrArticle: data.nbrArticle
+                };
+                
         },
         error: () => alert('Erreur lors du chargement de l’affectation')
       });
@@ -77,7 +95,7 @@ export class AffectationEditComponent implements OnInit {
         next: () => {
           this.loading = false;
           alert('Affectation mise à jour avec succès');
-          this.router.navigate(['/admin/dashboard/affectations-list']);
+          this.router.navigate(['/admin/dashboard/affectation-list']);
         },
         error: () => {
           this.loading = false;
@@ -88,6 +106,6 @@ export class AffectationEditComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/admin/dashboard/affectations-list']);
+    this.router.navigate(['/admin/dashboard/affectation-list']);
   }
 }

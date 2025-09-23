@@ -7,6 +7,7 @@ export interface ArticlesDto {
      type : string;
      etat :string;
      commentaire : string;
+     image: string;
      marqueId: number;
      categorieId: number;
 }
@@ -20,6 +21,7 @@ export interface ArticlesDto {
      type : string;
      etat :string;
      commentaire : string;
+     image: string ;
      marqueId: number;
      categorieId: number;
 }

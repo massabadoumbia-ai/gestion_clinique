@@ -23,15 +23,15 @@
             <td>{{ role.permissions?.length}} </td>
             <td>
 
-              <button class="btn btn-outline-info" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
-                <i class="bi bi-pencil"></i> Assigner
-              </button>
-              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(role)" *hasPermission="'EDIT_ROLE'">
-                <i class="bi bi-pencil"></i> Modifier
-              </button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(role)" *hasPermission="'DELETE_ROLE'">
-                <i class="bi bi-trash"></i> Supprimer
-              </button>
+              <a class="btn btn-info btn-sm me-2" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-warning btn-sm me-2" (click)="onEdit(role)" *hasPermission="'EDIT_ROLE'">
+                <i class="bi bi-pencil"></i> 
+              </a>
+              <a class="btn btn-danger btn-sm" (click)="onDelete(role)" *hasPermission="'DELETE_ROLE'">
+                <i class="bi bi-trash"></i> 
+              </a>
             </td>
           </tr>
         }
