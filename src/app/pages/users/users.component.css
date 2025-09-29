@@ -1,3 +1,17 @@
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+ 
+ 
+ 
+}
+
+.container h2 {
+ 
+  color: #007bff;
+  margin-bottom: 20px;
+}
 
 .btn-create {
   margin-bottom: 20px;

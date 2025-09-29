@@ -24,6 +24,11 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {}
 
+  togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
+
   ngOnInit() {
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
   }

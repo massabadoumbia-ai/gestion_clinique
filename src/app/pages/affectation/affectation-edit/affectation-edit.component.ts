@@ -12,18 +12,18 @@ import { FormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-
+import  dayjs from 'dayjs';
 
 @Component({
   selector: 'app-affectation-edit',
   standalone: true,
   imports: [CommonModule, FormsModule, NzFormModule, NzInputModule, NzButtonModule, NzSelectModule],
   templateUrl: './affectation-edit.component.html',
-  styleUrl: './affectation-edit.component.css'
+  styleUrls: ['./affectation-edit.component.css']
 })
 export class AffectationEditComponent implements OnInit {
   affectation: AffectationArticlesResponseDto = {
-     id: 0,
+    id: 0,
     articleId: 0,
     employeId: 0,
     libArt: '',
@@ -36,7 +36,6 @@ export class AffectationEditComponent implements OnInit {
     dateDebut: '',
     dateFin: '',
     nbrArticle: 0
-   
   };
 
   articleList: ArticlesResponseDto[] = [];
@@ -55,22 +54,11 @@ export class AffectationEditComponent implements OnInit {
     if (id) {
       this.affectationService.getAffectationById(+id).subscribe({
         next: (data: AffectationArticlesResponseDto) => {
-              this.affectation = {
-        id: data.id,
-        articleId: data.articleId,
-        libArt: data.libArt,
-        etat: data.etat,
-        employeId: data.employeId,
-        employeNom: data.employeNom,
-        employePrenom: data.employePrenom,
-        employeEmail: data.employeEmail,
-        employePoste: data.employePoste,
-        employeDivision: data.employeDivision,
-        dateDebut: data.dateDebut,
-        dateFin: data.dateFin,
-        nbrArticle: data.nbrArticle
-                };
-                
+          this.affectation = {
+            ...data,
+            dateDebut: data.dateDebut ? dayjs(data.dateDebut).format('YYYY-MM-DD') : '',
+            dateFin: data.dateFin ? dayjs(data.dateFin).format('YYYY-MM-DD') : ''
+          };
         },
         error: () => alert('Erreur lors du chargement de l’affectation')
       });
@@ -91,7 +79,19 @@ export class AffectationEditComponent implements OnInit {
     this.loading = true;
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.affectationService.updateAffectation(+id, this.affectation).subscribe({
+      
+      
+     const debut = dayjs(this.affectation.dateDebut);
+const fin = dayjs(this.affectation.dateFin);
+
+const affectationPayload = {
+  ...this.affectation,
+  dateDebut: debut.isValid() ? debut.toISOString() : '',
+  dateFin: fin.isValid() ? fin.toISOString() : ''
+};
+
+
+      this.affectationService.updateAffectation(+id, affectationPayload).subscribe({
         next: () => {
           this.loading = false;
           alert('Affectation mise à jour avec succès');

@@ -19,3 +19,25 @@
   border-radius: 10px;
   font-weight: bold;
 }
+.password-wrapper {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 2.5rem; /* espace pour l'icône */
+}
+
+.password-wrapper i.bi {
+  position: absolute;
+  top: 70%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.password-wrapper i.bi:hover {
+  color: #0d6efd; /* bleu au hover */
+}

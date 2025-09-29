@@ -17,7 +17,7 @@ export class DetailUserComponent implements OnInit {
       firstname: '',
       lastname: '',
       username: '',
-     dateNaissance: new Date ,
+     dateNaissance:'' ,
       adresse: '',
       email: '',
       telephone: '',

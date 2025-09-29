@@ -1,17 +1,4 @@
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 25px 30px;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
-.container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-}
 
 h1 {
   text-align: center;
@@ -37,7 +24,7 @@ h1 {
 }
 
 .table tbody tr:hover {
-  background-color: #e6f2ff;
+  background-color: #17304a;
 }
 
 .table th, .table td {

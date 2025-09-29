@@ -9,10 +9,13 @@
 
   <form (ngSubmit)="onSubmit()" #receptionForm="ngForm">
     
+   <div class="row">
+  <div class="col-md-6">
     <div class="mb-3">
       <label for="numReception" class="form-label">Numéro de réception</label>
       <input type="text" id="numReception" class="form-control" name="numReception"
-             [(ngModel)]="reception.numReception" #numReception="ngModel" required />
+             [(ngModel)]="reception.numReception" #numReception="ngModel" required
+             placeholder="Ex: REC-001" />
       <div class="text-danger" *ngIf="numReception.invalid && (numReception.dirty || numReception.touched)">
         Le numéro de réception est obligatoire.
       </div>
@@ -26,7 +29,9 @@
         La date du contrat est obligatoire.
       </div>
     </div>
+  </div>
 
+  <div class="col-md-6">
     <div class="mb-3">
       <label for="datereception" class="form-label">Date de réception</label>
       <input type="date" id="datereception" class="form-control" name="datereception"
@@ -39,12 +44,14 @@
     <div class="mb-3">
       <label for="nbrArticle" class="form-label">Nombre d'articles</label>
       <input type="number" id="nbrArticle" class="form-control" name="nbrArticle"
-             [(ngModel)]="reception.nbrArticle" #nbrArticle="ngModel" required min="1" />
+             [(ngModel)]="reception.nbrArticle" #nbrArticle="ngModel" required min="1"
+             placeholder="Entrez le nombre d'articles" />
       <div class="text-danger" *ngIf="nbrArticle.invalid && (nbrArticle.dirty || nbrArticle.touched)">
-        Le nombre d'articles doit être supérieur à 0.
+        Le nombre d'articles est obligatoire et doit être supérieur à 0.
       </div>
     </div>
-
+  </div>
+</div>
     <div class="mb-3">
       <label for="employe" class="form-label">Employé</label>
       <select id="employe" class="form-select" name="employe"

@@ -8,7 +8,8 @@
   </div>
 
   <form (ngSubmit)="onSubmit()" #receptionForm="ngForm">
-    
+  <div class="row">
+  <div class="col-md-6">
     <div class="mb-3">
       <label for="numReception" class="form-label">Numéro de réception</label>
       <input type="text" id="numReception" class="form-control" name="numReception"
@@ -27,7 +28,9 @@
         La date du contrat est obligatoire.
       </div>
     </div>
+  </div>
 
+  <div class="col-md-6">
     <div class="mb-3">
       <label for="datereception" class="form-label">Date de réception</label>
       <input type="date" id="datereception" class="form-control" name="datereception"
@@ -46,7 +49,12 @@
         Le nombre d'articles est obligatoire et doit être supérieur à 0.
       </div>
     </div>
-<nz-select
+  </div>
+</div>
+
+  <div class="mb-3">
+  <label class="form-label">Employe</label>
+<nz-select class="w-100"
   nzShowSearch
   nzPlaceHolder="Sélectionner un employé"
   [(ngModel)]="reception.employeId" 
@@ -64,13 +72,14 @@
     [nzLabel]="emp.nom + ' ' + emp.prenom">
   </nz-option>
 </nz-select>
+</div>
 
 
 
 
     <div class="mb-3">
   <label class="form-label">Fournisseur</label>
-  <nz-select
+  <nz-select class="w-100"
     nzShowSearch
     nzPlaceHolder="Sélectionner un fournisseur"
     [(ngModel)]="reception.fournisseurId"

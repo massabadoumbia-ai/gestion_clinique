@@ -1,74 +1,125 @@
-.btn-create{
-  margin-bottom: 16px;
-}
-
- .ant-table-thead > tr > th {
-  background-color: #1a237e; 
-  color: #fff;            
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 14px;
-  border: none;
-  text-align: center;
-}
-
-
-.users-container {
-  padding: 32px;
-  background-color: white 
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+ 
+ 
  
 }
 
-
-.toolbar {
+.container h2 {
+ 
+  color: #007bff;
   margin-bottom: 20px;
 }
 
-.toolbar button {
-  font-weight: bold;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+.btn-create {
+  margin-bottom: 20px;
+  text-align: right;
 }
 
- .ant-table-wrapper {
+
+.btn-create .btn-primary {
+  border-radius: 12px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 700;
+  padding: 8px 18px;
+  transition: all 0.3s ease;
+}
+
+.btn-create .btn-primary:hover {
+  background-color: #00bfff;
+  box-shadow: 0 5px 15px rgba(0,191,255,0.4);
+}
+
+
+.table {
+  width: 100%;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  background-color: rgb(182, 219, 240);
-  color: #001f3f;
+  box-shadow: 0 5px 15px rgba(35, 6, 120, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
 }
 
 
-
- .ant-table-tbody > tr > td {
-  padding: 12px;
-  border-bottom: 1px solid #1b044a;
-  font-weight: 500;
-  color: #001f3f;
+.table thead {
+  background-color: #87ceeb;
+  color: #ffffff;
+  font-weight: 700;
 }
 
-.ant-table-tbody > tr > td:last-child button {
-  margin-right: 8px;
-  font-weight: bold;
-}
-
- .ant-table-tbody > tr:hover {
-  background-color: #0e033d;
-}
-
-.btn-success {
-  background-color: #52c41a !important;  
-  border-color: #52c41a !important;
-  color: white !important;
-  font-weight: bold;
-  border-radius: 6px;
-} 
-.icon-spacing {
-  margin-right: 6px;
-}
-.me-1 {
-  margin-right: 6px;
+.table th,
+.table td {
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+  border-color: #dddddd;
 }
 
 
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
 
+.table tbody tr:hover {
+  background-color: #f0f8ff; 
+}
+
+
+.btn-group .btn {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.btn-info:hover {
+  background-color: #33cfff;
+  box-shadow: 0 4px 10px rgba(51,207,255,0.3);
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #ffd75f;
+  box-shadow: 0 4px 10px rgba(255,215,95,0.3);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #e74c5e;
+  box-shadow: 0 4px 10px rgba(231,76,94,0.3);
+}
+
+
+nz-pagination {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    font-size: 0.85em;
+    padding: 8px;
+  }
+
+  .btn-create .btn-primary {
+    padding: 6px 14px;
+  }
+}

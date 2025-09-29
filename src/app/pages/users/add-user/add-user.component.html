@@ -10,8 +10,7 @@
 
   <form (ngSubmit)="onSubmit()" #userForm="ngForm">
    
-    <div class="row">
-      
+   <div class="row">
       <div class="col-md-6">
         <div class="mb-3">
           <label for="nom" class="form-label">Nom</label>
@@ -31,6 +30,9 @@
         <div class="mb-3">
           <label for="password" class="form-label">Mot de passe</label>
           <input type="password" class="form-control" id="password" placeholder="Mot de passe">
+          <i class="bi" 
+     [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+     (click)="togglePassword()"></i>
         </div>
       </div>
 
@@ -53,23 +55,42 @@
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
           <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmer le mot de passe">
+          <i class="bi" 
+     [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+     (click)="togglePassword()"></i>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="mb-3">
-          <label for="telephone" class="form-label">Téléphone</label>
-          <input type="text" class="form-control" id="telephone" placeholder="8 chiffres">
-        </div>
+ <div class="mb-3">
+      <label for="telephone" class="form-label">Téléphone</label>
+      <input type="tel" id="telephone" class="form-control" name="telephone"
+             [(ngModel)]="user.telephone" #telephone="ngModel" required pattern="[0-9]{8}"
+             placeholder="8 chiffres" />
+      <div class="text-danger" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)">
+        Le téléphone est obligatoire et doit contenir 8 chiffres.
+      </div>
+    </div>
 
-        <div class="mb-3">
-          <label for="role" class="form-label">Rôle</label>
-          <select class="form-control" id="role">
-            <option value="">Sélectionner un rôle</option>
-          </select>
-        </div>
+    
+   <div class="mb-3">
+      <label class="form-label">Rôle</label>
+      <nz-select class="w-100"
+        [(ngModel)]="user.roleName"
+        name="roleName"
+        #roleName="ngModel"
+        nzShowSearch
+        nzPlaceHolder="Sélectionner un rôle"
+        (nzOnSearch)="onSearchRole($event)"
+        [nzLoading]="loadingRoles"
+        [nzAllowClear]="true"
+        required
+      >
+        <nz-option *ngFor="let r of roleOptionList" [nzValue]="r.name" [nzLabel]="r.name">
+        </nz-option>
+      </nz-select>
+      <div class="text-danger" *ngIf="roleName.invalid && (roleName.dirty || roleName.touched)">
+        Le rôle est obligatoire.
       </div>
     </div>
 
@@ -88,4 +109,4 @@
         </button>
     </div>
   </form>
-</div>
+</div>  

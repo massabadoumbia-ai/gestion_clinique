@@ -1,69 +1,103 @@
 
 <div class="container" >
   <div class="w-100" nz-flex nzJustify="flex-start">
-    <h2>Modifier un utilisateur</h2>
+    <h2 class="mb-3">Modifier un utilisateur</h2>
   </div>
 
   <form (ngSubmit)="onSubmit()" #userForm="ngForm" nz-form nzLayout="vertical">
-    <nz-form-item >
-      <nz-form-label>Nom</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="lastname" [(ngModel)]="user.lastname" required placeholder="Entrez le nom"/>
-      </nz-form-control>
-    </nz-form-item>
+    
+     <div class="row">
+     
+      <div class="col-md-6">
+   <div class="mb-3">
+  <label for="nom" class="form-label">Nom</label>
+  <input type="text" class="form-control" id="nom" placeholder="Entrez le nom"
+         [(ngModel)]="user.lastname" name="nom" #nom="ngModel" required>
+</div>
 
-    <nz-form-item>
-      <nz-form-label>Prénom</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="firstname" [(ngModel)]="user.firstname" required placeholder="Entrez le prénom"/>
-      </nz-form-control>
-    </nz-form-item>
+<div class="mb-3">
+  <label for="username" class="form-label">Nom d'utilisateur</label>
+  <input type="text" class="form-control" id="username" placeholder="Entrez le nom d'utilisateur"
+         [(ngModel)]="user.username" name="username" #username="ngModel" required>
+</div>
 
-    <nz-form-item>
-      <nz-form-label>Nom d'utilisateur</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="username" [(ngModel)]="user.username" required placeholder="Entrez le nom d'utilisateur"/>
-      </nz-form-control>
-    </nz-form-item>
+<div class="mb-3">
+  <label for="adresse" class="form-label">Adresse</label>
+  <input type="text" class="form-control" id="adresse" placeholder="Entrez l'adresse"
+         [(ngModel)]="user.adresse" name="adresse">
+</div>
 
-    <nz-form-item>
-      <nz-form-label>Date de naissance</nz-form-label>
-      <nz-form-control>
-        <input nz-input type="da" name="age" [(ngModel)]="user.dateNaissance" required min="0" placeholder="Entrez la date de naissance"/>
-      </nz-form-control>
-    </nz-form-item>
+<div class="mb-3">
+  <label for="password" class="form-label">Mot de passe</label>
+  <input type="password" class="form-control" id="password" placeholder="Mot de passe"
+         [(ngModel)]="user.password" name="password" required>
+         <i class="bi" 
+     [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+     (click)="togglePassword()"></i>
+</div>
+</div>
 
-    <nz-form-item>
-      <nz-form-label>Adresse</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="adresse" [(ngModel)]="user.adresse" required placeholder="Entrez l'adresse"/>
-      </nz-form-control>
-    </nz-form-item>
+<div class="col-md-6">
+      <div class="mb-3">
+  <label for="prenom" class="form-label">Prénom</label>
+  <input type="text" class="form-control" id="prenom" placeholder="Entrez le prénom"
+         [(ngModel)]="user.firstname" name="prenom" required>
+</div>
 
-    <nz-form-item>
-      <nz-form-label>Email</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="email" [(ngModel)]="user.email" required placeholder="Entrez l'email"/>
-      </nz-form-control>
-    </nz-form-item>
+<div class="mb-3">
+  <label for="dateNaissance" class="form-label">Date de naissance</label>
+  <input type="date" class="form-control" id="dateNaissance"
+         [(ngModel)]="user.dateNaissance" name="dateNaissance">
+</div>
 
-    <nz-form-item >
-      <nz-form-label>Téléphone</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="telephone" [(ngModel)]="user.telephone" required placeholder="8 chiffres"/>
-      </nz-form-control>
-    </nz-form-item>
+<div class="mb-3">
+  <label for="email" class="form-label">Email</label>
+  <input type="email" class="form-control" id="email" placeholder="Entrez l'email"
+         [(ngModel)]="user.email" name="email">
+</div>
 
-    <nz-form-item>
-      <nz-form-label>Rôle</nz-form-label>
-      <nz-form-control>
-        <nz-select name="role" [(ngModel)]="user.roleName" required placeholder="Sélectionner le rôle" [nzSize]="size">
-          @for (role of roleList; track $index) {
-            <nz-option [nzValue]="role.name" [nzLabel]="role.description!"></nz-option>
-          }
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
+<div class="mb-3">
+  <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+  <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmer le mot de passe"
+         [(ngModel)]="user.confirmPassword" name="confirmPassword">
+         <i class="bi" 
+     [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+     (click)="togglePassword()"></i>
+</div>
+</div>
+</div>
+
+
+ <div class="mb-3">
+      <label for="telephone" class="form-label">Téléphone</label>
+      <input type="tel" id="telephone" class="form-control" name="telephone"
+             [(ngModel)]="user.telephone" #telephone="ngModel" required pattern="[0-9]{8}"
+             placeholder="8 chiffres" />
+      <div class="text-danger" *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)">
+        Le téléphone est obligatoire et doit contenir 8 chiffres.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rôle</label>
+      <nz-select class="w-100"
+        [(ngModel)]="user.roleName"
+        name="roleName"
+        #roleName="ngModel"
+        nzShowSearch
+        nzPlaceHolder="Sélectionner un rôle"
+        (nzOnSearch)="onSearchRole($event)"
+        [nzLoading]="loadingRoles"
+        [nzAllowClear]="true"
+        required
+      >
+        <nz-option *ngFor="let r of roleOptionList" [nzValue]="r.name" [nzLabel]="r.name">
+        </nz-option>
+      </nz-select>
+      <div class="text-danger" *ngIf="roleName.invalid && (roleName.dirty || roleName.touched)">
+        Le rôle est obligatoire.
+      </div>
+    </div>
 
     <div class="form-actions">
       <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>

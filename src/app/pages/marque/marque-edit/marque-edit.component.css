@@ -1,69 +1,78 @@
-.form-container {
-  max-width: 650px;
-  margin: 40px auto;
-  padding: 2rem 2.5rem;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e4e9f0;
+/* Container du formulaire */
+.container {
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  margin: 30px auto;
 }
 
+/* Titre du formulaire */
 h2 {
-  text-align: left;
-  color: #002b5c;
-  font-weight: 600;
-  margin-bottom: 32px;
-  font-size: 1.5rem;
+  color: #1a3e6c;
+  font-weight: 700;
+  margin-bottom: 25px;
 }
 
-.nz-form-item {
-  margin-bottom: 20px;
-}
-
-input[nz-input] {
-  border-radius: 6px;
-  height: 38px;
-  padding: 0 12px;
-  font-size: 15px;
-}
-
-input[nz-input]:focus {
-  border-color: #1677ff;
-  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
-}
-
-.form-actions {
-  margin-top: 32px;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-button[nz-button] {
-  min-width: 120px;
-  height: 40px;
-  font-weight: bold;
+/* Inputs */
+input.form-control {
   border-radius: 8px;
-  transition: all 0.3s ease;
+  border: 1px solid #d9d9d9;
+  padding: 8px 12px;
+  transition: all 0.3s;
 }
 
-button[nzType="primary"] {
-  background-color: #1677ff !important;
-  color: #fff !important;
-  border: none !important;
+input.form-control:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.3);
 }
 
-button[nzType="primary"]:hover {
-  background-color: #155ecf !important;
+/* Messages d'erreur */
+.text-danger {
+  font-size: 0.85rem;
+  margin-top: 4px;
 }
 
-.btn-vert {
-  background-color: #28a745 !important;
-  color: white !important;
-  border: none !important;
+/* Boutons */
+button.btn {
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s;
 }
 
-.btn-vert:hover {
-  background-color: #218838 !important;
+/* Bouton Retour - gris */
+button.btn-secondary {
+  background-color:#0ca22d ! important;
+  color: #ffffff;
+  border: none;
 }
 
+button.btn-secondary:hover {
+  background-color:#0ca22d ! important;
+  color: #fff;
+}
+
+/* Bouton Envoyer - bleu */
+button.btn-primary {
+  background-color: #1a73e8  ! important;
+  color: #ffffff;
+  border: none;
+}
+
+button.btn-primary:hover {
+  background-color: #1459b3 ! important;
+  color: #fff;
+}
+
+/* Spinner aligné avec le texte */
+.spinner-border {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Flex pour boutons */
+.d-flex.justify-content-between {
+  margin-top: 20px;
+}

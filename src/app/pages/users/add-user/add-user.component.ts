@@ -12,6 +12,7 @@ import { RoleResponseDto } from '../../dto/role.models.dto';
 import { UserDto } from '../../dto/user.modols.dto';
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+import  dayjs from 'dayjs';
 
 @Component({
   selector: 'app-add-user',
@@ -26,7 +27,7 @@ export class AddUserComponent implements OnInit {
     firstname: '',
     lastname: '',
     username: '',
-    dateNaissance: new Date(),
+    dateNaissance:'',
     adresse: '',
     email: '',
     roleName: '',  
@@ -50,6 +51,11 @@ export class AddUserComponent implements OnInit {
     private router: Router,
     private roleService: RoleService
   ) {}
+
+
+   togglePassword() {
+  this.showPassword = !this.showPassword;
+}  
 
   ngOnInit(): void {
     this.roleSearch$
@@ -98,6 +104,11 @@ export class AddUserComponent implements OnInit {
       this.loading = false;
       return;
     }
+
+    const userToSend = {
+      ...this.user,
+      dateNaissance: this.user.dateNaissance? dayjs(this.user.dateNaissance).format('YYYY-MM-DD'): '',
+    };
 
     this.userService.createUser(this.user).subscribe({
       next: () => {
