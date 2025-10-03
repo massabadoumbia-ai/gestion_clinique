@@ -4,13 +4,14 @@ import { NzPaginationComponent } from "ng-zorro-antd/pagination";
 import { ReceptionResponseDto } from '../dto/reception.models.dto';
 import { ReceptionService } from '../../services/reception/reception.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reception',
   standalone: true,
-  imports: [NzPaginationComponent],
+  imports: [NzPaginationComponent, CommonModule,],
   templateUrl: './reception.component.html',
-  styleUrl: './reception.component.css'
+  styleUrls: ['./reception.component.css']
 })
 export class ReceptionComponent implements OnInit {
 
@@ -20,8 +21,8 @@ export class ReceptionComponent implements OnInit {
   pageNumber: number = 0;
   sizeNumber: number = 10;
 
-  constructor(private receptionService: ReceptionService) {}
-  router = inject(Router);
+  private receptionService = inject(ReceptionService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.getAllReceptionByPage(this.pageNumber, this.sizeNumber);
@@ -42,17 +43,14 @@ export class ReceptionComponent implements OnInit {
 
   onCreateReception() {
     this.router.navigate(['/admin/dashboard/reception-add']);
-    console.log('Créer une nouvelle réception');
   }
 
   onDetail(reception: ReceptionResponseDto) {
     this.router.navigate(['/admin/dashboard/reception-detail', reception.id]);
-    console.log('Afficher les détails de :', reception);
   }
 
   onEdit(reception: ReceptionResponseDto) {
     this.router.navigate(['/admin/dashboard/reception-edit', reception.id]);
-    console.log('Modifier :', reception);
   }
 
   onDelete(reception: ReceptionResponseDto) {
@@ -66,13 +64,11 @@ export class ReceptionComponent implements OnInit {
           console.error('Erreur lors de la suppression :', err);
         }
       });
-    } else {
-      console.log('Suppression annulée');
     }
   }
 
   navigateToPage(event: number) {
-    console.log('TO PAGE :: ', event);
-    this.getAllReceptionByPage(event - 1, this.sizeNumber);
+    this.pageNumber = event - 1;
+    this.getAllReceptionByPage(this.pageNumber, this.sizeNumber);
   }
 }

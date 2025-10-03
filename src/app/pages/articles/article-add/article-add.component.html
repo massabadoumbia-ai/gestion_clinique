@@ -75,7 +75,7 @@
     </div>
 <div class="mb-3">
   <label class="form-label">Marque</label>
-  <nz-select
+  <nz-select class="w-100"
     [(ngModel)]="article.marqueId"
     name="marqueId"
     #marqueId="ngModel"
@@ -100,7 +100,7 @@
 
 <div class="mb-3">
   <label class="form-label">Catégorie</label>
-  <nz-select
+  <nz-select class="w-100"
     [(ngModel)]="article.categorieId"
     name="categorieId"
     #categorieId="ngModel"
@@ -127,9 +127,9 @@
       <label for="image" class="form-label">Image</label>
       <input type="file" id="image" class="form-control" (change)="onImageSelected($event)" accept="image/*" />
       <div *ngIf="imagePreview" class="mt-2">
-        <img [src]="imagePreview" alt="Aperçu image" width="150" height="150"
-             style="object-fit: cover; border: 1px solid #ccc;" />
-      </div>
+  <img [src]="imagePreview" alt="Aperçu image" width="50" height="50"
+       style="object-fit: cover; border-radius: 5px; border: 1px solid #ccc;" />
+</div>
     </div>
     
     <div class="d-flex justify-content-between">

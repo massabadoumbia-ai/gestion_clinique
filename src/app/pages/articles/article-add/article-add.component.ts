@@ -36,6 +36,8 @@ export class ArticleAddComponent implements OnInit {
     commentaire: '',
     marqueId: 0,
     categorieId: 0,
+     marqueNom: '',
+    categorieNom: '',
     image: ''
   };
 
@@ -111,8 +113,6 @@ export class ArticleAddComponent implements OnInit {
     if (this.article.stock < 0) this.errorMessages.push('Le stock doit être ≥ 0.');
     if (!this.article.type) this.errorMessages.push('Le type est obligatoire.');
     if (!this.article.etat) this.errorMessages.push("L'état est obligatoire.");
-    if (!this.article.marqueId) this.errorMessages.push('La marque est obligatoire.');
-    if (!this.article.categorieId) this.errorMessages.push('La catégorie est obligatoire.');
 
     if (this.errorMessages.length > 0) { this.loading = false; return; }
 
@@ -127,7 +127,7 @@ export class ArticleAddComponent implements OnInit {
       next: () => {
         this.loading = false;
         alert('Article ajouté avec succès');
-        this.router.navigate(['/admin/dashboard/articles-list']);
+        this.router.navigate(['/admin/dashboard/article-list']);
       },
       error: err => {
         this.loading = false;

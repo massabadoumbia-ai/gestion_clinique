@@ -9,7 +9,10 @@ export interface ArticlesDto {
      commentaire : string;
      image: string;
      marqueId: number;
+      marqueNom: string;
+    categorieNom: string;
      categorieId: number;
+     
 }
 
  export interface ArticlesResponseDto {
@@ -24,6 +27,8 @@ export interface ArticlesDto {
      image: string ;
      marqueId: number;
      categorieId: number;
+     marqueNom: string;
+    categorieNom: string;
 }
 export interface ResponseArticlesDto {
   content: ArticlesResponseDto[];

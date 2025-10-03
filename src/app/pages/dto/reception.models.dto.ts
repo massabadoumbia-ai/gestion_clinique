@@ -3,18 +3,25 @@ export interface ReceptionRequestDto {
   employeId?: number;
   fournisseurId?: number;
    pv : string;
+   fournisseurNom:string;
+  employeNom:string;
 }
 
 export interface ReceptionResponseDto {
   id: number;
-  dateReception: string;
-  employeId: string;
-  fournisseurId: string;
   numReception: string;
+  dateContrat: string;     
+  dateReception: string;
   nbrArticle: number;
-  dateContrat: string;
-  pv : string;
+  employeId?: number;
+  employeNom?: string;
+  fournisseurId?: number;
+  fournisseurNom?: string;
+  pv?: string;             
+  pvFileName?: string;    
+  pvFileType?: string;  
 }
+
 export interface PageResponse<T> {
   content: T[];
   number: number;

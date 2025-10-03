@@ -39,11 +39,11 @@ export class ArticlesService {
   }
 
   getMarques(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlMarque}`);
+    return this.http.get<any[]>(`${this.apiUrlMarque}/list`); 
   }
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlCategorie}`);
+    return this.http.get<any[]>(`${this.apiUrlCategorie}/list`);
   }
 
   deleteArticle(id: number): Observable<void> {

@@ -24,9 +24,18 @@
         <td class="text-center">{{ reception.dateContrat }}</td>
         <td class="text-center">{{ reception.dateReception }}</td>
         <td class="text-center">{{ reception.nbrArticle }}</td>
-        <td class="text-center">{{ reception.employeId }}</td>
-        <td class="text-center">{{ reception.fournisseurId }}</td>
-        <td class="text-center">{{ reception.pv }}</td>
+        <td class="text-center">{{ reception.employeNom }}</td>
+        <td class="text-center">{{ reception.fournisseurNom }}</td>
+       <td>
+  <ng-container *ngIf="reception.pvFileName; else noPv">
+    <a [href]="'http://localhost:8080/api/receptions/download/' + reception.id" target="_blank" >
+  {{ reception.pvFileName }}
+</a>
+  </ng-container>
+  <ng-template #noPv>
+    Pas de PV
+  </ng-template>
+</td>
         <td class="text-center">
           <div class="btn-group">
             <a class="btn btn-info btn-sm me-2" (click)="onDetail(reception)">

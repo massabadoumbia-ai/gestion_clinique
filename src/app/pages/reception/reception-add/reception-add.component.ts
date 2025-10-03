@@ -31,15 +31,19 @@ export class ReceptionAddComponent implements OnInit {
     dateContrat: '',
     dateReception: '',
     nbrArticle: 0,
-    employeId: '',
-    fournisseurId: '',
-    pv:''
+    employeId: 0,
+    fournisseurId: 0,
+    pv:'',
+    fournisseurNom:'',
+    employeNom:'',
   };
 
   size: NzSelectSizeType = 'large';
   errorMessages: string[] = [];
   loading = false;
   selectedPvFile: File | null = null;
+  pvPreviewUrl: string | null = null;
+
 
   employeOptionList: EmployeResponseDto[] = [];
   fournisseurOptionList: FournisseurResponseDto[] = [];
@@ -110,6 +114,8 @@ onPvSelected(event: any) {
   const file = event.target.files[0];
   if (file) {
     this.selectedPvFile = file;
+    this.pvPreviewUrl = URL.createObjectURL(file);
+     this.reception.pv = file.name;
   }
 }
 
@@ -117,11 +123,6 @@ onPvSelected(event: any) {
     this.errorMessages = [];
     this.loading = true;
 
-    if (!this.reception.numReception) this.errorMessages.push('Le numéro de réception est obligatoire.');
-    if (!this.reception.dateContrat) this.errorMessages.push('La date du contrat est obligatoire.');
-    if (!this.reception.dateReception) this.errorMessages.push('La date de réception est obligatoire.');
-    if (!this.reception.employeId) this.errorMessages.push('L’employé est obligatoire.');
-    if (!this.reception.fournisseurId) this.errorMessages.push('Le fournisseur est obligatoire.');
 
     if (this.errorMessages.length > 0) {
       this.loading = false;
@@ -138,7 +139,7 @@ onPvSelected(event: any) {
     next: () => {
         this.loading = false;
         alert('Réception ajoutée avec succès');
-        this.router.navigate(['/admin/dashboard/receptions-list']);
+        this.router.navigate(['/admin/dashboard/reception-list']);
       },
       error: err => {
         this.loading = false;

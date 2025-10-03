@@ -28,9 +28,11 @@ export class ReceptionEditComponent implements OnInit {
     dateContrat: '',
     dateReception: '',
     nbrArticle: 0,
-    employeId: '',
-    fournisseurId: '',
-    pv: ''
+    employeId: 0,
+    fournisseurId: 0,
+    pv: '',
+    fournisseurNom:'',
+    employeNom:'',
   };
 
   size: NzSelectSizeType = "default";
@@ -93,8 +95,8 @@ export class ReceptionEditComponent implements OnInit {
     if (!this.reception.dateContrat) this.errorMessages.push("La date du contrat est obligatoire.");
     if (!this.reception.dateReception) this.errorMessages.push("La date de réception est obligatoire.");
     if (!this.reception.nbrArticle || this.reception.nbrArticle <= 0) this.errorMessages.push("Le nombre d'articles doit être supérieur à 0.");
-    if (!this.reception.employeId) this.errorMessages.push("L'employé est obligatoire.");
-    if (!this.reception.fournisseurId) this.errorMessages.push("Le fournisseur est obligatoire.");
+    if (!this.reception.employeNom) this.errorMessages.push("L'employé est obligatoire.");
+    if (!this.reception.fournisseurNom) this.errorMessages.push("Le fournisseur est obligatoire.");
 
     if (this.errorMessages.length > 0) {
       this.loading = false;

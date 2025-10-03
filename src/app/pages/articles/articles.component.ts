@@ -8,11 +8,12 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { HasPermissionDirective } from '../../services/directives/has-permissions';
 import { ArticlesResponseDto } from '../dto/articles.models.dto';
 import { ArticlesService } from '../../services/article/articles.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-articles',
   standalone: true,
-  imports: [NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule, HasPermissionDirective],
+  imports: [NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule, CommonModule],
   templateUrl: './articles.component.html',
   styleUrl: './articles.component.css',
   encapsulation: ViewEncapsulation.None

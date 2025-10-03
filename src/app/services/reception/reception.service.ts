@@ -42,5 +42,9 @@ export class ReceptionService {
   Reception(formData: FormData): Observable<ReceptionResponseDto> {
   return this.http.post<ReceptionResponseDto>('http://localhost:8080/api/receptions/create', formData);
 }
+getPvFileBlob(id: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/download/${id}`, { responseType: 'blob' });
+}
+
 
 }

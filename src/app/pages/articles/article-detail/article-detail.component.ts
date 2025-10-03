@@ -13,17 +13,19 @@ import { ArticlesResponseDto } from '../../dto/articles.models.dto';
 export class ArticleDetailComponent implements OnInit {
 
   article: ArticlesResponseDto = {
-    id: 0,
-    libArt: '',
-    niveauAlert: 0,
-    caracteristique: '',
-    stock: 0,
-    type: '',
-    etat: '',
-    commentaire: '',
-    marqueId: 0,
-    categorieId: 0,
-    image: ''
+  id: 0,
+  libArt: '',
+  niveauAlert: 0,
+  caracteristique: '',
+  stock: 0,
+  type: '',
+  etat: '',
+  commentaire: '',
+  image: '',
+  marqueId: 0,
+  marqueNom: '',       
+  categorieId: 0,
+  categorieNom: ''
   };
 
   selectedImageFile?: File; 

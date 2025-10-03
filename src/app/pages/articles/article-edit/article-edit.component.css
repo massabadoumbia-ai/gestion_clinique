@@ -1,39 +1,43 @@
 
 .container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 30px auto;
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 25px 30px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 25px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
 }
 
-.container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-}
-
-.container h2 {
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
   font-weight: 700;
-  color: #007bff;
-  margin-bottom: 20px;
+  color: #307fda;
 }
 
-nz-form-label, label {
+.form-label,
+nz-form-label {
   font-weight: 600;
   color: #333;
 }
 
-input[nz-input], nz-select {
-  border-radius: 10px;
+input[nz-input],
+select.form-select,
+textarea.form-control {
+  border-radius: 8px;
   border: 1px solid #ccc;
-  transition: all 0.3s ease;
+  padding: 8px 12px;
+  font-weight: 500;
+  font-size: 14px;
 }
 
-input[nz-input]:hover, nz-select:hover {
-  border-color: #87ceeb; 
-  box-shadow: 0 0 8px rgba(135,206,235,0.3);
+input[nz-input]:focus,
+select.form-select:focus,
+textarea.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
 }
 
 .form-actions {
@@ -42,35 +46,49 @@ input[nz-input]:hover, nz-select:hover {
   margin-top: 20px;
 }
 
-button.btn-vert {
+button[nz-button][type="button"] {
   background-color: #28a745;
-  color: #ffffff;
+  color: white;
   border: none;
-}
-
-button.btn-vert:hover {
-  background-color: #218838;
-  color: #fff;
-}
-
-button[nzType="primary"] {
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 10px;
-  padding: 6px 15px;
+  border-radius: 25px;
   font-weight: 600;
-  border: none;
+  padding: 8px 25px;
+  min-width: 120px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-button[nzType="primary"]:hover {
-  background-color: #3399ff;
-  box-shadow: 0 4px 12px rgba(51,153,255,0.4);
+button[nz-button][type="button"]:hover {
+  background-color: #218838;
 }
 
-.spinner-border {
+button[nz-button][nzType="primary"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  padding: 8px 25px;
+  min-width: 120px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[nz-button][nzType="primary"]:hover {
+  background-color: #0069d9;
+}
+
+button[nz-button] .spinner-border {
   margin-right: 5px;
 }
+
+.text-danger {
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
 nz-select {
   width: 100%;
+  border-radius: 8px;
 }

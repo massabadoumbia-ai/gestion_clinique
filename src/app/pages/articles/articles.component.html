@@ -26,9 +26,15 @@
         <td class="text-center">{{ article.niveauAlert }}</td>
         <td class="text-center">{{ article.type }}</td>
         <td class="text-center">{{ article.etat }}</td>
-        <td class="text-center">{{ article.marqueId}}</td>
-        <td class="text-center">{{ article.categorieId}}</td>
-        <td class="text-center">{{ article.image }}</td>
+        <td class="text-center">{{ article.marqueNom }}</td>
+        <td class="text-center">{{ article.categorieNom }}</td>
+        <td class="text-center">
+        <img *ngIf="article.image"
+            [src]="'http://localhost:8080/' + article.image"
+            alt="Image de l'article"
+            width="40" height="40"
+            style="object-fit: cover; border-radius: 5px; border: 1px solid #ccc;" />
+      </td>
         <td class="text-center">
           <div class="btn-group">
             <a class="btn btn-info btn-sm me-2" (click)="onDetail(article)">
