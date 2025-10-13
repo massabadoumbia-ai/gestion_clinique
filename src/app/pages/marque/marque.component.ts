@@ -3,12 +3,19 @@ import { Router } from '@angular/router';
 import { MarqueService } from '../../services/marque/marque.service';
 import { MarqueDto, MarqueResponseDto } from '../dto/marque.models.dto';
 import { NzPaginationComponent } from "ng-zorro-antd/pagination";
+import { HasPermissionDirective } from '../../services/directives/has-permissions';
+import { FormsModule } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 
 @Component({
   selector: 'app-marque',
   standalone: true,
-  imports: [NzPaginationComponent],
+  imports: [NzPaginationComponent,HasPermissionDirective,FormsModule,
+                  FormsModule,
+                  NzInputModule,
+                  NzButtonModule,],
   templateUrl: './marque.component.html',
   styleUrl: './marque.component.css'
 })
@@ -17,6 +24,11 @@ export class MarqueComponent {
   router = inject(Router);
 
   marqueList: MarqueResponseDto[] = [];
+   filteredMarque: MarqueResponseDto[] = [];
+      
+        filters = {
+          nom: '',
+        }
   sizeNumber: number = 10;
   pageNumber: number = 1;
   totalElements: number = 0;
@@ -25,11 +37,20 @@ export class MarqueComponent {
     this.getAllMarqueByPage(this.pageNumber - 1, this.sizeNumber);
   }
 
+  applyFilters(): void {
+  const { nom } = this.filters;
+
+  this.filteredMarque = this.marqueList.filter(marque =>
+    !nom || marque.nom?.toLowerCase().includes(nom.toLowerCase())
+  );
+}
+
   getAllMarqueByPage(page: number, size: number){
     this.marqueService.getAllMarqueByPage(page, size).subscribe({
         next: (response)=>{
           console.log("PAGES ELEMENTS :: ", response)
          this.marqueList=response.content;
+         this.filteredMarque = response.content;
          this.totalElements = response.totalElements;
          //this.pageNumber = page + 1;
          console.log("TOTAL ELEMENTS :: ", this.totalElements)

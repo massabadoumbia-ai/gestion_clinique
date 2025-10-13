@@ -1,19 +1,4 @@
 
-.container {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 25px 30px;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-}
-
 
 h2 {
   text-align: center;
@@ -108,4 +93,18 @@ h2 {
   margin-top: 20px;
   display: flex;
   justify-content: center;
+}
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Titre spécifique à cette barre */
+.header-bar h1 {
+  color: #007bff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
 }

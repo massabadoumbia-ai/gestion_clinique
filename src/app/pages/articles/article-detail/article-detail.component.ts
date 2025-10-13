@@ -21,7 +21,7 @@ export class ArticleDetailComponent implements OnInit {
   type: '',
   etat: '',
   commentaire: '',
-  image: '',
+  imageUrl: '',
   marqueId: 0,
   marqueNom: '',       
   categorieId: 0,

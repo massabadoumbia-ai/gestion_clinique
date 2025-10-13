@@ -4,11 +4,13 @@ import { FournisseurResponseDto } from '../dto/fournisseur.models.dto';
 import { FournisseurService } from '../../services/fournisseur/fournisseur.service';
 import { Router } from '@angular/router';
 import { NzButtonSize } from 'ng-zorro-antd/button';
+import { HasPermissionDirective } from '../../services/directives/has-permissions';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-fournisseur',
   standalone: true,
-  imports: [NzPaginationComponent],
+  imports: [NzPaginationComponent, HasPermissionDirective, FormsModule,],
   templateUrl: './fournisseur.component.html',
   styleUrl: './fournisseur.component.css'
 })
@@ -16,6 +18,13 @@ export class FournisseurComponent implements OnInit {
 
 
    FournisseurList: FournisseurResponseDto[]=[];
+   filteredFournisseur: FournisseurResponseDto[] = [];
+   filters = {
+  nom: '',
+  contact: '',
+  nif: ''
+};
+
    size: NzButtonSize  = 'small';
    totalElements: number = 0;
    pageNumber: number = 0;
@@ -34,12 +43,23 @@ export class FournisseurComponent implements OnInit {
         next: (response)=>{
           console.log("PAGES ELEMENTS :: ", response)
          this.FournisseurList=response.content;
+         this.filteredFournisseur = response.content;
          this.totalElements = response.totalElements;
          //this.pageNumber = page + 1;
          console.log("TOTAL ELEMENTS :: ", this.totalElements)
         }
       })
   }
+
+  applyFilters(): void {
+  const { nom, contact, nif } = this.filters;
+
+  this.filteredFournisseur = this.FournisseurList.filter(f =>
+    (!nom || f.nom?.toLowerCase().includes(nom.toLowerCase())) &&
+    (!contact || f.contact?.toLowerCase().includes(contact.toLowerCase())) &&
+    (!nif || f.nif?.toLowerCase().includes(nif.toLowerCase()))
+  );
+}
 
   onCreateFournisseur() {
     this.router.navigate(['/admin/dashboard/fournisseur-add'])

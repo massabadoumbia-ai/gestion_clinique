@@ -1,115 +1,189 @@
-:host {
-  display: flex;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.icon-spacing {
+  margin-right: 8px;
 }
 
 .app-layout {
-  height: 100vh;
-}
-
-.menu-sidebar {
-  position: relative;
-  z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(95, 126, 156, 0.35);
-}
-
-.header-trigger {
-  height: 64px;
-  padding: 20px 24px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all .3s,padding 0s;
-}
-
-.trigger:hover {
-  color: #1890ff;
-}
-
-.sidebar-logo {
-  position: relative;
-  height: 64px;
-  padding-left: 24px;
-  overflow: hidden;
-  line-height: 64px;
-  background: #72a6d6;
-  transition: all .3s;
-}
-
-.sidebar-logo img {
-  display: inline-block;
-  height: 32px;
-  width: 32px;
-  vertical-align: middle;
-}
-
-.sidebar-logo h1 {
-  display: inline-block;
-  margin: 0 0 0 20px;
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
-  vertical-align: middle;
-}
-
-nz-header {
-  padding: 0;
-  width: 100%;
-  z-index: 2;
-}
-
-.app-header {
-  position: relative;
-  height: 64px;
-  padding: 0;
-  background: white;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
-}
-
-nz-content {
-  margin: 24px;
-  overflow: auto;        
-}
-
-
-
-.app-layout {
-  height: 100vh;
+  background: #f0f2f5;
 }
 
 .menu-sidebar {
-  background-color: #001529;
-  color: white;
+  background: #001529;
+  color: #fff;
 }
 
 .sidebar-logo {
   text-align: center;
-  padding: 16px;
+  padding: 20px 0;
 }
 
 .sidebar-logo img {
-  height: 32px;
-  margin-bottom: 8px;
-}
-
-.sidebar-logo h1 {
-  color: white
+width: 60px;
+  height: 60px;
  
 }
 
-.inner-content {
-  padding-left: 20%;
-  padding-right: 20%;
+.sidebar-logo h1 {
+  color: #fff;
+  font-size: 18px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+ul[nz-menu] li[nz-menu-item] a {
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+ul[nz-menu] li[nz-menu-item] a:hover {
+  color: #1890ff;
+}
+
+ul[nz-menu] li[nz-menu-item] a {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+ul[nz-menu] li[nz-menu-item] i[nz-icon] {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+ul[nz-menu] li[nz-menu-item] a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+ul[nz-menu] li[nz-submenu] > ul {
+  background: #000c17;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px #f0f1f2;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.header-trigger {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.header-trigger .trigger {
+  color: #001529;
+}
+
+.logout-button a.dropdown-item {
+  color: #fff;
+  background-color: #ff4d4f;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 20px 20px;
+  border-radius: 10px;
+  display: block;
+  text-align: center;
   
 }
 
+.logout-button a.dropdown-item:hover {
+  background-color: #ff7875;
+  text-decoration: none;
+}
 
-nz-sider {
-        overflow: auto;
-        height: 100%;
-        position: fixed;
-        left: 0;
-      }
+nz-content {
+  padding: 20px;
+}
+
+.inner-content {
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+form {
+  width: 100%;
+}
+
+form .mb-3 {
+  margin-bottom: 20px;
+}
+
+form input,
+form select,
+nz-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+button.btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  color: #fff;
+}
+
+button.btn-primary:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+table th, table td {
+  text-align: center;
+  padding: 12px 10px;
+}
+
+table th {
+  background-color: #e6f7ff;
+  font-weight: 600;
+}
+
+table td {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.action-btn {
+  margin: 0 3px;
+}
+
+.action-btn i {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-logo h1 {
+    font-size: 16px;
+  }
+}
+.user-display {
+  color: #001529;
+  font-weight: 500;
+  font-size: 14px;
+  padding-right: 10px;
+}
+

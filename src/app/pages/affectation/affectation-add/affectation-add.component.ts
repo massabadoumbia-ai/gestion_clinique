@@ -116,11 +116,12 @@ export class AffectationAddComponent implements OnInit {
     this.errorMessages = [];
     this.loading = true;
 
+console.log("AFFECTATION :: ", this.affectation)
     if (!this.affectation.dateDebut) this.errorMessages.push('La date de début est obligatoire.');
     if (!this.affectation.dateFin) this.errorMessages.push('La date de fin est obligatoire.');
     if (this.affectation.nbrArticle <= 0) this.errorMessages.push('Le nombre d’articles doit être supérieur à 0.');
-    if (!this.affectation.libArt) this.errorMessages.push('Veuillez sélectionner un article.');
-    if (!this.affectation.employeNom) this.errorMessages.push('Veuillez sélectionner un employé.');
+    if (!this.affectation.articleId) this.errorMessages.push('Veuillez sélectionner un article.');
+    if (!this.affectation.employeId) this.errorMessages.push('Veuillez sélectionner un employé.');
 
     if (this.errorMessages.length > 0) {
       this.loading = false;

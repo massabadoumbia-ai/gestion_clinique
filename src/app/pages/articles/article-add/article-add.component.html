@@ -124,8 +124,8 @@
 </div>
 
  <div class="mb-3">
-      <label for="image" class="form-label">Image</label>
-      <input type="file" id="image" class="form-control" (change)="onImageSelected($event)" accept="image/*" />
+      <label for="imageUrl" class="form-label">Image</label>
+      <input type="file" id="imageUrl" class="form-control" (change)="onImageSelected($event)" accept="image/*" />
       <div *ngIf="imagePreview" class="mt-2">
   <img [src]="imagePreview" alt="Aperçu image" width="50" height="50"
        style="object-fit: cover; border-radius: 5px; border: 1px solid #ccc;" />

@@ -1,11 +1,20 @@
 <div class="container mt-4">
-  <h1 class="mb-3">Gestion des rôles</h1>
-  <div nz-row nzJustify="end" class="btn-create">
+    <h3>Recherche</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom"
+             [(ngModel)]="filters.nom" (input)="applyFilters()">
+    </div>
+
+  <div class="header-bar">
+  <h1>Gestion des rôles</h1>
     <button class="btn btn-primary" (click)="onCreateRole()" *hasPermission="'CREATE_ROLE'">
       <span nz-icon nzType="plus"></span> Créer un rôle
     </button>
   </div>
 
+  <div class="content-section">
   <table class="table table-bordered table-hover table-sm text-center">
     <thead class="table-primary">
       <tr>
@@ -16,20 +25,29 @@
       </tr>
     </thead>
     <tbody>
-       @for (role of roleList; track role.name) {
+       @for (role of filteredRole; track role.id) {
           <tr>
             <td>{{ role.name }}</td>
             <td>{{ role.description }}</td>
-            <td>{{ role.permissions!.length}} </td>
+            <td>
+               @if (role.permissions && role.permissions.length > 0) {
+                 {{ role.permissions.length }} permission{{ role.permissions.length > 1 ? 's' : '' }}
+               } @else {
+                   <span class="text-muted">Aucune</span> 
+                  }
+                   
+                  </td>
+    
+           
             <td>
 
-              <a class="btn btn-info btn-sm me-2" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
+              <a class="btn btn-info btn-sm me-2" data-bs-toggle="tooltip" title="Assigner" (click)="onAssignPermissions(role)" *hasPermission="'ASSIGN_PERMISSION'">
                 <i class="bi bi-pencil"></i>
               </a>
-              <a class="btn btn-warning btn-sm me-2" (click)="onEdit(role)" *hasPermission="'EDIT_ROLE'">
+              <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(role)" *hasPermission="'EDIT_ROLE'">
                 <i class="bi bi-pencil"></i> 
               </a>
-              <a class="btn btn-danger btn-sm" (click)="onDelete(role)" *hasPermission="'DELETE_ROLE'">
+              <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(role)" *hasPermission="'DELETE_ROLE'">
                 <i class="bi bi-trash"></i> 
               </a>
             </td>

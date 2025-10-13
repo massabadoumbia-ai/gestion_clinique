@@ -43,7 +43,7 @@
         nzShowSearch
         nzPlaceHolder="Sélectionner un article"
         [(ngModel)]="affectation.articleId"
-        name="articlesId"
+        name="articleId"
         #articlesId="ngModel"
         [nzServerSearch]="true"
         (nzOnSearch)="onSearchArticle($event)"
@@ -53,8 +53,7 @@
         <nz-option
       *ngFor="let article of articleOptionList"
       [nzValue]="article.id"
-      [nzLabel]="article.libArt + ' (Stock: ' + article.stock + ')'"
-      [nzDisabled]="article.stock === 0">
+      [nzLabel]="article.libArt">
     </nz-option>
       </nz-select>
       <div class="text-danger" *ngIf="articlesId.invalid && (articlesId.dirty || articlesId.touched)">
@@ -67,7 +66,7 @@
       <nz-select class="w-100"
         nzShowSearch
         nzPlaceHolder="Sélectionner un employé"
-        [(ngModel)]="affectation.employeNom"
+        [(ngModel)]="affectation.employeId"
         name="employeId"
         #employeId="ngModel"
         [nzServerSearch]="true"

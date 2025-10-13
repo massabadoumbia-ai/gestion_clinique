@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Modifier une division</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+    <ul class="mb-0">
+      <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+    </ul>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #divisionForm="ngForm">
+
+      <div class="mb-3">
+      <label for="nom" class="form-label fw-bold">Nom de la division</label>
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        class="form-control"
+        [(ngModel)]="division.nom"
+        #nom="ngModel"
+        required
+        placeholder="Entrez le nom de la division"
+      />
+      <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="text-danger small mt-1">
+        Le nom est obligatoire.
+      </div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="description" class="form-label fw-bold">Description</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        class="form-control"
+        [(ngModel)]="division.description"
+        #description="ngModel"
+        required
+        placeholder="Entrez la description de la division"
+      />
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger small mt-1">
+        La description est obligatoire.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Retour</button>
+      <button type="submit" class="btn btn-primary" [disabled]="divisionForm.invalid || loading">
+        @if (!loading) {
+          Envoyer
+        }
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm"></span>
+          Envoi en cours...
+        }
+      </button>
+    </div>
+
+  </form>
+</div>

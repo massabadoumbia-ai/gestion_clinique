@@ -18,7 +18,8 @@ export class EmployeDatailComponent implements OnInit {
     prenom: '',
     poste: '',
     email:'',
-    division:'',
+    divisionId:0,
+    divisionNom:'',
   };
 
   private route = inject(ActivatedRoute);

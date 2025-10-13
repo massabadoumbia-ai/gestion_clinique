@@ -10,7 +10,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
 
 import { ArticlesService } from '../../../services/article/articles.service';
-import { ArticlesDto } from '../../dto/articles.models.dto';
+import { ArticlesResponseDto } from '../../dto/articles.models.dto';
 import { MarqueResponseDto } from '../../dto/marque.models.dto';
 import { CategorieResponseDto } from '../../dto/categorie.models.dto';
 
@@ -23,7 +23,7 @@ import { CategorieResponseDto } from '../../dto/categorie.models.dto';
 })
 export class ArticleEditComponent implements OnInit {
 
-  article: ArticlesDto = {
+  article: ArticlesResponseDto = {
     id: 0,
     libArt: '',
     niveauAlert: 0,
@@ -34,8 +34,8 @@ export class ArticleEditComponent implements OnInit {
     commentaire: '',
     marqueId: 0,
     categorieId: 0,
-    image: '',
-     marqueNom: '',
+    imageUrl: '',
+    marqueNom: '',
     categorieNom: '',
   };
 
@@ -62,13 +62,14 @@ export class ArticleEditComponent implements OnInit {
       this.articlesService.getArticlesById(+id).subscribe({
         next: data => {
           this.article = data;
-          if (data.image) {
-            this.imagePreview = `data:image/*;base64,${data.image}`;
-          }
+         if (data.imageUrl) {
+          this.imagePreview = data.imageUrl; 
+        }
         },
         error: () => alert('Erreur lors du chargement de l’article')
       });
     }
+
     this.marqueSearch$.pipe(
       debounceTime(300),
       switchMap(term => this.loadMarques(term))
@@ -122,26 +123,23 @@ export class ArticleEditComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('article', new Blob([JSON.stringify(this.article)], { type: 'application/json' }));
-
     if (this.selectedImageFile) {
-      formData.append('image', this.selectedImageFile);
+      formData.append('image', this.selectedImageFile, this.selectedImageFile.name);
     }
 
-    if (this.article.id) {
-      this.articlesService.updateArticles(this.article.id, formData).subscribe({
-        next: () => {
-          this.loading = false;
-          alert('Article mis à jour avec succès');
-          this.router.navigate(['/admin/dashboard/article-list']);
-        },
-        error: err => {
-          this.loading = false;
-          console.error(err);
-          alert('Erreur lors de la mise à jour de l\'article');
-        }
-      });
-    }
+    this.articlesService.updateArticles(this.article.id, formData).subscribe({
+      next: () => {
+        this.loading = false;
+        alert('Article mis à jour avec succès');
+        this.router.navigate(['/admin/dashboard/article-list']);
+      },
+      error: err => {
+        this.loading = false;
+        console.error(err);
+        alert('Erreur lors de la mise à jour de l\'article');
+      }
+    });
   }
 
-    onCancel() { window.history.back(); }
+  onCancel() { window.history.back(); }
 }

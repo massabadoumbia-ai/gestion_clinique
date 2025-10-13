@@ -9,11 +9,11 @@ import { NzSelectModule, NzSelectSizeType } from 'ng-zorro-antd/select';
 import { RoleResponseDto } from '../../dto/role.models.dto';
 import { UserService } from '../../../services/user/user.service';
 import { RoleService } from '../../../services/role/role.service';
-import { UserDto } from '../../dto/user.modols.dto';
+
 import dayjs from 'dayjs';
 import { BehaviorSubject, of } from 'rxjs';
 import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
-
+import { UserResponseDto } from '../../dto/user.modols.dto';
 
 @Component({
   selector: 'app-edit-user',
@@ -30,24 +30,27 @@ import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  user: UserDto = {
+  
+ user: UserResponseDto = {
     id: 0,
     firstname: '',
     lastname: '',
     username: '',
-    dateNaissance: '',
-    adresse: '',
-    email: '',
-    telephone: '',
-    roleName: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword:'',
+    email: '',
+    adresse: '',
+    telephone: '',
+    dateNaissance: '',
+    roleName: ''
   };
 
+  confirmPassword: string = '';
   roleOptionList: RoleResponseDto[] = [];
   loadingRoles = false;
-  size: NzSelectSizeType = 'large';
   loading = false;
+  errorMessages: string[] = [];
+  size: NzSelectSizeType = 'default';
   showPassword = false;
   showConfirmPassword = false;
 
@@ -58,19 +61,16 @@ export class EditUserComponent implements OnInit {
   private userService = inject(UserService);
   private roleService = inject(RoleService);
 
-   togglePassword() {
-  this.showPassword = !this.showPassword;
-}
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.userService.getUserById(+id).subscribe({
-        next: (data: UserDto) => {
+        next: (data: UserResponseDto) => {
           this.user = data;
         },
         error: () => {
-          alert('Erreur lors du chargement de l’utilisateur');
-          this.router.navigate(['/users']);
+          alert("Erreur lors du chargement de l'utilisateur");
+          this.router.navigate(['/admin/dashboard/users-list']);
         }
       });
     }
@@ -78,7 +78,7 @@ export class EditUserComponent implements OnInit {
     this.roleSearch$
       .pipe(
         debounceTime(300),
-        switchMap((term) => this.searchRoles(term))
+        switchMap(term => this.searchRoles(term))
       )
       .subscribe((roles: RoleResponseDto[]) => {
         this.roleOptionList = roles;
@@ -86,6 +86,14 @@ export class EditUserComponent implements OnInit {
       });
 
     this.onSearchRole('');
+  }
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   onSearchRole(value: string): void {
@@ -103,26 +111,50 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.errorMessages = [];
     this.loading = true;
 
-    const userToSend = {
-      ...this.user,
-      dateNaissance: this.user.dateNaissance ? dayjs(this.user.dateNaissance).format('YYYY-MM-DD') : ''
-    };
-
-    if (this.user.id) {
-      this.userService.updateUser(this.user.id, userToSend).subscribe({
-        next: () => {
-          this.loading = false;
-          alert('Utilisateur mis à jour avec succès');
-          this.router.navigate(['/users']);
-        },
-        error: () => {
-          this.loading = false;
-          alert("Erreur lors de la mise à jour de l'utilisateur");
-        }
-      });
+    if (!this.user.firstname || !this.user.lastname || !this.user.username || !this.user.email) {
+      this.errorMessages.push("Tous les champs obligatoires doivent être remplis.");
     }
+
+    if (this.user.password && this.user.password !== this.confirmPassword) {
+      this.errorMessages.push("Les mots de passe ne correspondent pas.");
+    }
+
+    if (this.errorMessages.length > 0) {
+      this.loading = false;
+      return;
+    }
+
+     const userToSend: any = {   
+          id: this.user.id,
+          firstname: this.user.firstname,
+          lastname: this.user.lastname,
+          username: this.user.username,
+          password: this.user.password,
+          confirmPassword: this.user.confirmPassword,
+          email: this.user.email,
+          adresse: this.user.adresse,
+          telephone: this.user.telephone,
+          dateNaissance: this.user.dateNaissance
+            ? dayjs(this.user.dateNaissance).format('YYYY-MM-DD')
+            : null,
+          roleName: this.user.roleName
+        };
+
+    this.userService.updateUser(this.user.id!, userToSend).subscribe({
+      next: () => {
+        this.loading = false;
+        alert('Utilisateur mis à jour avec succès');
+        this.router.navigate(['/admin/dashboard/users-list']);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Erreur lors de la mise à jour :', err);
+        this.errorMessages.push("Erreur : " + (err.error?.message || 'Erreur inconnue'));
+      }
+    });
   }
 
   onCancel(): void {

@@ -45,6 +45,9 @@ export class ReceptionService {
 getPvFileBlob(id: number): Observable<Blob> {
   return this.http.get(`${this.apiUrl}/download/${id}`, { responseType: 'blob' });
 }
-
+search(filters: any, page: number, size: number): Observable<any> {
+    const payload = { ...filters, page,size};
+    return this.http.post<any>(`${this.apiUrl}/search`, payload);
+  }
 
 }

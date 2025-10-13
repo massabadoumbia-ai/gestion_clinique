@@ -24,7 +24,9 @@ export interface ArticlesDto {
      type : string;
      etat :string;
      commentaire : string;
-     image: string ;
+    imageUrl: string ;
+    imageFileType?: string ;
+    imageData?: string ;
      marqueId: number;
      categorieId: number;
      marqueNom: string;
@@ -38,5 +40,22 @@ export interface ResponseArticlesDto {
   number: number;
   first: boolean;
   last: boolean;
+}
+export interface ArticlesSearchRequestDto{
+   libArt : string;
+    type : string;
+     etat :string;
+          marqueId: number;
+     categorieId: number;
+
+}
+export interface PageResponse<T> {
+  content: T[];
+  number: number;        
+  size: number;          
+  totalElements: number; 
+  totalPages: number;    
+  first: boolean;       
+  last: boolean;         
 }
  

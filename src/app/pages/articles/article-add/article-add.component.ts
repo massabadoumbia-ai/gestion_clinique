@@ -12,7 +12,7 @@ import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
 import { ArticlesService } from '../../../services/article/articles.service';
 import { MarqueService } from '../../../services/marque/marque.service';
 import { CategorieService } from '../../../services/categorie/categorie.service';
-import { ArticlesDto } from '../../dto/articles.models.dto';
+import { ArticlesDto, ArticlesResponseDto } from '../../dto/articles.models.dto';
 import { MarqueResponseDto } from '../../dto/marque.models.dto';
 import { CategorieResponseDto } from '../../dto/categorie.models.dto';
 
@@ -25,7 +25,7 @@ import { CategorieResponseDto } from '../../dto/categorie.models.dto';
 })
 export class ArticleAddComponent implements OnInit {
 
-  article: ArticlesDto = {
+  article: ArticlesResponseDto = {
     id: 0,
     libArt: '',
     niveauAlert: 0,
@@ -38,7 +38,7 @@ export class ArticleAddComponent implements OnInit {
     categorieId: 0,
      marqueNom: '',
     categorieNom: '',
-    image: ''
+    imageUrl: ''
   };
 
   size: NzSelectSizeType = 'large';
@@ -100,8 +100,10 @@ export class ArticleAddComponent implements OnInit {
     if (file) {
       this.selectedImageFile = file;
       const reader = new FileReader();
-      reader.onload = e => this.imagePreview = reader.result;
-      reader.readAsDataURL(file);
+      reader.onload = () => {
+      this.imagePreview = reader.result; 
+    };
+    reader.readAsDataURL(file);
     }
   }
 

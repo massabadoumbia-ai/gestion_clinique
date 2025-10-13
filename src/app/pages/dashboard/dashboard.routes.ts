@@ -41,6 +41,9 @@ import { AffectationAddComponent } from '../affectation/affectation-add/affectat
 import { AffectationEditComponent } from '../affectation/affectation-edit/affectation-edit.component';
 import { AffectationDetailComponent } from '../affectation/affectation-detail/affectation-detail.component';
 import { AffectationReaffecterComponent } from '../affectation/affectation-reaffecter/affectation-reaffecter.component';
+import { DivisionComponent } from '../division/division.component';
+import { AddDivisionComponent } from '../division/add-division/add-division.component';
+import { EditDivisionComponent } from '../division/edit-division/edit-division.component';
 
 export const DASHBOARD_ROUTES: Routes = [
   { path: 'dashboard', component: DashboardComponent,
@@ -94,6 +97,10 @@ export const DASHBOARD_ROUTES: Routes = [
          { path: 'reception-add', component: ReceptionAddComponent, canActivate:[AuthGuard]},
           { path: 'reception-edit/:id', component: ReceptionEditComponent, canActivate:[AuthGuard]},
            { path: 'reception-detail/:id', component: ReceptionDetailComponent, canActivate:[AuthGuard]},
+
+           { path: 'division-list', component: DivisionComponent, canActivate:[AuthGuard]},
+         { path: 'division-add', component: AddDivisionComponent, canActivate:[AuthGuard]},
+          { path: 'division-edit/:id', component: EditDivisionComponent, canActivate:[AuthGuard]},
    
     ]
    },

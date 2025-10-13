@@ -8,12 +8,20 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { AffectationArticlesResponseDto } from '../dto/affectation.models.dto';
 import { Router } from '@angular/router';
 import { AffectationService } from '../../services/affectation/affectation.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { ArticlesResponseDto } from '../dto/articles.models.dto';
+import { EmployeResponseDto } from '../dto/employe.models.dto';
 
 @Component({
   selector: 'app-affectation',
   standalone: true,
-  imports: [NzPaginationComponent, NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule, HasPermissionDirective],
+  imports: [NzPaginationComponent, NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule, HasPermissionDirective, FormsModule, NzSelectModule,  FormsModule,
+          NzFormModule,
+          NzInputModule,
+          NzButtonModule,],
   templateUrl: './affectation.component.html',
   styleUrl: './affectation.component.css'
 })
@@ -21,6 +29,18 @@ export class AffectationComponent implements OnInit {
 
 
    affectationList: AffectationArticlesResponseDto[]=[];
+    filteredAffectation: AffectationArticlesResponseDto[] = [];
+filters = {
+  dateDebut: '',
+  dateFin: '',
+  article: '',
+  employe: ''
+};
+
+articleList:string[] = [];
+employeList: string[] = [];
+
+
    size: NzButtonSize  = 'small';
    totalElements: number = 0;
    pageNumber: number = 0;
@@ -34,14 +54,36 @@ export class AffectationComponent implements OnInit {
       
     }
 
+    applyFilters(): void {
+  const { dateDebut, dateFin, article, employe } = this.filters;
+
+  this.filteredAffectation = this.affectationList.filter(a =>
+    (!dateDebut || a.dateDebut >= dateDebut) &&
+    (!dateFin || a.dateFin <= dateFin) &&
+    (!article || a.libArt === article) &&
+    (!employe || `${a.employeNom} ${a.employePrenom}` === employe)
+  );
+}
+
+
   getAllAffectationByPage(page: number, size: number){
     this.AffectationService.getAllAffectationByPage(page, size).subscribe({
         next: (response)=>{
           console.log("PAGES ELEMENTS :: ", response)
          this.affectationList=response.content;
+         this.filteredAffectation =response.content;
          this.totalElements = response.totalElements;
          //this.pageNumber = page + 1;
          console.log("TOTAL ELEMENTS :: ", this.totalElements)
+
+          this.articleList = this.affectationList
+          .map(a => a.libArt)
+          .filter((v, i, a) => a.indexOf(v) === i);
+
+        this.employeList = this.affectationList
+          .map(a => `${a.employeNom} ${a.employePrenom}`)
+          .filter((v, i, a) => a.indexOf(v) === i);
+
         }
       })
   }

@@ -1,22 +1,10 @@
 
-.container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 25px 30px;
-  border-radius: 15px;
-  background-color: #fff;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
-.container:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-}
+
 
 .container h1,
 .container h2 {
-  text-align: center;
+  
   color: #007bff;
   font-weight: 700;
   margin-bottom: 25px;
@@ -81,4 +69,17 @@
 
 .btn-create {
   margin-bottom: 15px;
+}
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-bar h1 {
+  margin: 0;
+  color: #007bff;
+  font-weight: 700;
+  font-size: 26px;
 }

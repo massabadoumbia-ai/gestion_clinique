@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
-import { UserDto } from '../../dto/user.modols.dto';
+import { UserDto, UserResponseDto } from '../../dto/user.modols.dto';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -12,19 +12,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DetailUserComponent implements OnInit {
 
-   user: UserDto = {
-      id: 0,
-      firstname: '',
-      lastname: '',
-      username: '',
-     dateNaissance:'' ,
-      adresse: '',
-      email: '',
-      telephone: '',
-      roleName: '',
-      password: '',
-      confirmPassword: ''
-    };
+    user: UserResponseDto = {
+       id: 0,
+       firstname: '',
+       lastname: '',
+       username: '',
+       password: '',
+       confirmPassword:'',
+       email: '',
+       adresse: '',
+       telephone: '',
+       dateNaissance: '',
+       roleName: ''
+     };
+   
   
     private route = inject(ActivatedRoute);
     private router = inject(Router);
@@ -35,7 +36,7 @@ export class DetailUserComponent implements OnInit {
       const id = this.route.snapshot.paramMap.get('id');
       if (id) {
         this.userService.getUserById(+id).subscribe({
-          next: (data: UserDto) => this.user = data,
+          next: (data: UserResponseDto) => this.user = data,
           error: () => alert('Erreur lors du chargement de l’utilisateur')
         });
       }

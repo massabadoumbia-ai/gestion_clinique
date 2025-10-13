@@ -29,7 +29,7 @@ export class FournisseurService {
   }
 
   getAllFournisseur(): Observable<FournisseurResponseDto[]> {
-    return this.http.get<FournisseurResponseDto[]>(`${this.apiUrl}/list`);
+    return this.http.get<FournisseurResponseDto[]>(`${this.apiUrl}`);
   }
 
   getAllFournisseurByPage(page: number, size: number): Observable<any> {

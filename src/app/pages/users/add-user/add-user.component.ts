@@ -9,10 +9,10 @@ import { NzSelectModule, NzSelectSizeType } from 'ng-zorro-antd/select';
 import { UserService } from '../../../services/user/user.service';
 import { RoleService } from '../../../services/role/role.service';
 import { RoleResponseDto } from '../../dto/role.models.dto';
-import { UserDto } from '../../dto/user.modols.dto';
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import  dayjs from 'dayjs';
+import dayjs from 'dayjs';
+import { UserResponseDto } from '../../dto/user.modols.dto';
 
 @Component({
   selector: 'app-add-user',
@@ -23,19 +23,22 @@ import  dayjs from 'dayjs';
   providers: [UserService]
 })
 export class AddUserComponent implements OnInit {
-  user: UserDto = {
+
+  user: UserResponseDto = {
+    id: 0,
     firstname: '',
     lastname: '',
     username: '',
-    dateNaissance:'',
-    adresse: '',
-    email: '',
-    roleName: '',  
-    telephone: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword:'',
+    email: '',
+    adresse: '',
+    telephone: '',
+    dateNaissance: '',
+    roleName: ''
   };
 
+  confirmPassword: string = '';
   size: NzSelectSizeType = 'default';
   roleOptionList: RoleResponseDto[] = [];
   loadingRoles = false;
@@ -52,16 +55,11 @@ export class AddUserComponent implements OnInit {
     private roleService: RoleService
   ) {}
 
-
-   togglePassword() {
-  this.showPassword = !this.showPassword;
-}  
-
   ngOnInit(): void {
     this.roleSearch$
       .pipe(
         debounceTime(300),
-        switchMap((term) => this.searchRoles(term))
+        switchMap(term => this.searchRoles(term))
       )
       .subscribe((roles: RoleResponseDto[]) => {
         this.roleOptionList = roles;
@@ -71,9 +69,17 @@ export class AddUserComponent implements OnInit {
     this.onSearchRole('');
   }
 
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
   onSearchRole(value: string) {
     this.loadingRoles = true;
-    this.roleSearch$.next(value); 
+    this.roleSearch$.next(value);
   }
 
   private searchRoles(term: string) {
@@ -89,37 +95,38 @@ export class AddUserComponent implements OnInit {
     this.errorMessages = [];
     this.loading = true;
 
-    if (!this.user.lastname) this.errorMessages.push("Le nom ne doit pas être vide.");
-    if (!this.user.firstname) this.errorMessages.push("Le prénom ne doit pas être vide.");
-    if (!this.user.username) this.errorMessages.push("Le nom d'utilisateur est obligatoire.");
-    if (!this.user.dateNaissance) this.errorMessages.push("La date de naissance est obligatoire.");
-    if (!this.user.adresse) this.errorMessages.push("L'adresse est obligatoire.");
-    if (!this.user.email) this.errorMessages.push("L'email est obligatoire.");
-    if (this.user.telephone.length !== 8) this.errorMessages.push("Le téléphone doit contenir 8 chiffres.");
-    if (!this.user.password) this.errorMessages.push("Le mot de passe est obligatoire.");
-    if (this.user.password !== this.user.confirmPassword) this.errorMessages.push("Les mots de passe ne correspondent pas.");
-    if (!this.user.roleName) this.errorMessages.push("Le rôle est obligatoire.");
+   
 
     if (this.errorMessages.length > 0) {
       this.loading = false;
       return;
     }
 
-    const userToSend = {
-      ...this.user,
-      dateNaissance: this.user.dateNaissance? dayjs(this.user.dateNaissance).format('YYYY-MM-DD'): '',
+    const userToSend: any = {   
+      firstname: this.user.firstname,
+      lastname: this.user.lastname,
+      username: this.user.username,
+      password: this.user.password,
+      confirmPassword: this.user.confirmPassword,
+      email: this.user.email,
+      adresse: this.user.adresse,
+      telephone: this.user.telephone,
+      dateNaissance: this.user.dateNaissance
+        ? dayjs(this.user.dateNaissance).format('YYYY-MM-DD')
+        : null,
+      roleName: this.user.roleName
     };
 
-    this.userService.createUser(this.user).subscribe({
+    this.userService.createUser(userToSend).subscribe({
       next: () => {
         this.loading = false;
         alert('Utilisateur ajouté avec succès');
-        this.router.navigate(['/admin/dashboard/users-list']);
+        this.router.navigate(['/admin/dashboard/user-list']);
       },
       error: (err) => {
         this.loading = false;
         console.error('Erreur lors de l\'ajout :', err);
-        this.errorMessages.push("Erreur : " + err.error.message);
+        this.errorMessages.push("Erreur : " + (err.error?.message || 'Erreur inconnue'));
       }
     });
   }

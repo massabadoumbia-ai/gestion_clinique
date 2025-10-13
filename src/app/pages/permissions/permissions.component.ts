@@ -1,22 +1,34 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PermissionDto } from '../dto/permission.models.dto';
-import { NzButtonSize } from 'ng-zorro-antd/button';
+import { PermissionDto, PermissionResponseDto } from '../dto/permission.models.dto';
+import { NzButtonModule, NzButtonSize } from 'ng-zorro-antd/button';
 import { PermissionService } from '../../services/permission/permission.service';
 import { NzPaginationModule } from "ng-zorro-antd/pagination";
 import { HasPermissionDirective } from '../../services/directives/has-permissions';
+import { FormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 
 @Component({
   selector: 'app-permissions',
   standalone: true,
-  imports: [NzPaginationModule, HasPermissionDirective, HasPermissionDirective ],
+  imports: [NzPaginationModule, HasPermissionDirective, HasPermissionDirective, FormsModule,
+            NzFormModule,
+            NzInputModule,
+            NzButtonModule, ],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.css'
 })
 export class PermissionsComponent implements OnInit {
 
   permissionList: PermissionDto[] = [];
+filteredPermission: PermissionResponseDto[] = [];
+
+  filters = {
+    nom: '',
+  }
+
   size: NzButtonSize = 'small';
   totalElements: number = 0;
   pageNumber: number = 0;
@@ -29,12 +41,21 @@ export class PermissionsComponent implements OnInit {
     this.getAllPermissionsByPage(this.pageNumber, this.sizeNumber);
   }
 
+  applyFilters(): void {
+  const { nom } = this.filters;
+
+  this.filteredPermission = this.permissionList.filter(permission =>
+    !nom || permission.name?.toLowerCase().includes(nom.toLowerCase())
+  );
+}
+
   
   getAllPermissionsByPage(page: number, size: number) {
     this.permissionService.getAllPermissionByPage(page, size).subscribe({
       next: (response) => {
         console.log("PAGES ELEMENTS :: ", response);
         this.permissionList = response.content;
+         this.filteredPermission = response.content; 
         this.totalElements = response.totalElements;
       },
       error: (err) => {

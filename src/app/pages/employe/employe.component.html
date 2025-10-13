@@ -1,8 +1,37 @@
 <div class="container mt-4">
-  <h1 class="mb-3">Gestion des employés</h1>
+  <h3>Recherche</h3>
 
-  <div nz-row nzJustify="end" class="btn-create mb-3">
-    <button class="btn btn-primary" (click)="onCreateEmploye()">
+  <div class="row g-2 align-items-center mb-3">
+    <div class="col-md-4">
+      <input type="text" placeholder="Nom" [(ngModel)]="filters.nom" class="form-control" />
+    </div>
+    <div class="col-md-4">
+      <input type="text" placeholder="Prénom" [(ngModel)]="filters.prenom" class="form-control" />
+    </div>
+    <div class="col-md-4">
+      <input type="text" placeholder="Poste" [(ngModel)]="filters.poste" class="form-control" />
+    </div>
+  </div>
+
+  <div class="row g-2 align-items-center mb-3">
+    <div class="col-md-4">
+      <label for="divisionSelect" class="form-label">Division</label>
+      <select id="divisionSelect" [(ngModel)]="filters.divisionNom" class="form-select">
+        <option value="">Sélectionner une division</option>
+        <option *ngFor="let div of division" [value]="div">{{ div }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="text-end mb-3">
+    <button class="btn btn-primary" (click)="applyFilters()">
+     Rechercher
+    </button>
+  </div>
+
+  <div class="header-bar">
+  <h1 class="mb-3">Gestion des employés</h1>
+    <button class="btn btn-primary" (click)="onCreateEmploye()" *hasPermission="'CREATE_EMPLOYE'">
       <span nz-icon nzType="plus"></span> Créer un employé
     </button>
   </div>
@@ -19,21 +48,21 @@
       </tr>
     </thead>
     <tbody>
-       @for (employe of employeList; track employe.id) {
+       @for (employe of filteredEmploye; track employe.id) {
       <tr>
         <td>{{ employe.nom }}</td>
         <td>{{ employe.prenom }}</td>
         <td>{{ employe.poste }}</td>
         <td>{{ employe.email}}</td>
-        <td>{{ employe.division}}</td>
+        <td>{{ employe.divisionNom}}</td>
         <td>
-          <a class="btn btn-info btn-sm me-2" (click)="onDetail(employe)">
+          <a class="btn btn-info btn-sm me-2" data-bs-toggle="tooltip" title="Detail" (click)="onDetail(employe)" *hasPermission="'DETAIL_EMPLOYE'">
             <i class="bi bi-eye"></i> 
           </a>
-          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(employe)">
+          <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(employe)" *hasPermission="'EDIT_EMPLOYE'">
             <i class="bi bi-pencil"></i>
           </a>
-          <a class="btn btn-danger btn-sm" (click)="onDelete(employe)">
+          <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(employe)"*hasPermission="'DELETE_EMPLOYE'">
             <i class="bi bi-trash"></i>
           </a>
         </td>

@@ -33,12 +33,31 @@
       </nz-form-control>
     </nz-form-item>
 
-    <nz-form-item>
-      <nz-form-label>Division</nz-form-label>
-      <nz-form-control>
-        <input nz-input name="division" [(ngModel)]="employe.division" required placeholder="Entrez la division"/>
-      </nz-form-control>
-    </nz-form-item>
+    <div class="mb-3">
+  <label class="form-label">Division</label>
+  <nz-select class="w-100"
+    [(ngModel)]="employe.divisionId"
+    name="divisionId"
+    #divisionId="ngModel"
+    nzShowSearch
+    nzPlaceHolder="Sélectionner une division"
+    [nzServerSearch]="true"
+    (nzOnSearch)="onSearchDivision($event)"
+    [nzLoading]="loadingDivision"
+    [nzAllowClear]="true"
+    required
+  >
+    <nz-option
+      *ngFor="let div of divisionOptionList"
+      [nzValue]="div.id"
+      [nzLabel]="div.nom"
+    ></nz-option>
+  </nz-select>
+  <div class="text-danger" *ngIf="divisionId.invalid && (divisionId.dirty || divisionId.touched)">
+    La division est obligatoire.
+  </div>
+</div>
+
 
     <div class="form-actions mt-3 d-flex justify-content-between">
       <button nz-button type="button" class="btn-vert" (click)="onCancel()">Retour</button>

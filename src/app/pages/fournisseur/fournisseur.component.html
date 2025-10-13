@@ -1,5 +1,25 @@
-<div nz-row nzJustify="end" class="btn-create">
-  <button class="btn btn-primary" (click)="onCreateFournisseur()">
+<h3>Recherche</h3>
+<div class="row mb-3">
+  <div class="col-md-4">
+    <input type="text" placeholder="Nom" [(ngModel)]="filters.nom" class="form-control" />
+  </div>
+  <div class="col-md-4">
+    <input type="text" placeholder="Contact" [(ngModel)]="filters.contact" class="form-control" />
+  </div>
+  <div class="col-md-4">
+    <input type="text" placeholder="NIF" [(ngModel)]="filters.nif" class="form-control" />
+  </div>
+</div>
+<div class="text-end mb-3">
+  <button class="btn btn-primary" (click)="applyFilters()">
+   Envoyer
+  </button>
+</div>
+
+
+<div class="header-bar">
+  <h1>Gestion des fournisseurs</h1>
+  <button class="btn btn-primary" (click)="onCreateFournisseur()" *hasPermission="'CREATE_FOURNISSEUR'">
     <span nz-icon nzType="plus"></span> Créer un fournisseur
   </button>
 </div>
@@ -15,7 +35,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (fournisseur of FournisseurList; track fournisseur.id) {
+    @for (fournisseur of filteredFournisseur; track fournisseur.id) {
       <tr>
         <td class="text-center">{{ fournisseur.nom }}</td>
         <td class="text-center">{{ fournisseur.contact }}</td>
@@ -23,13 +43,13 @@
         <td class="text-center">{{ fournisseur.adresse }}</td>
         <td class="text-center">
           <div class="btn-group">
-            <a class="btn btn-info btn-sm me-2" (click)="onDetail(fournisseur)">
+            <a class="btn btn-info btn-sm me-2" data-bs-toggle="tooltip" title="Detail" (click)="onDetail(fournisseur)" *hasPermission="'DETAIL_FOURNISSEUR'">
             <i class="bi bi-eye"></i> 
           </a>
-          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(fournisseur)">
+          <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modofier" (click)="onEdit(fournisseur)" *hasPermission="'EDIT_FOURNISSEUR'">
             <i class="bi bi-pencil"></i>
           </a>
-          <a class="btn btn-danger btn-sm" (click)="onDelete(fournisseur)">
+          <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(fournisseur)" *hasPermission="'DELETE_FOURNISSEUR'">
             <i class="bi bi-trash"></i>
           </a>
           </div>

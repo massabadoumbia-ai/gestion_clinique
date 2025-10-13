@@ -3,11 +3,19 @@ import { NzPaginationComponent } from "ng-zorro-antd/pagination";
 import { CategorieDto, CategorieResponseDto } from '../dto/categorie.models.dto';
 import { Router } from '@angular/router';
 import { CategorieService } from '../../services/categorie/categorie.service';
+import { HasPermissionDirective } from '../../services/directives/has-permissions';
+import { FormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-categorie',
   standalone: true,
-  imports: [NzPaginationComponent],
+  imports: [NzPaginationComponent,HasPermissionDirective,FormsModule,
+              NzFormModule,
+              NzInputModule,
+              NzButtonModule,],
   templateUrl: './categorie.component.html',
   styleUrls: ['./categorie.component.css'] 
 })
@@ -18,6 +26,11 @@ export class CategorieComponent {
   router = inject(Router);
 
   categorieList: CategorieResponseDto[] = [];
+  filteredCategorie: CategorieResponseDto[] = [];
+  
+    filters = {
+      nom: '',
+    }
   sizeNumber: number = 10;
   pageNumber: number = 1;
   totalElements: number = 0;
@@ -26,11 +39,20 @@ export class CategorieComponent {
     this.getAllCategorieByPage(this.pageNumber - 1, this.sizeNumber);
   }
 
+  applyFilters(): void {
+  const { nom } = this.filters;
+
+  this.filteredCategorie = this.categorieList.filter(categorie =>
+    !nom || categorie.nom?.toLowerCase().includes(nom.toLowerCase())
+  );
+}
+
   getAllCategorieByPage(page: number, size: number) {
     this.categorieService.getAllCategorieByPage(page, size).subscribe({
       next: (response) => {
         console.log("PAGES ELEMENTS :: ", response);
         this.categorieList = response.content;
+         this.filteredCategorie = response.content; 
         this.totalElements = response.totalElements;
         console.log("TOTAL ELEMENTS :: ", this.totalElements);
       },

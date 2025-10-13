@@ -1,8 +1,44 @@
-<div nz-row nzJustify="end" class="btn-create">
-  <button class="btn btn-primary" (click)="onCreateAffectation()">
-    <span nz-icon nzType="plus"></span> Créer une affectation
+<div class="container mt-4">
+<h3>Recherche</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="dateDebut" class="form-label">Date début</label>
+        <input type="date" id="dateDebut" class="form-control" [(ngModel)]="filters.dateDebut">
+      </div>
+      <div class="col-md-6">
+        <label for="dateFin" class="form-label">Date fin</label>
+        <input type="date" id="dateFin" class="form-control" [(ngModel)]="filters.dateFin">
+      </div>
+      <div class="col-md-6">
+        <label for="articleSelect" class="form-label">Article</label>
+        <select id="articleSelect" class="form-select" [(ngModel)]="filters.article">
+          <option value="">-- Sélectionner un article --</option>
+          <option *ngFor="let art of articleList" [value]="art">{{ art }}</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="employeSelect" class="form-label">Employé</label>
+        <select id="employeSelect" class="form-select" [(ngModel)]="filters.employe">
+          <option value="">-- Sélectionner un employé --</option>
+          <option *ngFor="let emp of employeList" [value]="emp">{{ emp }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="text-end">
+      <button class="btn btn-primary me-2" (click)="applyFilters()">
+       Rechercher
+      </button>
+    </div>
+  </div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="mb-0">Gestion des Affectations</h1>
+  <button class="btn btn-primary" (click)="onCreateAffectation()" *hasPermission="'CREATE_AFFECTATION'">
+    <i class="bi bi-plus"></i> Créer une affectation
   </button>
 </div>
+
+
 
 <table class="table table-bordered table-hover table-sm text-center" aria-describedby="page-heading">
   <thead class="table-primary">
@@ -16,7 +52,8 @@
     </tr>
   </thead>
   <tbody>
-    @for (affectation of affectationList; track affectation.id) {
+    @for (affectation of filteredAffectation; track affectation.id)
+ {
       <tr>
         <td class="text-center">{{ affectation.dateDebut}}</td>
         <td class="text-center">{{ affectation.dateFin}}</td>
@@ -25,16 +62,16 @@
         <td class="text-center">{{ affectation.employeNom }} {{ affectation.employePrenom }}</td>
         <td class="text-center">
           <div class="btn-group">
-            <a class="btn btn-info btn-sm me-2" (click)="onDetail(affectation)">
+            <a class="btn btn-info btn-sm me-2" data-bs-toggle="tooltip" title="Detail" (click)="onDetail(affectation)" *hasPermission="'DETAIL_AFFECTATION'">
             <i class="bi bi-eye"></i> 
           </a>
-          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(affectation)">
+          <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(affectation)" *hasPermission="'EDIT_AFFECTATION'">
             <i class="bi bi-pencil"></i>
           </a>
-          <a class="btn btn-danger btn-sm" (click)="onDelete(affectation)">
+          <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(affectation)" *hasPermission="'DELETE_AFFECTATION'">
             <i class="bi bi-trash"></i>
           </a>:
-          <a class="btn btn-primary btn-sm me-2" (click)="onReaffect(affectation)">
+          <a class="btn btn-primary btn-sm me-2" data-bs-toggle="tooltip" title="Reaffecter" (click)="onReaffect(affectation)" *hasPermission="'REAFFECTER_AFFECTATION'">
             <i class="bi bi-arrow-repeat"></i>
           </a>
 

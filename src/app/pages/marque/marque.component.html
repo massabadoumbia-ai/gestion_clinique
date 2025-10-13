@@ -1,10 +1,21 @@
 <div class="container mt-4">
+
+<h3>Recherche</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom"
+             [(ngModel)]="filters.nom" (input)="applyFilters()">
+    </div>
+
+    <div class="header-bar">
   <h1 class="mb-3">Gestion des marques</h1>
-  <div class="d-flex justify-content-end mb-2">
-    <button class="btn btn-primary" (click)="onCreateMarque()">
+    <button class="btn btn-primary" (click)="onCreateMarque()" *hasPermission="'CREATE_MARQUE'">
       <span class="bi bi-plus"></span> Créer une marque
     </button>
   </div>
+
+
 
   <table class="table table-bordered table-hover table-sm text-center">
     <thead class="table-primary">
@@ -14,16 +25,16 @@
       </tr>
     </thead>
     <tbody>
-      @for (marque of marqueList; track marque.id) {
+      @for (marque of filteredMarque; track marque.id) {
         <tr>
         <td>{{ marque.nom }}</td>
         <td>
-          <button class="btn btn-warning btn-sm me-2" (click)="onEdit(marque)">
-            <i class="bi bi-pencil"></i> Modifier
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="onDelete(marque)">
-            <i class="bi bi-trash"></i> Supprimer
-          </button>
+          <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(marque)" *hasPermission="'EDIT_MARQUE'">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(marque)" *hasPermission="'DELETE_MARQUE'">
+            <i class="bi bi-trash"></i>
+          </a>
         </td>
       </tr>
     }

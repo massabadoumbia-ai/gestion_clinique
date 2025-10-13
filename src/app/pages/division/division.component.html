@@ -1,0 +1,54 @@
+<div class="container mt-4">
+
+   <h3>Recherche</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom"
+             [(ngModel)]="filters.nom" (input)="applyFilters()">
+    </div>
+
+  <div class="header-bar">
+  <h1 class="mb-3">Gestion des divisions</h1>
+    <button class="btn btn-primary" (click)="onCreateDivision()" *hasPermission="'CREATE_DIVISION'">
+      <span nz-icon nzType="plus"></span> Créer une division
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover table-sm text-center">
+    <thead class="table-primary">
+      <tr>
+        <th>Nom</th>
+         <th>Description</th>
+      
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (division of filteredDivision; track division.id) {
+        <tr>
+          <td>{{ division.nom }}</td>
+            <td>{{ division.description }}</td>
+         
+          <td>
+            <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(division)" *hasPermission="'EDIT_DIVISION'">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(division)" *hasPermission="'DELETE_DIVISION'">
+              <i class="bi bi-trash"></i>
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+ 
+  <nz-pagination
+    [nzPageIndex]="pageNumber"
+    [nzPageSize]="sizeNumber"
+    [nzTotal]="totalElements"
+    [nzHideOnSinglePage]="true"
+    (nzPageIndexChange)="navigateToPage($event)">
+  </nz-pagination>
+</div>

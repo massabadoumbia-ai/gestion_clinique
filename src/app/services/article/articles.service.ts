@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ArticlesDto, ArticlesResponseDto } from '../../pages/dto/articles.models.dto';
+import { ArticlesDto, ArticlesResponseDto, ArticlesSearchRequestDto, PageResponse } from '../../pages/dto/articles.models.dto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -47,7 +47,21 @@ export class ArticlesService {
   }
 
   deleteArticle(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+   return this.http.delete<void>(`${this.apiUrl}/${id}/delete`);
+  }
+   getArticleImage(id: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${id}/image`, { responseType: 'blob' });
+  }
+
+   searchArticles(
+    filters: ArticlesSearchRequestDto,
+    page: number,
+    size: number
+  ): Observable<PageResponse<ArticlesResponseDto>> {
+    return this.http.post<PageResponse<ArticlesResponseDto>>(
+      `${this.apiUrl}/search?page=${page}&size=${size}`,
+      filters
+    );
   }
 }
 

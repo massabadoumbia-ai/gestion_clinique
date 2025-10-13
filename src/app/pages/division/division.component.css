@@ -1,0 +1,15 @@
+/* Barre d'en-tête alignée */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Titre spécifique à cette barre */
+.header-bar h1 {
+  color: #007bff;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}

@@ -1,6 +1,15 @@
 <div class="container mt-4">
-  <h1 class="mb-3">Gestion des permissions</h1>
-  <div nz-row nzJustify="end" class="btn-create">
+ 
+  <h3>Recherche</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom"
+             [(ngModel)]="filters.nom" (input)="applyFilters()">
+    </div>
+
+  <div class="header-bar">
+    <h1>Gestion des permissions</h1>
     <button class="btn btn-primary" (click)="onCreatePermission()" *hasPermission="'CREATE_PERMISSION'">
       <span nz-icon nzType="plus"></span> Créer une permission
     </button>
@@ -15,24 +24,24 @@
       </tr>
     </thead>
     <tbody>
-       @for (permission of permissionList; track permission.name) {
-          <tr>
-            <td>{{ permission.name }}</td>
-            <td>{{ permission.description }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(permission)"  *hasPermission="'EDIT_PERMISSION'">
-                <i class="bi bi-pencil"></i> Modifier
-              </button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(permission)" *hasPermission="'DELETE_PERMISSION'">
-                <i class="bi bi-trash"></i> Supprimer
-              </button>
-            </td>
-          </tr>
-        }
+      @for (permission of filteredPermission; track permission.name) {
+        <tr>
+          <td>{{ permission.name }}</td>
+          <td>{{ permission.description }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="onEdit(permission)" *hasPermission="'EDIT_PERMISSION'">
+              <i class="bi bi-pencil"></i> Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="onDelete(permission)" *hasPermission="'DELETE_PERMISSION'">
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
-</div>
-<nz-pagination
+
+  <nz-pagination
     [nzSimple]="false"
     [nzHideOnSinglePage]="true"
     [nzPageIndex]="pageNumber"
@@ -41,3 +50,5 @@
     (nzPageIndexChange)="navigateToPage($event)"
     id="demo">
   </nz-pagination>
+
+</div>

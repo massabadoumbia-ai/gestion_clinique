@@ -1,61 +1,101 @@
 <div class="container mt-4">
-  <h2 class="mb-3">Gestion des utilisateurs </h2>
-  <div nz-row nzJustify="end" class="btn-create">
+  <h3>Recherche</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom"
+             [(ngModel)]="filters.lastname" (input)="applyFilters()">
+    </div>
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par prénom"
+             [(ngModel)]="filters.firstname" (input)="applyFilters()">
+    </div>
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom d'utilisateur"
+             [(ngModel)]="filters.username" (input)="applyFilters()">
+    </div>
+  </div>
+
+  <div class="row mb-4 align-items-end">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par téléphone"
+             [(ngModel)]="filters.telephone" (input)="applyFilters()">
+    </div>
+    <div class="col-md-4 mb-2">
+      <label for="roleSelect" class="form-label">Rôle</label>
+      <select id="roleSelect" class="form-select" [(ngModel)]="filters.role" (change)="applyFilters()">
+        <option value="">-- Sélectionner un rôle --</option>
+        <option *ngFor="let role of roleList" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+    <div class="col-md-4 mb-2 text-end">
+      <button class="btn btn-primary" (click)="applyFilters()">Rechercher</button>
+    </div>
+  </div>
+
+
+  
+ 
+
+  <div class="header-bar">
+    <h1>Gestion des utilisateurs</h1>
     <button class="btn btn-primary" (click)="onCreateUser()" *hasPermission="'CREATE_USER'">
       <span nz-icon nzType="plus"></span> Créer un utilisateur
     </button>
   </div>
 
-  <table  class="table table-bordered table-hover table-sm text-center" aria-describedby="page-heading">
-    <thead class="table-primary">
-      <tr>
-        <th class="text-center">Nom</th>
-        <th class="text-center" >Prénom</th>
-        <th class="text-center">Email</th>
-        <th class="text-center">Téléphone</th>
-        <th class="text-center">Rôle</th>
-        <th class="text-center">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (user of userList; track user.id) {
+  <div class="content-section">
+    <table class="table table-bordered table-hover table-sm text-center" aria-describedby="page-heading">
+      <thead class="table-primary">
         <tr>
-          <td class="text-center">{{ user.lastname }}</td>
-          <td class="text-center">{{ user.firstname }}</td>
-          <td class="text-center">{{ user.email }}</td>
-           <td class="text-center">{{ user.telephone }}</td>
-          <td class="text-center">{{ user.roleName }}</td>
-          <td class="text-center">
-            <div class="btn-group">
-               <a class="btn btn-info btn-sm me-2"  (click)="onDetail(user)" *hasPermission="'DETAIL_USER'">
-                <i class="bi bi-eye"></i> 
-               </a>
-              <a class="btn btn-warning btn-sm me-2" (click)="onEdit(user)" *hasPermission="'EDIT_USER'">
-                <i class="bi bi-pencil"></i>
-              </a>
-              <a class="btn btn-danger btn-sm" (click)="onDelete(user)" *hasPermission="'DELETE_USER'">
-                <i class="bi bi-trash"></i> 
-              </a>
-            </div>
-            
-
-          </td>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Nom d'utilisateur</th>
+          <th>Email</th>
+          <th>Adresse</th>
+          <th>Téléphone</th>
+          <th>Date de naissance</th>
+          <th>Rôle</th>
+          <th>Actions</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+       @for (user of filteredUsers; track user.id) {
+          <tr>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.adresse }}</td>
+            <td>{{ user.telephone }}</td>
+            <td>{{ user.dateNaissance }}</td>
+            <td>{{ user.roleName }}</td>
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-info btn-sm me-2" data-bs-toggle="tooltip" title="Detail" (click)="onDetail(user)" *hasPermission="'DETAIL_USER'">
+                  <i class="bi bi-eye"></i>
+                </a>
+                <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(user)" *hasPermission="'EDIT_USER'">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(user)" *hasPermission="'DELETE_USER'">
+                  <i class="bi bi-trash"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <nz-pagination
+      [nzSimple]="false"
+      [nzHideOnSinglePage]="true"
+      [nzPageIndex]="pageNumber"
+      [nzTotal]="totalElements"
+      [nzPageSize]="sizeNumber"
+      (nzPageIndexChange)="navigateToPage($event)">
+    </nz-pagination>
   </div>
 
-  <nz-pagination
-    [nzSimple]="false"
-    [nzHideOnSinglePage]="true"
-    [nzPageIndex]="pageNumber"
-    [nzTotal]="totalElements"
-    [nzPageSize]="sizeNumber"
-    (nzPageIndexChange)="navigateToPage($event)"
-    id="demo">
-  </nz-pagination>
-
-
-  
 

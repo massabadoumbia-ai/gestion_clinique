@@ -1,10 +1,19 @@
 <div class="container mt-4">
+
+  <h3>Recherche</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" placeholder="Rechercher par nom"
+             [(ngModel)]="filters.nom" (input)="applyFilters()">
+    </div>
+<div class="header-bar">
   <h1 class="mb-3">Gestion des categories</h1>
-  <div class="d-flex justify-content-end mb-2">
-    <button class="btn btn-primary" (click)="onCreateCategorie()">
+    <button class="btn btn-primary" (click)="onCreateCategorie()" *hasPermission="'CREATE_CATEGORIE'">
       <span class="bi bi-plus"></span> Créer une categorie
     </button>
   </div>
+
 
   <table class="table table-bordered table-hover table-sm text-center">
     <thead class="table-primary">
@@ -14,14 +23,14 @@
       </tr>
     </thead>
     <tbody>
-      @for (categorie of categorieList; track categorie.id) {
+      @for (categorie of filteredCategorie; track categorie.id) {
         <tr>
         <td>{{ categorie.nom }}</td>
         <td>
-          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(categorie)">
+          <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(categorie)" *hasPermission="'EDIT_CATEGORIE'">
             <i class="bi bi-pencil"></i>
           </a>
-          <a class="btn btn-danger btn-sm" (click)="onDelete(categorie)">
+          <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer". (click)="onDelete(categorie)" *hasPermission="'DELETE_CATEGORIE'">
             <i class="bi bi-trash"></i>
           </a>
         </td>

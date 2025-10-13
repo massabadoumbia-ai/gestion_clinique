@@ -14,7 +14,8 @@ export interface EmployeDto {
      prenom : string;
      poste: string;
      email: string;
-      division: string;
+     divisionId: number;
+     divisionNom: string;
       receptionid? : number;
 
      

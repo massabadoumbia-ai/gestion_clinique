@@ -1,5 +1,45 @@
-<div nz-row nzJustify="end" class="btn-create">
-  <button class="btn btn-primary" (click)="onCreateReception()" >
+<div  class="container mt-4">
+<h3 class="mb-3">Gestion des réceptions</h3>
+
+<div class="row mb-3">
+  <div class="col-md-4 mb-2">
+    <input type="text" class="form-control" placeholder="Numéro réception" [(ngModel)]="filters.numReception" (input)="applyFilters()">
+  </div>
+  <div class="col-md-4 mb-2">
+    <input type="date" class="form-control" placeholder="Date contrat" [(ngModel)]="filters.dateContrat" (change)="applyFilters()">
+  </div>
+  <div class="col-md-4 mb-2">
+    <input type="date" class="form-control" placeholder="Date réception" [(ngModel)]="filters.dateReception" (change)="applyFilters()">
+  </div>
+</div>
+
+<div class="row mb-4 align-items-end">
+  <div class="col-md-6 mb-2">
+    <label for="employeSelect" class="form-label">Employé</label>
+    <select id="employeSelect" class="form-select" [(ngModel)]="filters.employeId" (change)="applyFilters()">
+      <option value="">Sélectionner un employé</option>
+      <option *ngFor="let emp of employe" [value]="emp.id">{{ emp.nom }}</option>
+    </select>
+  </div>
+
+  <div class="col-md-6 mb-2">
+    <label for="fournisseurSelect" class="form-label">Fournisseur</label>
+    <select id="fournisseurSelect" class="form-select" [(ngModel)]="filters.fournisseurId" (change)="applyFilters()">
+      <option value="">Sélectionner un fournisseur</option>
+      <option *ngFor="let f of fournisseur" [value]="f.id">{{ f.nom }}</option>
+    </select>
+  </div>
+</div>
+
+
+
+
+
+
+  
+<div class="header-bar">
+  <h1>Gestion des receptions</h1>
+  <button class="btn btn-primary" (click)="onCreateReception()" *hasPermission="'CREATE_RECEPTION'">
     <span nz-icon nzType="plus"></span> Créer une réception
   </button>
 </div>
@@ -20,7 +60,7 @@
   <tbody>
     @for (reception of receptionList; track reception.id) {
       <tr>
-        <td class="text-center">{{ reception.numReception }}</td>
+        <td>{{ reception.numReception }}</td>
         <td class="text-center">{{ reception.dateContrat }}</td>
         <td class="text-center">{{ reception.dateReception }}</td>
         <td class="text-center">{{ reception.nbrArticle }}</td>
@@ -38,13 +78,13 @@
 </td>
         <td class="text-center">
           <div class="btn-group">
-            <a class="btn btn-info btn-sm me-2" (click)="onDetail(reception)">
+            <a class="btn btn-info btn-sm me-2" data-bs-toggle="tooltip" title="Detail" (click)="onDetail(reception)" *hasPermission="'DETAIL_RECEPTION'">
             <i class="bi bi-eye"></i> 
           </a>
-          <a class="btn btn-warning btn-sm me-2" (click)="onEdit(reception)">
+          <a class="btn btn-warning btn-sm me-2" data-bs-toggle="tooltip" title="Modifier" (click)="onEdit(reception)" *hasPermission="'EDIT_RECEPTION'">
             <i class="bi bi-pencil"></i>
           </a>
-          <a class="btn btn-danger btn-sm" (click)="onDelete(reception)">
+          <a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer" (click)="onDelete(reception)" *hasPermission="'DELETE_RECEPTION'">
             <i class="bi bi-trash"></i>
           </a>
           </div>
@@ -53,6 +93,7 @@
     }
   </tbody>
 </table>
+</div>
 
 <nz-pagination
   [nzSimple]="false"

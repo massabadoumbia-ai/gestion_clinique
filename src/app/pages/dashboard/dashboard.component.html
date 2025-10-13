@@ -1,74 +1,96 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="#" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Structure sanitaire</h1>
+        <img src="../.././../assets/images/logo.png" alt="CAISFF">
+        <h1>GESTION DE STOCK</h1>
       </a>
     </div>
-
-
 
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Configurations" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter *hasPermission="'LIST_USER'">
-            <a routerLink="/admin/dashboard/users-list">Utilisateurs</a>
+            <a routerLink="/admin/dashboard/users-list">
+              <i class="bi bi-person icon-spacing"></i> Utilisateurs
+            </a>
           </li>
           <li nz-menu-item nzMatchRouter *hasPermission="'LIST_ROLE'">
-            <a routerLink="/admin/dashboard/roles-list">Rôles</a>
+            <a routerLink="/admin/dashboard/roles-list">
+              <i class="bi bi-people icon-spacing"></i> Rôles
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/permissions-list" *hasPermission="'LIST_PERMISSION'">Permissions</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_PERMISSION'">
+            <a routerLink="/admin/dashboard/permissions-list">
+              <i class="bi bi-shield-lock icon-spacing"></i> Permissions
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/articles-list">Articles</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_ARTICLES'">
+            <a routerLink="/admin/dashboard/articles-list">
+              <i class="bi bi-file-earmark-text icon-spacing"></i> Articles
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/marque-list">Marques</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_MARQUE'">
+            <a routerLink="/admin/dashboard/marque-list">
+              <i class="bi bi-grid icon-spacing"></i> Marques
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/categorie-list">Categories</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_CATEGORIE'">
+            <a routerLink="/admin/dashboard/categorie-list">
+              <i class="bi bi-tags icon-spacing"></i> Catégories
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/employe-list">Employes</a>
-          </li>:
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/fournisseur-list">Fournisseures</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_EMPLOYE'">
+            <a routerLink="/admin/dashboard/employe-list">
+              <i class="bi bi-person-badge icon-spacing"></i> Employés
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/reception-list">Receptions</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_FOURNISSEUR'">
+            <a routerLink="/admin/dashboard/fournisseur-list">
+              <i class="bi bi-truck icon-spacing"></i> Fournisseurs
+            </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/admin/dashboard/affectation-list">Affectations</a>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_DIVISION'">
+            <a routerLink="/admin/dashboard/division-list">
+              <i class="bi bi-diagram-3 icon-spacing"></i> Divisions
+            </a>
           </li>
         </ul>
       </li>
 
-    </ul>
+      <li nz-submenu nzOpen nzTitle="Metier" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_RECEPTION'">
+            <a routerLink="/admin/dashboard/reception-list">
+              <i class="bi bi-inbox icon-spacing"></i> Réceptions
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter *hasPermission="'LIST_AFFECTATION'">
+            <a routerLink="/admin/dashboard/affectation-list">
+              <i class="bi bi-arrow-left-right icon-spacing"></i> Affectations
+            </a>
+          </li>
+        </ul>
+      </li>
 
+      <li class="logout-button">
+        <a class="dropdown-item" (click)="deconnecter()">Déconnexion</a>
+      </li>
+    </ul>
   </nz-sider>
+
   <nz-layout>
     <nz-header>
-      <div class="app-header  d-flex flex justify-content-between align-items-center" >
+      <div class="app-header d-flex flex justify-content-between align-items-center">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
-
         </span>
-        <div class="dropdown ">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         Profil
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" >Nom: {{lastname}}</a></li>
-          <li><a class="dropdown-item" >Prenom: {{firstname}}</a></li>
-          <li><a class="dropdown-item" (click)="deconnecter()">Deconnexion</a></li>
-        </ul>
+        <div class="user-display">
+          <span>Nom: {{ lastname }} {{ firstname }}</span>
+        </div>
       </div>
-      </div>
-
     </nz-header>
+
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
