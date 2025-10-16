@@ -44,65 +44,68 @@ import { AffectationReaffecterComponent } from '../affectation/affectation-reaff
 import { DivisionComponent } from '../division/division.component';
 import { AddDivisionComponent } from '../division/add-division/add-division.component';
 import { EditDivisionComponent } from '../division/edit-division/edit-division.component';
+import { StatistiqueComponent } from '../statistique/statistique.component';
 
 export const DASHBOARD_ROUTES: Routes = [
-  { path: 'dashboard', component: DashboardComponent,
-    children:[
-{ path: 'users-list', component: UsersComponent, canActivate:[AuthGuard] },
-   { path: 'add-user', component: AddUserComponent, canActivate:[AuthGuard] },
-   { path: 'edit-user/:id', component: EditUserComponent, canActivate:[AuthGuard] },
-   { path: 'detail-user/:id', component: DetailUserComponent, canActivate:[AuthGuard] },
+  {
+    path: 'dashboard', component: DashboardComponent,
+    children: [
+      { path: 'users-list', component: UsersComponent, canActivate: [AuthGuard] },
+      { path: 'add-user', component: AddUserComponent, canActivate: [AuthGuard] },
+      { path: 'edit-user/:id', component: EditUserComponent, canActivate: [AuthGuard] },
+      { path: 'detail-user/:id', component: DetailUserComponent, canActivate: [AuthGuard] },
 
-   { path: 'roles-list', component: RolesComponent, canActivate:[AuthGuard] },
-   { path: 'add-role', component: AddRoleComponent, canActivate:[AuthGuard] },
-   { path: 'edit-role/:id', component: EditRoleComponent, canActivate:[AuthGuard] },
-   
+      { path: 'roles-list', component: RolesComponent, canActivate: [AuthGuard] },
+      { path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard] },
+      { path: 'edit-role/:id', component: EditRoleComponent, canActivate: [AuthGuard] },
 
-   { path: 'role-permissions/:id', component: AssignPermissionsComponent, canActivate:[AuthGuard]},
-   { path: 'permissions-list', component: PermissionsComponent, canActivate:[AuthGuard] },
-   { path: 'edit-permission/:id', component: EditPermissionComponent, canActivate:[AuthGuard] },
-   { path: 'add-permission', component: AddPermissionComponent, canActivate:[AuthGuard]},
-  
 
-    { path: 'articles-list', component: ArticlesComponent, canActivate:[AuthGuard]},
-   { path: 'article-add', component: ArticleAddComponent, canActivate:[AuthGuard]},
-   { path: 'article-detail/:id', component: ArticleDetailComponent, canActivate:[AuthGuard]},
-   { path: 'article-edit/:id', component: ArticleEditComponent, canActivate:[AuthGuard]},
+      { path: 'role-permissions/:id', component: AssignPermissionsComponent, canActivate: [AuthGuard] },
+      { path: 'permissions-list', component: PermissionsComponent, canActivate: [AuthGuard] },
+      { path: 'edit-permission/:id', component: EditPermissionComponent, canActivate: [AuthGuard] },
+      { path: 'add-permission', component: AddPermissionComponent, canActivate: [AuthGuard] },
 
-    { path: 'affectation-list', component: AffectationComponent , canActivate:[AuthGuard]},
-   { path: 'affectation-add', component: AffectationAddComponent, canActivate:[AuthGuard]},
-   { path: 'affectation-edit/:id', component: AffectationEditComponent , canActivate:[AuthGuard]},
-   { path: 'affectation-detail/:id', component: AffectationDetailComponent , canActivate:[AuthGuard]},
-   { path: 'affectation-reaffecter/:id', component: AffectationReaffecterComponent , canActivate:[AuthGuard]},
 
-    { path: 'categorie-list', component: CategorieComponent, canActivate:[AuthGuard]},
-   { path: 'categorie-add', component: CategorieAddComponent, canActivate:[AuthGuard]},
-   { path: 'categorie-edit/:id', component: CategorieEditComponent, canActivate:[AuthGuard]},
+      { path: 'articles-list', component: ArticlesComponent, canActivate: [AuthGuard] },
+      { path: 'article-add', component: ArticleAddComponent, canActivate: [AuthGuard] },
+      { path: 'article-detail/:id', component: ArticleDetailComponent, canActivate: [AuthGuard] },
+      { path: 'article-edit/:id', component: ArticleEditComponent, canActivate: [AuthGuard] },
 
-    { path: 'marque-list', component: MarqueComponent, canActivate:[AuthGuard]},
-   { path: 'marque-add', component: MarqueAddComponent, canActivate:[AuthGuard]},
-   { path: 'marque-edit/:id', component: MarqueEditComponent, canActivate:[AuthGuard]},
+      { path: 'affectation-list', component: AffectationComponent, canActivate: [AuthGuard] },
+      { path: 'affectation-add', component: AffectationAddComponent, canActivate: [AuthGuard] },
+      { path: 'affectation-edit/:id', component: AffectationEditComponent, canActivate: [AuthGuard] },
+      { path: 'affectation-detail/:id', component: AffectationDetailComponent, canActivate: [AuthGuard] },
+      { path: 'affectation-reaffecter/:id', component: AffectationReaffecterComponent, canActivate: [AuthGuard] },
 
-    { path: 'employe-list', component: EmployeComponent, canActivate:[AuthGuard]},
-   { path: 'employe-add', component: EmployeAddComponent, canActivate:[AuthGuard]},
-    { path: 'employe-edit/:id', component: EmployeEditComponent, canActivate:[AuthGuard]},
-     { path: 'employe-detail/:id', component: EmployeDatailComponent, canActivate:[AuthGuard]},
+      { path: 'categorie-list', component: CategorieComponent, canActivate: [AuthGuard] },
+      { path: 'categorie-add', component: CategorieAddComponent, canActivate: [AuthGuard] },
+      { path: 'categorie-edit/:id', component: CategorieEditComponent, canActivate: [AuthGuard] },
 
-      { path: 'fournisseur-list', component: FournisseurComponent, canActivate:[AuthGuard]},
-      { path: 'fournisseur-add', component: FournisseurAddComponent, canActivate:[AuthGuard]},
-       { path: 'fournisseur-edit/:id', component: FournisseurEditComponent, canActivate:[AuthGuard]},
-        { path: 'fournisseur-detail/:id', component: FournisseurDetailComponent, canActivate:[AuthGuard]},
+      { path: 'marque-list', component: MarqueComponent, canActivate: [AuthGuard] },
+      { path: 'marque-add', component: MarqueAddComponent, canActivate: [AuthGuard] },
+      { path: 'marque-edit/:id', component: MarqueEditComponent, canActivate: [AuthGuard] },
 
-         { path: 'reception-list', component: ReceptionComponent, canActivate:[AuthGuard]},
-         { path: 'reception-add', component: ReceptionAddComponent, canActivate:[AuthGuard]},
-          { path: 'reception-edit/:id', component: ReceptionEditComponent, canActivate:[AuthGuard]},
-           { path: 'reception-detail/:id', component: ReceptionDetailComponent, canActivate:[AuthGuard]},
+      { path: 'employe-list', component: EmployeComponent, canActivate: [AuthGuard] },
+      { path: 'employe-add', component: EmployeAddComponent, canActivate: [AuthGuard] },
+      { path: 'employe-edit/:id', component: EmployeEditComponent, canActivate: [AuthGuard] },
+      { path: 'employe-detail/:id', component: EmployeDatailComponent, canActivate: [AuthGuard] },
 
-           { path: 'division-list', component: DivisionComponent, canActivate:[AuthGuard]},
-         { path: 'division-add', component: AddDivisionComponent, canActivate:[AuthGuard]},
-          { path: 'division-edit/:id', component: EditDivisionComponent, canActivate:[AuthGuard]},
-   
+      { path: 'fournisseur-list', component: FournisseurComponent, canActivate: [AuthGuard] },
+      { path: 'fournisseur-add', component: FournisseurAddComponent, canActivate: [AuthGuard] },
+      { path: 'fournisseur-edit/:id', component: FournisseurEditComponent, canActivate: [AuthGuard] },
+      { path: 'fournisseur-detail/:id', component: FournisseurDetailComponent, canActivate: [AuthGuard] },
+
+      { path: 'reception-list', component: ReceptionComponent, canActivate: [AuthGuard] },
+      { path: 'reception-add', component: ReceptionAddComponent, canActivate: [AuthGuard] },
+      { path: 'reception-edit/:id', component: ReceptionEditComponent, canActivate: [AuthGuard] },
+      { path: 'reception-detail/:id', component: ReceptionDetailComponent, canActivate: [AuthGuard] },
+
+      { path: 'division-list', component: DivisionComponent, canActivate: [AuthGuard] },
+      { path: 'division-add', component: AddDivisionComponent, canActivate: [AuthGuard] },
+      { path: 'division-edit/:id', component: EditDivisionComponent, canActivate: [AuthGuard] },
+      { path: 'statistique', component: StatistiqueComponent, canActivate: [AuthGuard] },
+
     ]
-   },
-       
+  },
+
 ];

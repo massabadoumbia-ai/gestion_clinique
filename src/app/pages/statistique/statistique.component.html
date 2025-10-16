@@ -1,0 +1,42 @@
+
+<div class="dashboard-container" *ngIf="!isLoading && dashboard.length > 0">
+  <h2 class="title">Tableau de bord</h2>
+
+ <div class="cards-container">
+  <div class="card stat-card" [ngClass]="card.couleur" *ngFor="let card of dashboard">
+    <div class="card-content">
+        <div class="icon">{{ card.icon }}</div>
+      <div class="text-section">
+        <p class="libelle-text">{{ card.libelle }}</p>
+        <h3 class="nombre">{{ card.nombre }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <div class="dashboard-layout">
+  <div class="quick-actions">
+    <h3>Actions rapides</h3>
+    <button class="action-btn green" (click)="onCreateArticle()">Ajouter un article</button>
+<button class="action-btn blue" (click)="onCreateAffectation()">Nouvelle affectation</button>
+<button class="action-btn dark" (click)="onCreateEmploye()">Ajouter employé</button>
+<button class="action-btn orange" (click)="onCreateReception()">Nouvelle réception</button>
+  </div>
+
+  <div class="chart-section">
+    <h3>Évolution du stock (7 derniers jours)</h3>
+    <canvas #stockChart></canvas> 
+  </div>
+</div>
+
+
+
+
+
+</div>
+<div *ngIf="isLoading" class="loading">
+  <div class="spinner"></div>
+  <p>Chargement des statistiques...</p>
+</div>

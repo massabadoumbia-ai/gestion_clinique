@@ -1,35 +1,52 @@
 <div class="container mt-4">
 <h3>Recherche</h3>
-    <div class="row">
-      <div class="col-md-6">
-        <label for="dateDebut" class="form-label">Date début</label>
-        <input type="date" id="dateDebut" class="form-control" [(ngModel)]="filters.dateDebut">
-      </div>
-      <div class="col-md-6">
-        <label for="dateFin" class="form-label">Date fin</label>
-        <input type="date" id="dateFin" class="form-control" [(ngModel)]="filters.dateFin">
-      </div>
-      <div class="col-md-6">
-        <label for="articleSelect" class="form-label">Article</label>
-        <select id="articleSelect" class="form-select" [(ngModel)]="filters.article">
-          <option value="">-- Sélectionner un article --</option>
-          <option *ngFor="let art of articleList" [value]="art">{{ art }}</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label for="employeSelect" class="form-label">Employé</label>
-        <select id="employeSelect" class="form-select" [(ngModel)]="filters.employe">
-          <option value="">-- Sélectionner un employé --</option>
-          <option *ngFor="let emp of employeList" [value]="emp">{{ emp }}</option>
-        </select>
-      </div>
-    </div>
-    <div class="text-end">
-      <button class="btn btn-primary me-2" (click)="applyFilters()">
-       Rechercher
-      </button>
-    </div>
+<div class="row">
+  <div class="col-md-6">
+    <label for="dateDebut" class="form-label">Date début</label>
+    <input
+      type="date"
+      id="dateDebut"
+      class="form-control"
+      [(ngModel)]="filters.dateDebut"
+      (change)="applyFilters()"
+    />
   </div>
+  <div class="col-md-6">
+    <label for="dateFin" class="form-label">Date fin</label>
+    <input
+      type="date"
+      id="dateFin"
+      class="form-control"
+      [(ngModel)]="filters.dateFin"
+      (change)="applyFilters()"
+    />
+  </div>
+  <div class="col-md-6">
+    <label for="articleSelect" class="form-label">Article</label>
+    <select
+      id="articleSelect"
+      class="form-select"
+      [(ngModel)]="filters.article"
+      (change)="applyFilters()"
+    >
+      <option value="">-- Sélectionner un article --</option>
+      <option *ngFor="let art of articleList" [value]="art">{{ art }}</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="employeSelect" class="form-label">Employé</label>
+    <select
+      id="employeSelect"
+      class="form-select"
+      [(ngModel)]="filters.employe"
+      (change)="applyFilters()"
+    >
+      <option value="">-- Sélectionner un employé --</option>
+      <option *ngFor="let emp of employeList" [value]="emp">{{ emp }}</option>
+    </select>
+  </div>
+</div>
+
 
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h1 class="mb-0">Gestion des Affectations</h1>

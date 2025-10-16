@@ -1,33 +1,51 @@
 <div class="container mt-4">
-  <h3>Recherche</h3>
+ <h3>Recherche</h3>
 
-  <div class="row g-2 align-items-center mb-3">
-    <div class="col-md-4">
-      <input type="text" placeholder="Nom" [(ngModel)]="filters.nom" class="form-control" />
-    </div>
-    <div class="col-md-4">
-      <input type="text" placeholder="Prénom" [(ngModel)]="filters.prenom" class="form-control" />
-    </div>
-    <div class="col-md-4">
-      <input type="text" placeholder="Poste" [(ngModel)]="filters.poste" class="form-control" />
-    </div>
+<div class="row g-2 align-items-center mb-3">
+  <div class="col-md-4">
+    <input
+      type="text"
+      placeholder="Nom"
+      [(ngModel)]="filters.nom"
+      (input)="applyFilters()"
+      class="form-control"
+    />
   </div>
+  <div class="col-md-4">
+    <input
+      type="text"
+      placeholder="Prénom"
+      [(ngModel)]="filters.prenom"
+      (input)="applyFilters()"
+      class="form-control"
+    />
+  </div>
+  <div class="col-md-4">
+    <input
+      type="text"
+      placeholder="Poste"
+      [(ngModel)]="filters.poste"
+      (input)="applyFilters()"
+      class="form-control"
+    />
+  </div>
+</div>
 
-  <div class="row g-2 align-items-center mb-3">
-    <div class="col-md-4">
-      <label for="divisionSelect" class="form-label">Division</label>
-      <select id="divisionSelect" [(ngModel)]="filters.divisionNom" class="form-select">
-        <option value="">Sélectionner une division</option>
-        <option *ngFor="let div of division" [value]="div">{{ div }}</option>
-      </select>
-    </div>
+<div class="row g-2 align-items-center mb-3">
+  <div class="col-md-4">
+    <label for="divisionSelect" class="form-label">Division</label>
+    <select
+      id="divisionSelect"
+      [(ngModel)]="filters.divisionNom"
+      (change)="applyFilters()"
+      class="form-select"
+    >
+      <option value="">Sélectionner une division</option>
+      <option *ngFor="let div of division" [value]="div">{{ div }}</option>
+    </select>
   </div>
+</div>
 
-  <div class="text-end mb-3">
-    <button class="btn btn-primary" (click)="applyFilters()">
-     Rechercher
-    </button>
-  </div>
 
   <div class="header-bar">
   <h1 class="mb-3">Gestion des employés</h1>

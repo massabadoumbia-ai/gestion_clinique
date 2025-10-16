@@ -82,6 +82,26 @@
           },
           "defaultConfiguration": "development"
         },
+
+        "serve": {
+  "builder": "@angular-devkit/build-angular:dev-server",
+  "options": {
+    "proxyConfig": "proxy.conf.json"
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "gestion_clinique:build:production"
+    },
+    "development": {
+      "buildTarget": "gestion_clinique:build:development"
+    }
+  },
+  "defaultConfiguration": "development"
+},
+
+
+
+
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },

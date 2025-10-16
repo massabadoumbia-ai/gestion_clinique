@@ -31,7 +31,7 @@ togglePassword() {
         console.log('Connexion réussie ✅, Token :', res.token);
         const permissions = this.authService.getUserPermissions();
       console.log('Permissions de cet utilisateur : ', permissions);
-        this.router.navigate(['/admin/dashboard']); // redirection
+        this.router.navigate(['/admin/dashboard/statistique']); // redirection
       },
       error: () => {
         this.errorMessage = "Nom d'utilisateur ou mot de passe incorrect";

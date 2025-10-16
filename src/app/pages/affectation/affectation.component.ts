@@ -14,14 +14,13 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ArticlesResponseDto } from '../dto/articles.models.dto';
 import { EmployeResponseDto } from '../dto/employe.models.dto';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-affectation',
   standalone: true,
   imports: [NzPaginationComponent, NzTableModule, NzIconModule, NzButtonModule, NzFlexModule, NzPaginationModule, HasPermissionDirective, FormsModule, NzSelectModule,  FormsModule,
-          NzFormModule,
-          NzInputModule,
-          NzButtonModule,],
+          NzFormModule, NzInputModule, NzButtonModule, CommonModule],
   templateUrl: './affectation.component.html',
   styleUrl: './affectation.component.css'
 })
@@ -77,12 +76,15 @@ employeList: string[] = [];
          console.log("TOTAL ELEMENTS :: ", this.totalElements)
 
           this.articleList = this.affectationList
-          .map(a => a.libArt)
-          .filter((v, i, a) => a.indexOf(v) === i);
+  .map(a => a.libArt)
+  .filter(v => !!v && typeof v === 'string')
+  .filter((v, i, a) => a.indexOf(v) === i);
 
-        this.employeList = this.affectationList
-          .map(a => `${a.employeNom} ${a.employePrenom}`)
-          .filter((v, i, a) => a.indexOf(v) === i);
+this.employeList = this.affectationList
+  .map(a => `${a.employeNom} ${a.employePrenom}`)
+  .filter(v => !!v && typeof v === 'string')
+  .filter((v, i, a) => a.indexOf(v) === i);
+
 
         }
       })

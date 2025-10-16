@@ -58,4 +58,21 @@ export interface PageResponse<T> {
   first: boolean;       
   last: boolean;         
 }
- 
+export interface ArticleRecentDto {
+  nom: string;
+  categorie: string;
+  quantite: number;
+  statut: string;
+}
+export interface DashboardResponseDto {
+  libelle: string;
+  nombre: number;
+  couleur: string;
+  icon: string;
+}
+export interface StockEvolutionDto {
+  labels: string[]; 
+  series: {
+    [categorie: string]: number[];
+  };
+}

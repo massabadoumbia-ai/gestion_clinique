@@ -4,6 +4,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.routes').then(m => m.WELCOME_ROUTES) },
@@ -11,6 +12,7 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
+  
     {path: '**', component: NotfoundComponent},
 
 

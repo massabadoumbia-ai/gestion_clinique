@@ -1,19 +1,14 @@
 <h3>Recherche</h3>
 <div class="row mb-3">
   <div class="col-md-4">
-    <input type="text" placeholder="Nom" [(ngModel)]="filters.nom" class="form-control" />
+    <input type="text" placeholder="Nom" [(ngModel)]="filters.nom" (input)="applyFilters()" class="form-control" />
   </div>
   <div class="col-md-4">
-    <input type="text" placeholder="Contact" [(ngModel)]="filters.contact" class="form-control" />
+    <input type="text" placeholder="Contact" [(ngModel)]="filters.contact" (input)="applyFilters()" class="form-control" />
   </div>
   <div class="col-md-4">
-    <input type="text" placeholder="NIF" [(ngModel)]="filters.nif" class="form-control" />
+    <input type="text" placeholder="NIF" [(ngModel)]="filters.nif" (input)="applyFilters()" class="form-control" />
   </div>
-</div>
-<div class="text-end mb-3">
-  <button class="btn btn-primary" (click)="applyFilters()">
-   Envoyer
-  </button>
 </div>
 
 
